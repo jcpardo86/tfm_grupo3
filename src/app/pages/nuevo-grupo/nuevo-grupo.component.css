@@ -1,0 +1,85 @@
+a {
+	color: black;
+}
+
+a:hover {
+	color: var(--orange);
+}
+
+input {
+	border: none;
+	background-color: var(--grey);
+}
+
+.bg-orange {
+	background-color: var(--orange);
+	position: relative;
+	left: -75px;
+	top: 0px;
+	transform: rotate(-2.50deg);
+}
+
+.btn_personal {
+	padding: 0.7rem 2rem;
+	background-color: var(--orange);
+	color: white;
+	border: none;
+	font-weight: bold;
+}
+
+.btn_borrar {
+	padding: 0.7rem 2rem;
+	background-color: var(--light_orange);
+	color: white;
+	border: none;
+	font-weight: bold;
+}
+
+h3{
+	color: var(--orange);
+}
+
+.custom-hr {
+    border-top: 5px solid var(--grey); 
+    margin-top: 10px; 
+    margin-bottom: 10px; 
+}
+
+.p{
+	text-align: center;
+}
+
+/*-----------------------media queries tablet ---------------------------*/
+
+@media (max-width: 768px) {
+	.bg-orange {
+		background-color: var(--orange);
+		position: relative;
+		left: -35px;
+		top: 0px;
+		transform: rotate(-2.50deg);
+	}
+
+	.logo {
+		width: 50px;
+	}
+}
+
+/*-----------------------media queries móvil ---------------------------*/
+
+@media (max-width: 576px) {
+
+	.bg-orange {
+		background-color: var(--orange);
+		position: relative;
+		left: -30px;
+		top: 70px;
+		transform: rotate(-2.50deg);
+	}
+
+
+	.logo {
+		width: 40px;
+	}
+
+}
