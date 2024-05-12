@@ -1,0 +1,49 @@
+	<section class="container mt-5">
+		<div class="row align-items-center row-gap-3">
+			<div class="col-lg-8 col-md-12 col-sm-12 ">
+				<h2 class="h4 m-0 text-color">Crea tu usuario</h2>
+			</div>
+    </div>
+    </section>
+  <section class="container mt-5">
+   <aside class="newUserForm">
+     <form [formGroup]="newUserForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Nombre:</label>
+        <input formControlName="name" type="text" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Apellidos:</label>
+        <input formControlName="lastName" type="text" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input formControlName="email" type="email" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="confirmEmail">Confirmar Email:</label>
+        <input formControlName="confirmEmail" type="email" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Contraseña:</label>
+        <input formControlName="password" type="password" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirmar Contraseña:</label>
+        <input formControlName="confirmPassword" type="password" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <button type="button" class="btn btn_personal m-3">Volver</button>
+        <button type="submit" class="btn btn_personal">Guardar</button>
+      </div>
+    </form>
+  </aside>
+  <aside class="btn btnprimary">
+    <div class="form-group">
+      <label for="photo">Añadir foto:</label>
+      <input formControlName="photo" type="file" class="form-control">
+    </div>
+  </aside>
+  </section>
+
+

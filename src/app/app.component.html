@@ -1,8 +1,18 @@
-<header>
-
+<app-navbar></app-navbar>
+  <header class="container container_header rounded-bottom">
+  <div class="row">
+    <div class="col-6 mt-3 ps-3">
+      <img [src]="logo" alt="Logotipo de DIVI" class="logo">
+    </div>
+    <div class="col-6 mt-3">
+      <a class="float-end pe-2 text-black text-decoration-none text-end" role="button">INICIAR SESIÓN</a>
+    </div>
+  </div>
+  <div class="col-xl-5 col-lg-5 col-md-7 col-sm-10">
+    <h1 class="h2 bg-orange text-white mt-5 p-3 ps-5">{{ headerText }}</h1>
+  </div>
 </header>
 <main>
-	<div class="container">
-	<router-outlet />
-	</div>
+  <router-outlet />
 </main>
+<footer></footer>
