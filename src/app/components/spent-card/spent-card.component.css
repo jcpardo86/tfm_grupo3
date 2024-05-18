@@ -1,0 +1,44 @@
+.tarjeta{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0px;
+    
+}
+
+.iconcompra-container{
+    width: 10%;
+    padding-right: 10px;
+    padding-left: 30px;
+}
+
+.text-container{
+    width: 80%;
+}
+
+.iconeditar-container{
+    width: 10%;
+    text-align: center;
+}
+
+.icon-editar{
+    max-width: 50%; 
+}
+
+.icon-carrito {
+    width: 150%;
+}
+
+.pagador{
+    display: flex;
+    justify-content:space-between;
+    padding-top: 15px;
+}
+
+.texto{
+    width: 70%;
+}
+
+.importe{
+    width: 30%;
+}

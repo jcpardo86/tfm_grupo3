@@ -1,52 +1,44 @@
-.font{
-    color: var(--orange);
-}
-
-.group-image{
-    width: 100%;
-}
-
-.container-total{
+.tarjeta{
     display: flex;
-    justify-content: space-between; 
     align-items: center;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    justify-content: space-between;
+    gap: 0px;
+    
 }
 
-.totaltext{
+.iconcompra-container{
+    width: 10%;
+    padding-right: 10px;
+    padding-left: 30px;
+}
+
+.text-container{
+    width: 80%;
+}
+
+.iconeditar-container{
     width: 10%;
     text-align: center;
-    font-weight: 600;
+}
 
+.icon-editar{
+    max-width: 50%; 
+}
+
+.icon-carrito {
+    width: 150%;
+}
+
+.pagador{
+    display: flex;
+    justify-content:space-between;
+    padding-top: 15px;
+}
+
+.texto{
+    width: 70%;
 }
 
 .importe{
-    width: 60%;
-    text-align: start;
-    font-weight: 600;
-}
-
-.gasto{
-    font-weight: 600;
-    width: 10%;
-    text-align: end;
-
-}
-
-.icon-mas{
-    width: 60%;
-    text-align: start;
-}
-
-.seccion{
-    display:flex;   
-}
-
-.gastos{
-    width: 65%,
-}
-
-.chat{
-    width: 35%,
+    width: 30%;
 }
