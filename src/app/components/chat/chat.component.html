@@ -1,0 +1,20 @@
+<section class="container mt-3">
+
+    <h1 class="chat">Chat</h1>
+    <div>
+        <div *ngFor="let a of myMessages">
+            <label for="">{{a.usuario}}</label>
+            <span>{{a.texto}}</span>
+        </div>
+    </div>
+    
+    <div>
+        <form action="" novalidate="true" #chatFormulario="ngForm" (ngSubmit)="getDataForm(chatFormulario)"> <!--novalidate es para que no salten las validaciones que trae por defecto el navegador-->
+            <div>
+                <input type="text" class="form-control" placeholder="Escribe un mensaje..." name="input" ngModel>
+            </div>
+            <!--En los formularios se deben usar input de tipo submit en vez de button-->
+            <input type="submit" value="Enviar" class="btn btn-danger mt-3">
+        </form>
+    </div>
+</section>
