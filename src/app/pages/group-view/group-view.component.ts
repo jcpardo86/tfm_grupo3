@@ -9,11 +9,12 @@ import { ISpent } from '../../interfaces/ispent.interface';
 import { SpentCardComponent } from '../../components/spent-card/spent-card.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { ChatComponent } from '../../components/chat/chat.component';
 
 @Component({
   selector: 'app-group-view',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, SpentCardComponent],
+  imports: [NavbarComponent, FooterComponent, SpentCardComponent, ChatComponent],
   templateUrl: './group-view.component.html',
   styleUrl: './group-view.component.css'
 })
