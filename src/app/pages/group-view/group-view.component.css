@@ -6,47 +6,63 @@
     width: 100%;
 }
 
+.section{
+    /*background-color: blue;*/
+    display:flex;
+    justify-content: space-between;
+}
+
 .container-total{
     display: flex;
     justify-content: space-between; 
     align-items: center;
-    margin-top: 30px;
-    margin-bottom: 30px;
 }
 
 .totaltext{
-    width: 10%;
-    text-align: center;
+    width: 20%;
+    text-align: start;
     font-weight: 600;
 
 }
 
 .importe{
-    width: 60%;
+    width: 40%;
     text-align: start;
     font-weight: 600;
 }
 
 .gasto{
     font-weight: 600;
-    width: 10%;
+    width: 30%;
     text-align: end;
 
 }
 
+.iconmas-container{
+    width: 10%;
+    text-align: end;
+}
+
 .icon-mas{
-    width: 60%;
-    text-align: start;
+    width: 80%;
 }
 
-.seccion{
-    display:flex;   
+.reparto{
+
+    display: flex;
+    justify-content: space-between; 
+    align-items: end;  
 }
 
-.gastos{
-    width: 65%,
+.btn-liquidar{
+    border: none;
+    color: white;
+    background-color: rgba(255, 68, 0, 0.882);
+    font-weight: 600;
+    width: 30%;
 }
 
 .chat{
-    width: 35%,
+    background-color: rgba(128, 128, 128, 0.052);
+    width: 40%;
 }
