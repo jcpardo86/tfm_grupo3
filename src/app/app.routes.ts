@@ -7,4 +7,6 @@ export const routes: Routes = [
 	{ path: "home", component: HomeComponent },
 	{ path: "newgroup", component: NuevoGrupoComponent },
 	{ path: "updategroup/:id", component: NuevoGrupoComponent},
+	{ path: "user/:_id", component: UserViewComponent },
+	{ path: "group/:_id", component: GroupViewComponent },
 ];
