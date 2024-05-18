@@ -14,17 +14,19 @@ import { NgFor } from '@angular/common';
 export class ChatComponent {
 
   userChat = {
-    usuario: 2,
-    texto: '',
-    grupo: 2,
-  }
+    idUsuario: 2,
+    idGrupo: 2,
+    fecha_hora: '2024-05-18 20:14',
+    texto: ''
+  };
 
   chatService = inject(ChatService);
 
   myMessages=[{
-    usuario: 2,
+    idUsuario: 0,
+    idGrupo: 2,
+    fecha_hora: '',
     texto: '',
-    grupo: 2,
   }];
 
   eventName = "send-message";
@@ -50,4 +52,5 @@ export class ChatComponent {
  }
   
 }
+
 

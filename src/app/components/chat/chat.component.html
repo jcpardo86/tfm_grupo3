@@ -1,8 +1,10 @@
 <h2 class="font">Chat</h2>
 <div class="mt-4 mb-5">
     <div class="mb-3" *ngFor="let a of myMessages">
-        <label for="">{{a.usuario}}</label>
+        <span>{{a.idUsuario}}</span>
         <span>{{a.texto}}</span>
+        <span>{{a.fecha_hora}}</span>
+  
     </div>
 </div>
     
@@ -15,3 +17,4 @@
         <input type="image" value="" src="../../../assets/icons/icon_enviar.png" class="input-enviar me-3">
     </form>
 </div>
+
