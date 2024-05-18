@@ -1,44 +1,68 @@
-.tarjeta{
-    display: flex;
-    align-items: center;
+.font{
+    color: var(--orange);
+}
+
+.group-image{
+    width: 100%;
+}
+
+.section{
+    /*background-color: blue;*/
+    display:flex;
     justify-content: space-between;
-    gap: 0px;
-    
 }
 
-.iconcompra-container{
-    width: 10%;
-    padding-right: 10px;
-    padding-left: 30px;
-}
-
-.text-container{
-    width: 80%;
-}
-
-.iconeditar-container{
-    width: 10%;
-    text-align: center;
-}
-
-.icon-editar{
-    max-width: 50%; 
-}
-
-.icon-carrito {
-    width: 150%;
-}
-
-.pagador{
+.container-total{
     display: flex;
-    justify-content:space-between;
-    padding-top: 15px;
+    justify-content: space-between; 
+    align-items: center;
 }
 
-.texto{
-    width: 70%;
+.totaltext{
+    width: 20%;
+    text-align: start;
+    font-weight: 600;
+
 }
 
 .importe{
+    width: 40%;
+    text-align: start;
+    font-weight: 600;
+}
+
+.gasto{
+    font-weight: 600;
     width: 30%;
+    text-align: end;
+
+}
+
+.iconmas-container{
+    width: 10%;
+    text-align: end;
+}
+
+.icon-mas{
+    width: 80%;
+}
+
+.reparto{
+
+    display: flex;
+    justify-content: space-between; 
+    align-items: end;  
+}
+
+.btn-liquidar{
+    border: none;
+    color: white;
+    background-color: rgba(255, 68, 0, 0.882);
+    font-weight: 600;
+    width: 30%;
+}
+
+.chat{
+    background-color: rgba(128, 128, 128, 0.052);
+    width: 40%;
 }
