@@ -8,13 +8,12 @@ import { SpentsService } from '../../services/spents.service';
 import { ISpent } from '../../interfaces/ispent.interface';
 import { SpentCardComponent } from '../../components/spent-card/spent-card.component';
 import { FooterComponent } from '../../components/footer/footer.component';
-import { ChatComponent } from '../../components/chat/chat.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 
 @Component({
   selector: 'app-group-view',
   standalone: true,
-  imports: [SpentCardComponent, FooterComponent, ChatComponent, NavbarComponent],
+  imports: [NavbarComponent, FooterComponent, SpentCardComponent],
   templateUrl: './group-view.component.html',
   styleUrl: './group-view.component.css'
 })
