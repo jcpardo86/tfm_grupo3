@@ -17,9 +17,14 @@ export class GroupCardComponent {
 
   @Input() myGroup!: IGroupUser;
 
-  group!: IGroup;
+  group: IGroup = {
+    idGroup: 0,
+    nombre: "",
+    descripcion: "", 
+    imagen: ""  
+  }
 
-  users!: IUser[];
+  users: IUser[] = [];
 
   total: number = 0;
 
