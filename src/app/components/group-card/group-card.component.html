@@ -1,1 +1,10 @@
-<p>group-card works!</p>
+<div class="card shadow text-center">  
+    <div class="card-body">
+        <h6 class="card-title">{{myGroup.idUsuario}} {{myGroup.idGrupo}}</h6>
+        <a class="btn d-flex flex-column gap-3" [routerLink]="['/group', myGroup.idGrupo]">
+            <span class="fa-solid fa-magnifying-glass icon"></span>
+            <span>Ir al grupo</span>
+        </a>
+    <div>
+</div> 
+
