@@ -1,10 +1,19 @@
 <div class="card shadow text-center">  
     <div class="card-body">
-        <h6 class="card-title">{{myGroup.idUsuario}} {{myGroup.idGrupo}}</h6>
+        <h6 class="card-title">Grupo: {{myGroup.idGrupo}}</h6>
+            <p>Descripción: {{group.descripcion}}</p>
+            <ul>Usuarios: 
+            @for(user of users; track user.idUsuario){
+                    <li>{{user.nombre}}</li>
+            }
+            </ul>
+            <p>Total: {{total}} €</p>
+            
         <a class="btn d-flex flex-column gap-3" [routerLink]="['/group', myGroup.idGrupo]">
             <span class="fa-solid fa-magnifying-glass icon"></span>
             <span>Ir al grupo</span>
         </a>
     <div>
 </div> 
+
 
