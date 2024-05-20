@@ -1,0 +1,95 @@
+
+
+<!--LARA: @Marcos, te lo dejo comentado a la espera de que lo adaptes, para que no me de error al ejecutar-->
+
+<!--<header></header>
+
+<main>
+	<section class="container mt-5">
+		<div class="row row-gap-3">
+			<div class="col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center">
+                <div>
+                    <img src="assets/images/grupo.png" alt="Grupo de amigos compartiendo una pizza" class="img-fluid rounded">
+                    <div class="d-flex justify-content-end align-items-center mt-3"> 
+                        <p class="me-3 mb-0"><strong>EDITAR FOTO DE GRUPO</strong></p> 
+                        <a href="#">
+                            <img src="assets\icons\editar_foto.png" alt="Añadir usuario">
+                        </a>   
+                    </div>
+                    
+                </div>
+			</div>
+			<div class="col-lg-6 col-md-12 col-sm-12">
+				<form [formGroup]="modelForm">
+                    <h3>{{tipo}} grupo</h3>
+					<div class="mb-3">
+						<label class="form-label">Nombre del grupo</label>
+						<input type="text" class="form-control" id="nombreGrupo" formControlName="nombreGrupo">
+					</div>
+					<div class="mb-3">
+						<label class="form-label">Descripción breve</label>
+						<input type="text" class="form-control" id="descripcionGrupo" formControlName="descripcionGrupo">
+					</div>
+                    <div class="mb-3 row">
+                        @if(checkActualizar()){
+                            @for(usuario of arrUsuarios; track usuario.id; let idx = $index){
+                                <div class="col-lg-9">
+                                    @if(idx == 0){
+                                        <label class="form-label">Usuarios</label>
+                                    }
+                                    <input type="text" class="form-control mb-3" id="usuarioAñadir" [value]="usuario.nombre">
+                                </div>
+                                <div class="col-lg-3">
+                                    @if(idx == 0){
+                                        <label class="form-label">% del gasto</label>
+                                    }
+                                    <input type="text" class="form-control mb-3" id="gastoUsuario" [value]="usuario.porcentaje">
+                                </div>
+                            }
+                        }@else {
+                            <div class="col-lg-9">
+                                <label class="form-label">Usuarios</label>
+                                <input type="text" class="form-control" id="usuarioAñadir">
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="form-label">% del gasto</label>
+                                <input type="text" class="form-control" id="gastoUsuario">
+                            </div>
+                        }
+                    </div>
+                    <div class="mb-3 row align-items-center">
+                        <div class="col-lg-7">
+                            <hr class="custom-hr">
+                        </div>
+                        <div class="col-lg-3">
+                            <p><strong>AÑADE USUARIO</strong></p>
+                        </div>
+                        <div class="col-lg-2">
+                            <a href="#">
+                                <img src="assets\icons\añadir_usuario.png" alt="Añadir usuario">
+                            </a>                           
+                        </div>
+                    </div>
+                    @if(checkActualizar()){
+                        <div class="row">
+                            <div class="col-lg-6 d-flex justify-content-end">
+                                <button type="button" class="btn btn-primary btn-lg btn_borrar rounded-5">BORRAR GRUPO</button>
+                            </div>
+                            <div class="col-lg-6 d-flex justify-content-end">
+                                <button type="button" class="btn btn-primary btn-lg btn_personal rounded-5">GUARDAR CAMBIOS</button>
+                            </div>
+                        </div>
+                    }@else {
+                        <div class="row">
+                            <div class="col-lg-12 d-flex justify-content-end">
+                                <button type="button" class="btn btn-primary btn-lg btn_personal rounded-5">CREAR GRUPO</button>
+                            </div>
+                        </div>
+                    }
+				</form>
+			</div>
+		</div>
+	</section>
+</main>
+
+<app-footer></app-footer>-->

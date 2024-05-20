@@ -1,0 +1,68 @@
+.font{
+    color: var(--orange);
+}
+
+.group-image{
+    width: 100%;
+}
+
+.section{
+    /*background-color: blue;*/
+    display:flex;
+    justify-content: space-between;
+}
+
+.container-total{
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+}
+
+.totaltext{
+    width: 20%;
+    text-align: start;
+    font-weight: 600;
+
+}
+
+.importe{
+    width: 40%;
+    text-align: start;
+    font-weight: 600;
+}
+
+.gasto{
+    font-weight: 600;
+    width: 30%;
+    text-align: end;
+
+}
+
+.iconmas-container{
+    width: 10%;
+    text-align: end;
+}
+
+.icon-mas{
+    width: 80%;
+}
+
+.reparto{
+
+    display: flex;
+    justify-content: space-between; 
+    align-items: end;  
+}
+
+.btn-liquidar{
+    border: none;
+    color: white;
+    background-color: rgba(255, 68, 0, 0.882);
+    font-weight: 600;
+    width: 30%;
+}
+
+.chat{
+    background-color: rgba(128, 128, 128, 0.052);
+    width: 40%;
+}
