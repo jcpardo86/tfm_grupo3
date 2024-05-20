@@ -1,49 +1,100 @@
-	<section class="container mt-5">
-		<div class="row align-items-center row-gap-3">
-			<div class="col-lg-8 col-md-12 col-sm-12 ">
-				<h2 class="h4 m-0 text-color">Crea tu usuario</h2>
-			</div>
+<header class="container container_header rounded-bottom">
+	<div class="row">
+		<div class="col-6 mt-3 ps-3">
+			<img src="assets/images/logo_divi.png" alt="Logotipo de DIVI" class="logo">
+		</div>
+		<div class="col-6 mt-3">
+			<a class="float-end pe-2 text-black text-decoration-none text-end" role="button">INICIAR SESIÓN</a>
+		</div>
+	</div>
+	<div class="col-xl-5 col-lg-5 col-md-7 col-sm-10">
+		<h1 class="h2 bg-orange text-white mt-5 p-3 ps-5">¡Simplifica tus cuentas compartidas con divi!</h1>
+	</div>
+</header>
+
+<section class="container mt-3">
+  <h3 class="h3 mt-3 text-orange">Crea tu usuario</h3>
+
+  <div class="col-lg-6 row-gap-3 gap-3 justify-content-center">
+    <form [formGroup]="modelForm" class="card p-3 " (ngSubmit)="getDataForm()">
+      <div class="my-2">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" placeholder="Introduce tu nombre" id="nombre" formControlName="nombre">
+          @if(checkControl('nombre', 'required')){
+            <p class="error">Campo requerido</p>
+          }
+
+          @if(checkControl('nombre', 'minlength') ){
+          <p class="error">El campo tiene que tener minimo 3 caracteres</p>
+          }
+      </div>
+
+      <label for="apellidos" class="form-label">Apellidos</label>
+      <input type="text" class="form-control" placeholder="Introduce tus apellidos" id="apellidos" formControlName="apellidos">
+
+      @if(checkControl('apellidos', 'required')){
+      <p class="error">Campo requerido</p>
+      }
+
+      @if(checkControl('apellidos', 'minlength') ){
+      <p class="error">El campo tiene que tener minimo 3 caracteres</p>
+      }
+
+    <div class="my-2">
+      <label for="email" class="form-label">Email</label>
+      <input type="text" class="form-control" placeholder="Introduce un email" id="email" formControlName="email">
+
+      @if(checkControl('email', 'required')){
+      <p class="error">Este campo es obligatorio</p>
+      }
+
+      @if(checkControl('email', 'pattern')){
+      <p class="error">El texto introducido no es un email</p>
+      }
+
     </div>
-    </section>
-  <section class="container mt-5">
-   <aside class="newUserForm">
-     <form [formGroup]="newUserForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="name">Nombre:</label>
-        <input formControlName="name" type="text" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="lastName">Apellidos:</label>
-        <input formControlName="lastName" type="text" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <input formControlName="email" type="email" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="confirmEmail">Confirmar Email:</label>
-        <input formControlName="confirmEmail" type="email" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="password">Contraseña:</label>
-        <input formControlName="password" type="password" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="confirmPassword">Confirmar Contraseña:</label>
-        <input formControlName="confirmPassword" type="password" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <button type="button" class="btn btn_personal m-3">Volver</button>
-        <button type="submit" class="btn btn_personal">Guardar</button>
-      </div>
-    </form>
-  </aside>
-  <aside class="btn btnprimary">
-    <div class="form-group">
-      <label for="photo">Añadir foto:</label>
-      <input formControlName="photo" type="file" class="form-control">
+    <div class="my-2">
+      <label for="repiteemail" class="form-label">Repita su email</label>
+      <input type="text" class="form-control" placeholder="Introduce un email" id="repiteemail" formControlName="repiteemail">
+
+      @if(checkControl('repiteemail', 'required')){
+      <p class="error">Este campo es obligatorio</p>
+      }
+
+      @if(checkControl('repiteemail', 'pattern')){
+      <p class="error">El texto introducido no es un email</p>
+      }
+
+      @if(modelForm.hasError('checkemail')){
+        <p class="error">Los emails no coinciden</p>
+      }
+
     </div>
-  </aside>
-  </section>
+
+    <div class="my-2">
+      <label for="password" class="form-label">Contraseña:</label>
+      <input type="password" class="form-control" placeholder="Introduce tu contraseña" id="password" formControlName="password">
+    </div>
+
+    <div class="my-2">
+      <label for="repitepass" class="form-label">Repita su contraseña:</label>
+      <input type="password" class="form-control" placeholder="Vuelve a introducir tu contraseña" id="repitepass" formControlName="repitepass">
+    </div>
 
 
+    @if(modelForm.hasError('checkpassword')){
+    <p class="error">Las contraseñas no coinciden</p>
+    }
+
+    <div class="my-1 justify-content-between d-flex">
+      <a class="btn btn-primary btn-lg btn_personal rounded-5" [routerLink]="['/home']">VOLVER</a>
+      <button type="button" class="btn btn-primary btn-lg btn_personal rounded-5">GUARDAR</button>
+    </div>
+
+   </form>
+
+<div class="d-flex card row-gap-3 gap-3">
+  <img src="assets/images/logo_divi.png" alt="Logotipo de DIVI" class="logo">
+</div>
+
+</div>

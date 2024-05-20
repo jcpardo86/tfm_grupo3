@@ -1,46 +1,97 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import React from 'react';
+import { Component } from '@angular/core';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-newuser',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './newuser.component.html',
   styleUrl: './newuser.component.css',
 })
-export class NewuserComponent implements OnInit {
-  newUserForm!: FormGroup;
+export class NewuserComponent {
+  modelForm: FormGroup;
 
-  constructor() {}
-
-  ngOnInit(): void {
-    this.newUserForm = new FormGroup({
-      name: new FormControl('', Validators.required),
-      lastName: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      confirmEmail: new FormControl('', [
-        Validators.required,
-        Validators.email,
-      ]),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(8),
-      ]),
-      confirmPassword: new FormControl('', [
-        Validators.required,
-        Validators.minLength(8),
-      ]),
-      photo: new FormControl(''),
-    });
+  constructor() {
+    this.modelForm = new FormGroup(
+      {
+        nombre: new FormControl(null, [
+          Validators.required,
+          Validators.minLength(3),
+        ]),
+        apellidos: new FormControl(null, [
+          Validators.required,
+          Validators.minLength(3),
+        ]),
+        email: new FormControl(null, [
+          Validators.required,
+          Validators.pattern(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/),
+        ]),
+        repiteemail: new FormControl(null, [
+          Validators.required,
+          Validators.pattern(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/),
+        ]),
+        password: new FormControl(null, [
+          Validators.required,
+          Validators.minLength(6),
+        ]),
+        repitepass: new FormControl(null, [
+          Validators.required,
+          Validators.minLength(6),
+        ]),
+      },
+      [this.checkpassword]
+    );
   }
 
-  onSubmit(): void {
-    if (this.newUserForm.valid) {
-      // Call API to register user
-      console.log('Form submitted:', this.newUserForm.value);
+  checkpassword(formValue: AbstractControl): any {
+    const password = formValue.get('password')?.value;
+    const repitepass = formValue.get('repitepass')?.value;
+    if (password !== repitepass) {
+      return { checkpassword: true };
     } else {
-      console.log('Form is invalid');
+      return null;
     }
+  }
+
+  checkemail(formValue: AbstractControl): any {
+    const email = formValue.get('email')?.value;
+    const repiteemail = formValue.get('repiteemail')?.value;
+    if (email !== repiteemail) {
+      return { checkemail: true };
+    } else {
+      return null;
+    }
+  }
+
+  ngOnInit(): void {
+    // lo pido a BBDD
+    let obj = {
+      id: 1,
+      nombre: 'Nombre',
+      apellidos: 'Apellidos',
+      email: 'jj@gmail.com',
+      password: '12345',
+    };
+  }
+  getDataForm(): void {
+    console.log(this.modelForm.value);
+    this.modelForm.reset();
+  }
+
+  checkControl(
+    formControlName: string,
+    validador: string
+  ): boolean | undefined {
+    return (
+      this.modelForm.get(formControlName)?.hasError(validador) &&
+      this.modelForm.get(formControlName)?.touched
+    );
   }
 }
