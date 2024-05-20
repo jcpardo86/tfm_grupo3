@@ -1,31 +1,77 @@
+a {
+  color: black;
+}
+
+a:hover {
+  color: var(--orange);
+}
+
 input {
   border: none;
   background-color: var(--grey);
 }
-.text-color{
-    color: var(--orange);
+
+strong {
+  color: var(--orange);
 }
+
+.bg-orange {
+  background-color: var(--orange);
+  position: relative;
+  left: -75px;
+  top: 0px;
+  transform: rotate(-2.50deg);
+}
+
+.text-orange {
+  color: var(--orange);
+}
+
 .btn_personal {
   padding: 0.7rem 2rem;
   background-color: var(--orange);
   color: white;
   border: none;
+  width: 40%;
 }
 
 .btn_personal:hover {
   background-color: var(--light_orange);
 }
 
-.newUserForm{
-  width: 60%;
-  margin: 0 auto;
-  display: flex;
-
+.container_header {
+  background-image: url('../../../assets/images/header_home.jpg');
+  width: 100% !important;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 500px;
+  overflow: visible;
 }
 
-.fotoUser{
-  width: 30%;
+.home_card {
+  background-color: var(--grey);
+}
+
+.home_card img {
+  padding-top: 2rem;
+  align-self: center;
+  width: 20%;
+}
+
+.profile-pic {
+  width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+}
+
+.profile-pic img,
+.profile-pic .default-profile-pic {
+  width: 150px;
+  height: 150px;
+}
+
+.default-profile-pic {
+  background-color: var(--grey);
+  border-radius: 50%;
 }

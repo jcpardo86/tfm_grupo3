@@ -9,5 +9,5 @@ export const routes: Routes = [
 	{ path: "newgroup", component: NuevoGrupoComponent },
 	{ path: "updategroup/:id", component: NuevoGrupoComponent},
   { path: "newuser", component: NewuserComponent },
-  { path: "updateuser/:id", component: NewuserComponent}
+  { path: "updateuser/:id", component: NewuserComponent},
 ];

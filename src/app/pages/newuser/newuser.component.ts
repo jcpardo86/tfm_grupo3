@@ -17,6 +17,7 @@ import { RouterLink } from '@angular/router';
 })
 export class NewuserComponent {
   modelForm: FormGroup;
+  userPhoto: string | ArrayBuffer | null = null;
 
   constructor() {
     this.modelForm = new FormGroup(
@@ -93,5 +94,16 @@ export class NewuserComponent {
       this.modelForm.get(formControlName)?.hasError(validador) &&
       this.modelForm.get(formControlName)?.touched
     );
+  }
+  onFileChange(event: any): void {
+    const reader = new FileReader();
+    if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+
+      reader.onload = () => {
+        this.userPhoto = reader.result;
+      };
+    }
   }
 }
