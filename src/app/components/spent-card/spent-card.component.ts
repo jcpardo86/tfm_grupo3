@@ -21,7 +21,8 @@ export class SpentCardComponent {
     nombre: "",
     apellidos: "",
     email: "",
-    password: ""
+    password: "",
+    imagen: ""
   };
 
   userService = inject(UsersService);
