@@ -1,0 +1,29 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+	<div class="mb-3">
+		<label for="email" class="form-label">Email de usuario</label>
+		<input type="text" class="form-control" placeholder="introduce tu email" id="email" formControlName="email">
+		<!-- @if(checkControl('email', 'required')){
+		<p class="error text-danger">Campo requerido</p>
+		}
+
+		@if(checkControl('email', 'pattern')){
+		<p class="error text-danger">Campo no es de tipo email</p>
+		} -->
+
+	</div>
+
+
+	<div class="mb-3">
+		<label for="password" class="form-label">Contraseña</label>
+		<input type="password" class="form-control" placeholder="introduce tu contraseña" id="password"
+			formControlName="password">
+		<!-- @if(checkControl('email', 'required')){
+		<p class="error text-danger">Campo requerido</p>} -->
+
+	</div>
+
+	<p class=" mb-3"><a href="" role="button">¿Olvidaste la contraseña?</a></p>
+	<button type="submit" class="btn btn-primary btn-lg btn_personal mb-3">INICIAR SESION</button>
+	<p class=" "><a href="" role="button">Si no tienes todavía, crea tu cuenta</a></p>
+
+</form>
