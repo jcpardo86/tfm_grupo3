@@ -28,7 +28,8 @@ export class LoginComponent {
 
 		try {
 			const response = await this.usersService.login(this.loginForm.value);
-			console.log(response);
+			localStorage.setItem('token', response.token!);
+			this.router.navigate(['/newgroup']) // redirigir a la página de usuario logueado;
 
 
 		} catch (error: any) {
