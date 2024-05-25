@@ -1,8 +1,4 @@
-
-
-<!--LARA: @Marcos, te lo dejo comentado a la espera de que lo adaptes, para que no me de error al ejecutar-->
-
-<!--<header></header>
+<header></header>
 
 <main>
 	<section class="container mt-5">
@@ -32,7 +28,7 @@
 					</div>
                     <div class="mb-3 row">
                         @if(checkActualizar()){
-                            @for(usuario of arrUsuarios; track usuario.id; let idx = $index){
+                            @for(usuario of arrUsuarios; track usuario.idUsuario; let idx = $index){
                                 <div class="col-lg-9">
                                     @if(idx == 0){
                                         <label class="form-label">Usuarios</label>
@@ -43,7 +39,7 @@
                                     @if(idx == 0){
                                         <label class="form-label">% del gasto</label>
                                     }
-                                    <input type="text" class="form-control mb-3" id="gastoUsuario" [value]="usuario.porcentaje">
+                                    <input type="text" class="form-control mb-3" id="gastoUsuario" [value]="usuario.email"> 
                                 </div>
                             }
                         }@else {
@@ -82,7 +78,7 @@
                     }@else {
                         <div class="row">
                             <div class="col-lg-12 d-flex justify-content-end">
-                                <button type="button" class="btn btn-primary btn-lg btn_personal rounded-5">CREAR GRUPO</button>
+                                <button type="button" class="btn btn-primary btn-lg btn_personal rounded-5" [disabled]="!modelForm.valid || !correctPorcentajes()">CREAR GRUPO</button>
                             </div>
                         </div>
                     }
@@ -91,5 +87,3 @@
 		</div>
 	</section>
 </main>
-
-<app-footer></app-footer>-->

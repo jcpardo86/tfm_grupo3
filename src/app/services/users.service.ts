@@ -11,8 +11,6 @@ export class UsersService {
   private httpClient = inject(HttpClient);
   private baseUrl : string = 'http://localhost:3000/api/users'
 
- 
-
   registertUser(user: IUser): Promise<IUser>{
     return lastValueFrom(this.httpClient.post<IUser>(`${this.baseUrl}/register`, user));
   };
@@ -23,6 +21,10 @@ export class UsersService {
 
   getUserById(idUser: number): Promise<IUser> {
     return lastValueFrom(this.httpClient.get<IUser>(`${this.baseUrl}/${idUser}`));
+  };
+
+  getAllUsers(): Promise<IUser[]> {
+    return lastValueFrom(this.httpClient.get<IUser[]>(`${this.baseUrl}/allUsers`));
   };
   
 }
