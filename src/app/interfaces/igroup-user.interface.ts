@@ -1,7 +1,7 @@
 export interface IGroupUser {
     idGrupo: number,
     idUsuario: number,
-    porcentaje: string,
+    porcentaje: number,
     rol: string   
 }
 

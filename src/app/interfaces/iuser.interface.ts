@@ -4,5 +4,6 @@ export interface IUser {
     apellidos: string,
     email: string,
     password: string,
-    imagen: string
+    imagen: string,
+    porcentaje?: number
 }

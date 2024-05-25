@@ -23,8 +23,8 @@ export class UsersService {
     return lastValueFrom(this.httpClient.get<IUser>(`${this.baseUrl}/${idUser}`));
   };
 
-  getAllUsers(): Promise<IUser[]> {
-    return lastValueFrom(this.httpClient.get<IUser[]>(`${this.baseUrl}/allUsers`));
+  getUserByEmail(email: string): Promise<IUser> {
+    return lastValueFrom(this.httpClient.get<IUser>(`${this.baseUrl}/email/${email}`));
   };
   
 }
