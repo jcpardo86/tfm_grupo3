@@ -43,23 +43,6 @@ export class LoginComponent {
 	}
 
 
-	// ngOnInit(): void {
-	// 	// lo pido a BBDD
-	// 	let obj = {
-	// 		email: 'jj.com',
-	// 		password: '12345',
-	// 	}
-
-	// 	this.loginForm = new FormGroup({
-	// 		email: new FormControl(obj.email, [
-	// 			Validators.required,
-	// 			Validators.pattern(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)
-	// 		]),
-	// 		password: new FormControl(obj.password, [
-	// 			Validators.required
-	// 		]),
-	// 	});
-	// }
 
 
 
