@@ -27,11 +27,22 @@ export class GroupsService {
   }
 
   insertGroup(group: IGroup): Promise<IGroup> {
-    return lastValueFrom(this.httpClient.post<IGroup>(this.baseUrl, group))
-  };
+    return new Promise((resolve, reject) => {
+        this.httpClient.post<IGroup>(this.baseUrl, group).subscribe({
+            next: (response: any) => {
+                const insertId = response.insertId;
+                const newGroupWithId: IGroup = { ...group, idGroup: insertId };
+                resolve(newGroupWithId);
+            },
+            error: (error: any) => {
+                reject(error);
+            }
+        });
+    });
+  }
 
   insertUserToGroup(groupUser: IGroupUser): Promise<any>{
-    return lastValueFrom(this.httpClient.post<IGroupUser>(this.baseUrl, groupUser))
+    return lastValueFrom(this.httpClient.post<IGroupUser>(`${this.baseUrl}/user/`, groupUser))
   };
 
   deleteGroup(idGroup: number): Promise<any>{

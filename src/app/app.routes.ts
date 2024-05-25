@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
-import { NuevoGrupoComponent } from './pages/nuevo-grupo/nuevo-grupo.component';
+import { FormGroupComponent } from './pages/form-group/form-group.component';
 import { GroupViewComponent } from './pages/group-view/group-view.component';
 import { UserViewComponent } from './pages/user-view/user-view.component';
 import { authGuard } from './auth/guardAuth.guard';
@@ -15,10 +15,9 @@ export const routes: Routes = [
 
 	// },
 	{ path: "home", component: HomeComponent },
-	{ path: "newgroup", component: NuevoGrupoComponent, canActivate: [authGuard] },
-	{ path: "updategroup/:id", component: NuevoGrupoComponent, canActivate: [authGuard] },
-	{ path: "user/:_id", component: UserViewComponent, canActivate: [authGuard] },
-	{ path: "group/:_id", component: GroupViewComponent, canActivate: [authGuard] },
+	{ path: "group/:_id", component: GroupViewComponent },
+	{ path: "user/:_id", component: UserViewComponent },
+	{ path: "updategroup/:id", component: FormGroupComponent },
+	{ path: "newgroup", component: FormGroupComponent },
 	{ path: "**", component: PageNotFoundComponent }
-
 ];

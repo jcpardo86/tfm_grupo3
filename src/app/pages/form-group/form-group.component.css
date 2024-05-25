@@ -19,6 +19,10 @@ input {
 	transform: rotate(-2.50deg);
 }
 
+.error {
+	color: tomato;
+}
+
 .btn_personal {
 	padding: 0.7rem 2rem;
 	background-color: var(--orange);
