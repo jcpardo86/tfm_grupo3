@@ -1,7 +1,7 @@
-import { Injectable, inject } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
+import { IUser } from '../interfaces/iuser.interface';
 
 type LoginBody = {
 	email: string;
@@ -20,23 +20,22 @@ type LoginResponse = {
 })
 export class UsersService {
 
-	//métodos para interactuar con la api de usuarios
+	private httpClient = inject(HttpClient);
+	private baseUrl: string = 'http://localhost:3000/api/users'
 
-	private baseUrl: string = `${environment.apiUrl}/users`;
 
 
-	private httClient = inject(HttpClient);
+	registertUser(user: IUser): Promise<IUser> {
+		return lastValueFrom(this.httpClient.post<IUser>(`${this.baseUrl}/register`, user));
+	};
 
-	//método para hacer login
-	login(body: LoginBody): Promise<LoginResponse> {
+	loginUser(user: any): Promise<any> {
+		return lastValueFrom(this.httpClient.post<IUser>(`${this.baseUrl}/login`, user));
+	};
 
-		return firstValueFrom(
-			this.httClient.post<LoginResponse>(`${this.baseUrl}/login`, body)
 
-		);
+	getUserById(idUser: number): Promise<IUser> {
+		return lastValueFrom(this.httpClient.get<IUser>(`${this.baseUrl}/${idUser}`));
+	};
 
-	}
-
-	constructor() { }
 }
-

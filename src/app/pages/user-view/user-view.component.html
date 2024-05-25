@@ -1,0 +1,14 @@
+<div class="mt-2">
+    <div class="mx-4 row gap-0"> 
+        @for(group of arrGroups; track group.idGrupo){
+            <article class="col-12 col-md-6 col-lg-3 mb-1 g-4">
+                <app-group-card [myGroup]="group"></app-group-card>
+            </article>
+        }
+
+        <a class="btn d-flex flex-column gap-3" [routerLink]="['/newgroup']">
+            <span class="fa-solid fa-magnifying-glass icon"></span>
+            <span>Añadir grupo</span>
+        </a>
+    </div>
+</div>

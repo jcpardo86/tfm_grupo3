@@ -1,7 +1,10 @@
+/*LARA: @Marcos, te dejo algunas partes comentadas a la espera de que las adaptes, para que no me de error al ejecutar.*/
+
+
 import { Component } from '@angular/core';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IUsuario } from '../../interfaces/usuario.interface';
+// import { IUsuario } from '../../interfaces/usuario.interface';
 
 @Component({
   selector: 'app-nuevo-grupo',
@@ -11,7 +14,7 @@ import { IUsuario } from '../../interfaces/usuario.interface';
   styleUrl: './nuevo-grupo.component.css'
 })
 export class NuevoGrupoComponent {
-  modelForm: FormGroup;
+  /*modelForm: FormGroup;
   tipo: string = 'Añadir'
   isActualizar: boolean = false;
   arrUsuarios: IUsuario[];
@@ -46,4 +49,5 @@ export class NuevoGrupoComponent {
   checkActualizar():boolean{
     return this.isActualizar;
   }
+  */
 }
