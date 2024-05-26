@@ -14,6 +14,8 @@ export const routes: Routes = [
 	// 	loadChildren: () => import("./auth/auth.routes").then(m => m.AUTH_ROUTES)
 
 	// },
+
+	{ path: "", redirectTo: "home", pathMatch: "full" },
 	{ path: "home", component: HomeComponent },
 	{ path: "group/:_id", component: GroupViewComponent },
 	{ path: "user/:_id", component: UserViewComponent },
