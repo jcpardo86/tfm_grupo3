@@ -19,9 +19,9 @@ export const routes: Routes = [
 	{ path: "", redirectTo: "home", pathMatch: "full" },
 	{ path: "home", component: HomeComponent },
 	{ path: "newuser", component: NewuserComponent },
-	{ path: "group/:_id", component: GroupViewComponent },
-	{ path: "user/:_id", component: UserViewComponent },
-	{ path: "updategroup/:id", component: FormGroupComponent },
-	{ path: "newgroup", component: FormGroupComponent },
+	{ path: "group/:_id", component: GroupViewComponent, canActivate: [authGuard] },
+	{ path: "user/:_id", component: UserViewComponent, canActivate: [authGuard] },
+	{ path: "updategroup/:id", component: FormGroupComponent, canActivate: [authGuard] },
+	{ path: "newgroup", component: FormGroupComponent, canActivate: [authGuard] },
 	{ path: "**", component: PageNotFoundComponent }
 ];
