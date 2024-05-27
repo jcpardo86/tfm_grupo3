@@ -5,6 +5,7 @@ import { GroupViewComponent } from './pages/group-view/group-view.component';
 import { UserViewComponent } from './pages/user-view/user-view.component';
 import { authGuard } from './auth/guardAuth.guard';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { NewuserComponent } from './pages/newuser/newuser.component';
 
 export const routes: Routes = [
 
@@ -17,6 +18,7 @@ export const routes: Routes = [
 
 	{ path: "", redirectTo: "home", pathMatch: "full" },
 	{ path: "home", component: HomeComponent },
+	{ path: "newuser", component: NewuserComponent },
 	{ path: "group/:_id", component: GroupViewComponent },
 	{ path: "user/:_id", component: UserViewComponent },
 	{ path: "updategroup/:id", component: FormGroupComponent },
