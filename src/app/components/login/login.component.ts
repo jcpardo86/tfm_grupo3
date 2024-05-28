@@ -41,11 +41,10 @@ export class LoginComponent {
 			localStorage.setItem('token', response.token!);
 			this.router.navigate([`/user/${response.id_user}`]);
 		} catch (error: any) {
+			alert("Email de usuario o contraseña incorrectos")
 			console.log(error.error.error);
 		}
 	}
-
-
 
 	// // Método para obtener y mostrar los datos del formulario en la consola y luego reiniciar el formulario.
 	// getDataForm(): void {
