@@ -28,9 +28,9 @@ export class LoginComponent {
 
 		try {
 			const response = await this.usersService.loginUser(this.loginForm.value);
-			console.log(response.id_user);
 
 			localStorage.setItem('token', response.token!);
+			localStorage.setItem('idUserLogueado', response.id_user);
 			this.router.navigate([`/user/${response.id_user}`]);
 
 

@@ -28,6 +28,7 @@ export class FormGroupComponent {
   existeUsuario: boolean = true;
   buttonPulsed: boolean = false;
   arrUsuarios: IUser[];
+  correctEmails: boolean = true;
 
   newUser: IUser = {
     idUsuario: 0,
@@ -37,6 +38,15 @@ export class FormGroupComponent {
     password: "",
     imagen: ""
   };
+
+  userLogueado: IUser = {
+		idUsuario: 0,
+		nombre: "",
+		apellidos: "",
+		email: "",
+		password: "",
+		imagen: ""
+	};
 
   constructor(){
     if(this.checkActualizar()){
@@ -155,29 +165,47 @@ export class FormGroupComponent {
     if(this.isActualizar){
 
     }else{
-      console.log(this.modelForm.value.nombreGrupo)
-      console.log(this.modelForm.value.descripcionGrupo)
-      const newGroup: IGroup = {
-        nombre: this.modelForm.value.nombreGrupo,
-        descripcion: this.modelForm.value.descripcionGrupo,
-        imagen: "prueba.png"
-      };
-      const response = await this.groupService.insertGroup(newGroup);
-       
-      //TODO: añadir ADMIN al usuario que está logueado y comprobar al crear grupo que el usuario logueado esta entro los miembros
-      this.arrUsuarios.forEach(usuario => {
-        const newGroup: IGroupUser = {
-          idGrupo:  (response.idGroup !== undefined ? response.idGroup : 0),
-          idUsuario: (usuario.idUsuario !== undefined ? usuario.idUsuario : 0),
-          porcentaje: (usuario.porcentaje !== undefined ? usuario.porcentaje : 0),
-          rol: 'ADMIN'
+      const id = localStorage.getItem('idUserLogueado');
+      try {
+        const response = await this.userService.getUserById(Number(id));
+        this.userLogueado = response;
+      } catch (err) {
+        console.log(err)
+      }
+      if(this.arrUsuarios.find(user => user.email === this.userLogueado.email)){
+        this.setCorrectEmails(true);
+        const newGroup: IGroup = {
+          nombre: this.modelForm.value.nombreGrupo,
+          descripcion: this.modelForm.value.descripcionGrupo,
+          imagen: "prueba.png"
         };
-        this.groupService.insertUserToGroup(newGroup);
-      });
-
-       alert(`Grupo ${response.nombre} creado correctamente.`)
-       this.router.navigate([`/group/${response.idGroup}`])
-      
+        const response = await this.groupService.insertGroup(newGroup);
+        this.arrUsuarios.forEach(usuario => {
+          let rol = 'GUEST'
+          if(usuario.email == this.userLogueado.email){
+            rol = 'ADMIN'
+          }
+          const newGroup: IGroupUser = {
+            idGrupo:  (response.idGroup !== undefined ? response.idGroup : 0),
+            idUsuario: (usuario.idUsuario !== undefined ? usuario.idUsuario : 0),
+            porcentaje: (usuario.porcentaje !== undefined ? usuario.porcentaje : 0),
+            rol: rol
+          };
+          this.groupService.insertUserToGroup(newGroup);
+        });
+        alert(`Grupo ${response.nombre} creado correctamente.`)
+        this.router.navigate([`/group/${response.idGroup}`])
+      }else{
+        this.setCorrectEmails(false);
+      }
     }
+  }
+
+  setCorrectEmails(value: boolean){
+    this.correctEmails = value;
+  }
+
+  limpiar(){
+    this.arrUsuarios = [];
   }
 }

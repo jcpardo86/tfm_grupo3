@@ -38,7 +38,7 @@
                                 @for(usuario of arrUsuarios; track usuario.idUsuario; let idx = $index){
                                     <div class="col-lg-9">
                                         @if(idx == 0){
-                                            <label class="form-label">Usuarios</label>
+                                            <label class="form-label">Email usuario</label>
                                         }
                                         <input type="text" class="form-control mb-3" id="usuarioAñadir" formControlName="email">
                                         @if(checkControlAniadir('email', 'required')){
@@ -63,7 +63,7 @@
                                 }
                             }@else {
                                 <div class="col-lg-9">
-                                    <label class="form-label">Usuarios</label>
+                                    <label class="form-label">Email usuario</label>
                                     <input type="text" class="form-control" id="usuarioAñadir" formControlName="email">
                                     @if(checkControlAniadir('email', 'required')){
                                         <p class="error">Campo requerido</p>
@@ -87,13 +87,22 @@
                     </form>
                         
                     <div class="row">
+                        @if(arrUsuarios.length > 0){
+                            <label class="form-label"><strong>Miembros</strong></label>
+                        }
                         @for(usuario of arrUsuarios; track usuario.idUsuario){
                             <div class="col-12">
-                                <p>{{usuario.nombre}} - {{usuario.porcentaje}}</p>
+                                <p>{{usuario.nombre}} {{usuario.apellidos}} - {{usuario.porcentaje}}%</p> 
                             </div>
                         }
-                        @if(!correctPorcentajes() && buttonPulsed){
+                        <div class="col-4">
+                            <button type="button" class="btn btn-primary btn-sm btn_personal rounded-5" (click)="limpiar()" [hidden]="arrUsuarios.length === 0">Reiniciar miembros</button>
+                        </div> 
+                          @if(!correctPorcentajes() && buttonPulsed){
                             <p class="error">Los porcentajes asignados no son válidos</p>
+                        }
+                        @if(!correctEmails && buttonPulsed){
+                            <p class="error">Tiene que introducirse como un miembro del grupo</p>
                         }
                     </div>
                     <div class="mb-3 row align-items-center">

@@ -31,7 +31,7 @@ export class UsersService {
     return lastValueFrom(this.httpClient.post<IUser>(`${this.baseUrl}/login`, user));
   };
 
-  getUserById(idUser: number): Promise<IUser> {
+  getUserById(idUser: number|null): Promise<IUser> {
     return lastValueFrom(this.httpClient.get<IUser>(`${this.baseUrl}/${idUser}`));
   };
 
