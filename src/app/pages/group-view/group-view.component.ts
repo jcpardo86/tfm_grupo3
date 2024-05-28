@@ -28,7 +28,7 @@ export class GroupViewComponent {
   
 
   group: IGroup  = {
-    idGroup: 0,
+    idGrupo: 0,
     nombre: "",
     descripcion: "",
     imagen: ""

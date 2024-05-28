@@ -18,7 +18,7 @@ export class GroupCardComponent {
   @Input() myGroup!: IGroupUser;
 
   group: IGroup = {
-    idGroup: 0,
+    idGrupo: 0,
     nombre: "",
     descripcion: "", 
     imagen: ""  
