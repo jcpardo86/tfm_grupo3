@@ -4,7 +4,8 @@
 			<img src="assets/images/logo_divi.png" alt="Logotipo de DIVI" class="logo">
 		</div>
 		<div class="col-6 mt-3">
-			<a class="float-end pe-2 text-black text-decoration-none text-end" role="button">INICIAR SESIÓN</a>
+			<a class="float-end pe-2 text-black text-decoration-none text-end" role="button" href="#login"
+				target="_self">INICIAR SESIÓN</a>
 		</div>
 	</div>
 	<div class="col-xl-5 col-lg-5 col-md-7 col-sm-10">
@@ -21,7 +22,8 @@
 					familiares o compañeros de casa. </h2>
 			</div>
 			<div class="col-lg-4 col-md-12 col-sm-12 m-0">
-				<button type="button" class="btn btn-primary btn-lg btn_personal">EMPIEZA A COMPARTIR GASTOS</button>
+				<a [routerLink]="['/newuser']"><button type="button" class="btn btn-primary btn-lg btn_personal">EMPIEZA
+						A COMPARTIR GASTOS</button></a>
 			</div>
 		</div>
 	</section>
@@ -53,7 +55,7 @@
 
 	</section>
 
-	<section class="container mt-5">
+	<section class="container mt-5" id="login">
 		<div class="row row-gap-3">
 			<div class="col-lg-6 col-md-12 col-sm-12">
 				<img src="assets/images/chicos_pizza.jpg" alt="Grupo de amingos compartiendo una pizza"
