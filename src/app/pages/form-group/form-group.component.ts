@@ -13,21 +13,27 @@ import { IGroupUser } from '../../interfaces/igroup-user.interface';
   standalone: true,
   imports: [FooterComponent, ReactiveFormsModule, FormsModule],
   templateUrl: './form-group.component.html',
-  styleUrl: './form-group.component.css'
+  styleUrls: ['./form-group.component.css']
 })
+
+
+//TODO: Editar foto
+
 export class FormGroupComponent {
   userService = inject(UsersService);
   groupService = inject(GroupsService);
   router = inject(Router);
-
-  modelForm: FormGroup;
-  aniadirUsuarioForm: FormGroup;
+  activedRoute = inject(ActivatedRoute)
 
   tipo: string = 'Añadir'
-  isActualizar: boolean = false;
+
+  modelForm: FormGroup; 
+  aniadirUsuarioForm:FormGroup;
   existeUsuario: boolean = true;
   buttonPulsed: boolean = false;
+  isActualizar: boolean = false;
   arrUsuarios: IUser[];
+  correctEmails: boolean = true;
 
   newUser: IUser = {
     idUsuario: 0,
@@ -38,69 +44,84 @@ export class FormGroupComponent {
     imagen: ""
   };
 
+  userLogueado: IUser = {
+    idUsuario: 0,
+    nombre: "",
+    apellidos: "",
+    email: "",
+    password: "",
+    imagen: ""
+  };
+
+  idGrupoUpdate: number = 0;
+
   constructor(){
-    if(this.checkActualizar()){
-      this.modelForm = new FormGroup({
-        nombreGrupo: new FormControl('', [
-          Validators.required,
-          Validators.minLength(3),
-        ]),
-        descripcionGrupo: new FormControl('', [
-          Validators.required,
-          Validators.minLength(3),
-        ]),
-        email: new FormControl('', [
-          Validators.required,
-          Validators.email
-        ])
-      }, 
-      [])  
-      this.arrUsuarios = [
-        { idUsuario: 1, nombre: "Marcos", apellidos: "Marcos", email: "Marcos", password: "Marcos", imagen: "Marcos"},
-        { idUsuario: 2, nombre: "Nacho", apellidos: "Marcos", email: "Marcos", password: "Marcos", imagen: "Marcos"},
-        { idUsuario: 3, nombre: "Alba", apellidos: "Marcos", email: "Marcos", password: "Marcos", imagen: "Marcos"},
-      ];
+    this.modelForm = new FormGroup({
+      nombreGrupo: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.required
+      ]),
+      descripcionGrupo: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+      ])
+    }, 
+    [])  
 
-      this.aniadirUsuarioForm = new FormGroup({
-        email: new FormControl('', [
-          Validators.required,
-          Validators.email
-        ]),
-        porcentaje: new FormControl('', [
-          Validators.required,
-          Validators.pattern("^100$|^([0-9]|[1-9][0-9])$")
-        ])
-      }, 
-      [])  
-    }else{
-      this.modelForm = new FormGroup({
-        nombreGrupo: new FormControl('', [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.required
-        ]),
-        descripcionGrupo: new FormControl('', [
-          Validators.required,
-          Validators.minLength(3),
-        ])
-      }, 
-      [])  
+    this.arrUsuarios = [];
 
-      this.arrUsuarios = [];
+    this.aniadirUsuarioForm = new FormGroup({
+      email: new FormControl('', [
+        Validators.required,
+        Validators.email
+      ]),
+      porcentaje: new FormControl('', [
+        Validators.required,
+        Validators.pattern("^100$|^([0-9]|[1-9][0-9])$")
+      ])
+    }, 
+    [])  
+  }
 
-      this.aniadirUsuarioForm = new FormGroup({
-        email: new FormControl('', [
-          Validators.required,
-          Validators.email
-        ]),
-        porcentaje: new FormControl('', [
-          Validators.required,
-          Validators.pattern("^100$|^([0-9]|[1-9][0-9])$")
-        ])
-      }, 
-      [])  
-    }
-    
+  ngOnInit(){
+    this.activedRoute.params.subscribe(async(params:any) => {
+      if(params.id){
+        this.idGrupoUpdate = params.id;
+        this.isActualizar = true;
+        this.tipo = 'Actualizar'
+        const responseGroup = await this.groupService.getGroupById(params.id)
+        this.modelForm = new FormGroup({
+          nombreGrupo: new FormControl(responseGroup.nombre, [
+            Validators.required,
+            Validators.minLength(3),
+            Validators.required
+          ]),
+          descripcionGrupo: new FormControl(responseGroup.descripcion, [
+            Validators.required,
+            Validators.minLength(3),
+          ])
+        }, 
+        [])  
+        const response = await this.groupService.getUsersByGroup(responseGroup.idGrupo)
+        response.forEach(async user => {
+          const userGrupo = await this.groupService.getUserGroup(user.idUsuario, responseGroup.idGrupo)
+          user.porcentaje = userGrupo.porcentaje;
+      });
+        this.arrUsuarios = response;
+        this.aniadirUsuarioForm = new FormGroup({
+          email: new FormControl('', [
+            Validators.required,
+            Validators.email
+          ]),
+          porcentaje: new FormControl('', [
+            Validators.required,
+            Validators.pattern("^100$|^([0-9]|[1-9][0-9])$")
+          ])
+        }, 
+        [])  
+      }
+    })
   }
   
   async aniadirUsuario() {
@@ -124,7 +145,6 @@ export class FormGroupComponent {
       }catch(err){
         this.router.navigate(['/error']);
       }
-      console.log(this.arrUsuarios)
     }
     
   }
@@ -151,33 +171,69 @@ export class FormGroupComponent {
     return false;
   }
 
-  async crearGrupo(){
-    if(this.isActualizar){
-
-    }else{
-      console.log(this.modelForm.value.nombreGrupo)
-      console.log(this.modelForm.value.descripcionGrupo)
-      const newGroup: IGroup = {
+  async crearGrupo() {
+    const id = localStorage.getItem('idUserLogueado');
+    try {
+      const response = await this.userService.getUserById(Number(id));
+      this.userLogueado = response;
+    } catch (err) {
+      console.log(err);
+    }
+  
+    if (this.arrUsuarios.find(user => user.email === this.userLogueado.email)) {
+      this.setCorrectEmails(true);
+      const formGroup: IGroup = {
+        idGrupo: this.idGrupoUpdate,
         nombre: this.modelForm.value.nombreGrupo,
         descripcion: this.modelForm.value.descripcionGrupo,
         imagen: "prueba.png"
       };
-      const response = await this.groupService.insertGroup(newGroup);
-       
-      //TODO: añadir ADMIN al usuario que está logueado y comprobar al crear grupo que el usuario logueado esta entro los miembros
-      this.arrUsuarios.forEach(usuario => {
-        const newGroup: IGroupUser = {
-          idGrupo:  (response.idGroup !== undefined ? response.idGroup : 0),
-          idUsuario: (usuario.idUsuario !== undefined ? usuario.idUsuario : 0),
-          porcentaje: (usuario.porcentaje !== undefined ? usuario.porcentaje : 0),
-          rol: 'ADMIN'
-        };
-        this.groupService.insertUserToGroup(newGroup);
-      });
-
-       alert(`Grupo ${response.nombre} creado correctamente.`)
-       this.router.navigate([`/group/${response.idGroup}`])
-      
+      if (this.isActualizar) {
+        const response = await this.groupService.updateGroup(formGroup);
+        this.groupService.deleteGroupUsers(this.idGrupoUpdate);
+        this.arrUsuarios.forEach(usuario => {
+          let rol = 'GUEST';
+          if (usuario.email == this.userLogueado.email) {
+            rol = 'ADMIN';
+          }
+          const newGroupUser: IGroupUser = {
+            idGrupo: this.idGrupoUpdate,
+            idUsuario: (usuario.idUsuario !== undefined ? usuario.idUsuario : 0),
+            porcentaje: (usuario.porcentaje !== undefined ? usuario.porcentaje : 0),
+            rol: rol
+          };
+          this.groupService.insertUserToGroup(newGroupUser);
+        });
+      } else {
+        
+        const response = await this.groupService.insertGroup(formGroup);
+        this.arrUsuarios.forEach(usuario => {
+          let rol = 'GUEST';
+          if (usuario.email == this.userLogueado.email) {
+            rol = 'ADMIN';
+          }
+          const newGroupUser: IGroupUser = {
+            idGrupo: (response.idGrupo !== undefined ? response.idGrupo : 0),
+            idUsuario: (usuario.idUsuario !== undefined ? usuario.idUsuario : 0),
+            porcentaje: (usuario.porcentaje !== undefined ? usuario.porcentaje : 0),
+            rol: rol
+          };
+          this.groupService.insertUserToGroup(newGroupUser);
+        });
+        alert(`Grupo ${response.nombre} creado correctamente.`);
+        this.router.navigate([`/group/${response.idGrupo}`]);
+      }
+    } else {
+      this.setCorrectEmails(false);
     }
+  }
+
+
+  setCorrectEmails(value: boolean){
+    this.correctEmails = value;
+  }
+
+  limpiar(){
+    this.arrUsuarios = [];
   }
 }

@@ -1,5 +1,5 @@
 export interface IGroup {
-    idGroup?: number,
+    idGrupo?: number,
     nombre: string,
     descripcion: string, 
     imagen: string  
