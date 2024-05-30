@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { ISpent } from '../interfaces/ispent.interface';
-import { lastValueFrom } from 'rxjs';
+import { Observable, lastValueFrom } from 'rxjs';
+import { IUser } from '../interfaces/iuser.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,14 @@ export class SpentsService {
   insertSpent(spent: ISpent): Promise<any> {
     return lastValueFrom(this.httpClient.post<ISpent>(`${this.baseUrl}`, spent));
   };
+  spentById(idGasto: number): Promise<ISpent>{
+
+    return lastValueFrom(this.httpClient.get<ISpent>(`${this.baseUrl}/spents/spent/${idGasto}`));
+  }
+  updateSpent(spent: ISpent): Promise<any> {
+    return lastValueFrom(this.httpClient.put<ISpent>(`${this.baseUrl}/spents/${spent.idGasto}`, spent));
+  };
+
 
 
 }
