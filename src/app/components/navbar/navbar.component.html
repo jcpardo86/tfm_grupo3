@@ -11,15 +11,21 @@
 		<!-- elementos del menu colapse -->
 		<div class="collapse navbar-collapse" id="menu">
 			<ul class="navbar-nav ms-auto">
+        @if (isUserLoged()) {
+          <li class="nav-item">
+            <a class="nav-link active" href="/user">GRUPOS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="">USUARIO</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" (click)="closeSession()">CERRAR SESIÓN</a>
+          </li>
+      } @else {
 				<li class="nav-item">
-					<a class="nav-link active" href="">GRUPOS</a>
+					<a class="nav-link active" href="">INICIAR SESIÓN</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link active" href="">USUARIO</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link active" href="">CERRAR SESIÓN</a>
-				</li>
+      }
 			</ul>
 
 		</div>

@@ -20,8 +20,8 @@ export class GroupCardComponent {
   group: IGroup = {
     idGrupo: 0,
     nombre: "",
-    descripcion: "", 
-    imagen: ""  
+    descripcion: "",
+    imagen: ""
   }
 
   users: IUser[] = [];

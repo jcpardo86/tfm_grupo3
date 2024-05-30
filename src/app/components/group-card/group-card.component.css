@@ -1,0 +1,60 @@
+.card {
+  border-radius: 30px; /* Aumenta el valor para bordes más redondeados */
+}
+
+.text-orange {
+  color: var(--orange);
+}
+
+.bg-grey {
+  background-color: #f0f0f0;
+}
+
+.bg-white {
+  background-color: white;
+}
+
+.full-width {
+  width: 100%;
+  padding: 0;
+}
+
+.btn-orange {
+  background-color: var(--orange);
+  color: white;
+  border-radius: 15px;
+  padding: 10px 20px;
+  width: 90%;
+}
+
+.btn-orange:hover {
+  background-color: black;
+}
+
+.list-unstyled {
+  list-style-type: none;
+  padding: 0;
+}
+
+.rounded {
+  border-radius: 15px;
+}
+
+.rounded-lg {
+  border-radius: 30px; /* Más redondeado */
+}
+
+.rounded-top-lg {
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
+
+.rounded-bottom-lg {
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
