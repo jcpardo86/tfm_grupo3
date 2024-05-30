@@ -7,11 +7,12 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { IGroup } from '../../interfaces/igroup.interface';
 import { GroupsService } from '../../services/groups.service';
 import { IGroupUser } from '../../interfaces/igroup-user.interface';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
 
 @Component({
   selector: 'app-form-group',
   standalone: true,
-  imports: [FooterComponent, ReactiveFormsModule, FormsModule],
+  imports: [FooterComponent, ReactiveFormsModule, FormsModule, NavbarComponent],
   templateUrl: './form-group.component.html',
   styleUrls: ['./form-group.component.css']
 })
@@ -27,7 +28,7 @@ export class FormGroupComponent {
 
   tipo: string = 'Añadir'
 
-  modelForm: FormGroup; 
+  modelForm: FormGroup;
   aniadirUsuarioForm:FormGroup;
   existeUsuario: boolean = true;
   buttonPulsed: boolean = false;
@@ -66,8 +67,8 @@ export class FormGroupComponent {
         Validators.required,
         Validators.minLength(3),
       ])
-    }, 
-    [])  
+    },
+    [])
 
     this.arrUsuarios = [];
 
@@ -80,8 +81,8 @@ export class FormGroupComponent {
         Validators.required,
         Validators.pattern("^100$|^([0-9]|[1-9][0-9])$")
       ])
-    }, 
-    [])  
+    },
+    [])
   }
 
   ngOnInit(){
@@ -101,8 +102,8 @@ export class FormGroupComponent {
             Validators.required,
             Validators.minLength(3),
           ])
-        }, 
-        [])  
+        },
+        [])
         const response = await this.groupService.getUsersByGroup(responseGroup.idGrupo)
         response.forEach(async user => {
           const userGrupo = await this.groupService.getUserGroup(user.idUsuario, responseGroup.idGrupo)
@@ -118,12 +119,12 @@ export class FormGroupComponent {
             Validators.required,
             Validators.pattern("^100$|^([0-9]|[1-9][0-9])$")
           ])
-        }, 
-        [])  
+        },
+        [])
       }
     })
   }
-  
+
   async aniadirUsuario() {
     if(!this.checkControlAniadir('email', 'required') && !this.checkControlAniadir('email', 'email') && !this.checkControlAniadir('porcentaje', 'required') && !this.checkControlAniadir('porcentaje', 'pattern')){
       const email = this.aniadirUsuarioForm.value.email;
@@ -146,9 +147,9 @@ export class FormGroupComponent {
         this.router.navigate(['/error']);
       }
     }
-    
+
   }
-  
+
   checkActualizar():boolean{
     return this.isActualizar;
   }
@@ -179,7 +180,7 @@ export class FormGroupComponent {
     } catch (err) {
       console.log(err);
     }
-  
+
     if (this.arrUsuarios.find(user => user.email === this.userLogueado.email)) {
       this.setCorrectEmails(true);
       const formGroup: IGroup = {
@@ -205,7 +206,7 @@ export class FormGroupComponent {
           this.groupService.insertUserToGroup(newGroupUser);
         });
       } else {
-        
+
         const response = await this.groupService.insertGroup(formGroup);
         this.arrUsuarios.forEach(usuario => {
           let rol = 'GUEST';

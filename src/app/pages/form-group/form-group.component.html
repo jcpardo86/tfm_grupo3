@@ -1,4 +1,6 @@
-<header></header>
+<header>
+  <app-navbar></app-navbar>
+</header>
 
 <main>
 	<section class="container mt-5">
@@ -6,13 +8,13 @@
 			<div class="col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center">
                 <div>
                     <img src="assets/images/grupo.png" alt="Grupo de amigos compartiendo una pizza" class="img-fluid rounded">
-                    <div class="d-flex justify-content-end align-items-center mt-3"> 
-                        <p class="me-3 mb-0"><strong>EDITAR FOTO DE GRUPO</strong></p> 
+                    <div class="d-flex justify-content-end align-items-center mt-3">
+                        <p class="me-3 mb-0"><strong>EDITAR FOTO DE GRUPO</strong></p>
                         <a href="#">
                             <img src="assets\icons\editar_foto.png" alt="Añadir usuario">
-                        </a>   
+                        </a>
                     </div>
-                    
+
                 </div>
 			</div>
 			<div class="col-lg-6 col-md-12 col-sm-12">
@@ -48,14 +50,14 @@
                                     </div>
                                     <div class="col-lg-3">
                                         <label class="form-label">% del gasto</label>
-                                        <input type="text" class="form-control mb-3" id="gastoUsuario" formControlName="porcentaje"> 
+                                        <input type="text" class="form-control mb-3" id="gastoUsuario" formControlName="porcentaje">
                                         @if(checkControlAniadir('porcentaje', 'required')){
                                             <p class="error">Campo requerido</p>
                                         }@else if(checkControlAniadir('porcentaje', 'pattern')){
                                             <p class="error">Introduzca un porcentaje válido (0-100)</p>
                                         }
                                     </div>
-                                
+
                             }@else{
                                 <div class="col-lg-9">
                                     <label class="form-label">Email usuario</label>
@@ -80,19 +82,19 @@
                             }
                         </div>
                     </form>
-                        
+
                     <div class="row">
                         @if(arrUsuarios.length > 0){
                             <label class="form-label"><strong>Miembros</strong></label>
                         }
                         @for(usuario of arrUsuarios; track usuario.idUsuario){
                             <div class="col-12">
-                                <p>{{usuario.nombre}} {{usuario.apellidos}} - {{usuario.porcentaje}}%</p> 
+                                <p>{{usuario.nombre}} {{usuario.apellidos}} - {{usuario.porcentaje}}%</p>
                             </div>
                         }
                         <div class="col-4">
                             <button type="button" class="btn btn-primary btn-sm btn_personal rounded-5" (click)="limpiar()" [hidden]="arrUsuarios.length === 0">Reiniciar miembros</button>
-                        </div> 
+                        </div>
                           @if(!correctPorcentajes() && buttonPulsed){
                             <p class="error">Los porcentajes asignados no son válidos</p>
                         }
@@ -110,7 +112,7 @@
                         <div class="col-lg-2">
                             <a (click)="aniadirUsuario()">
                                 <img src="assets\icons\añadir_usuario.png" alt="Añadir usuario">
-                            </a>                           
+                            </a>
                         </div>
                     </div>
                     @if(checkActualizar()){

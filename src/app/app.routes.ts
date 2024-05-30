@@ -20,7 +20,8 @@ export const routes: Routes = [
 	{ path: "home", component: HomeComponent },
 	{ path: "newuser", component: NewuserComponent },
 	{ path: "group/:_id", component: GroupViewComponent, canActivate: [authGuard] },
-	{ path: "user/:_id", component: UserViewComponent, canActivate: [authGuard] },
+	//A user le he quitado el /:_id
+  { path: "user", component: UserViewComponent, canActivate: [authGuard] },
 	{ path: "updategroup/:id", component: FormGroupComponent, canActivate: [authGuard] },
 	{ path: "newgroup", component: FormGroupComponent, canActivate: [authGuard] },
 	{ path: "**", component: PageNotFoundComponent }

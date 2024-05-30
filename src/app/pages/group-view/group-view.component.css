@@ -14,7 +14,7 @@
 
 .container-total{
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -50,8 +50,8 @@
 .reparto{
 
     display: flex;
-    justify-content: space-between; 
-    align-items: end;  
+    justify-content: space-between;
+    align-items: end;
 }
 
 .btn-liquidar{

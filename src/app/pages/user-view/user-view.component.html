@@ -1,14 +1,47 @@
+<header>
+  <app-navbar></app-navbar>
+</header>
+<main class="container container_header rounded-bottom">
+  <div class="row">
+    <div class="col-6 mt-3 ps-3">
+      <img src="assets/images/logo_divi.png" alt="Logotipo de DIVI" class="logo">
+    </div>
+  </div>
+  <div class="col-xl-5 col-lg-5 col-md-7 col-sm-10">
+    <h1 class="h2 bg-orange text-white mt-5 p-3 ps-5">¡Crea, gestiona y divide los gastos!</h1>
+  </div>
+</main>
+
+<section class="container mt-5">
+  <div class="row align-items-center row-gap-3">
+    <div class="col-lg-8 col-md-12 col-sm-12">
+      <h2 class="h4 m-0"><strong>Tus grupos</strong></h2>
+    </div>
+    <div>
+      <h4>Lleva un registro detallado de los gastos compartidos dentro de este grupo. Divide equitativamente los costos y asegúrate de que todos paguen su parte justa.</h4>
+    </div>
+  </div>
+
 <div class="mt-2">
-    <div class="mx-4 row gap-0"> 
+    <div class="mx-4 row gap-0">
         @for(group of arrGroups; track group.idGrupo){
             <article class="col-12 col-md-6 col-lg-3 mb-1 g-4">
                 <app-group-card [myGroup]="group"></app-group-card>
             </article>
         }
-
-        <a class="btn d-flex flex-column gap-3" [routerLink]="['/newgroup']">
-            <span class="fa-solid fa-magnifying-glass icon"></span>
-            <span>Añadir grupo</span>
-        </a>
     </div>
+</div>
+
+<div class="mb-3 row align-items-center justify-content-end">
+  <div class="col-lg-7">
+      <hr class="custom-hr">
+  </div>
+  <div class="col-auto">
+      <a class="btn change-color-on-hover" [routerLink]="['/newgroup']"><strong>AÑADIR AL GRUPO</strong></a>
+  </div>
+  <div class="col-auto">
+      <a class="btn" [routerLink]="['/newgroup']" class="rotate-on-hover">
+          <img src="assets\icons\añadir_usuario.png" alt="Añadir grupo">
+      </a>
+  </div>
 </div>
