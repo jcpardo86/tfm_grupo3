@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { lastValueFrom } from 'rxjs';
+import { Observable, lastValueFrom } from 'rxjs';
 import { IUser } from '../interfaces/iuser.interface';
 
 type LoginBody = {
@@ -38,5 +38,10 @@ export class UsersService {
   getUserByEmail(email: string): Promise<IUser> {
     return lastValueFrom(this.httpClient.get<IUser>(`${this.baseUrl}/email/${email}`));
   };
+
+  getUsersByGrupo(idGroup: number): Observable<any>{
+    console.log('service',idGroup);
+    return this.httpClient.get<IUser[]>(`${this.baseUrl}/groups/Allusers/${idGroup}`);
+  }
   
 }
