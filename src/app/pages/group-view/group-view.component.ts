@@ -25,14 +25,14 @@ export class GroupViewComponent {
   groupService = inject(GroupsService);
   userService = inject(UsersService);
   spentService = inject(SpentsService);
-  
+
 
   group: IGroup  = {
     idGrupo: 0,
     nombre: "",
     descripcion: "",
     imagen: ""
-  }; 
+  };
 
   users!: IUser[];
 
@@ -68,5 +68,7 @@ export class GroupViewComponent {
       }
     })
   };
+
+
 
 }

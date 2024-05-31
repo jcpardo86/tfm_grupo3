@@ -38,38 +38,48 @@ export class GroupCardComponent {
 
     try {
       const response = await this.groupService.getGroupById(this.myGroup.idGrupo);
-      if(response!=undefined) {
+      if (response != undefined) {
         this.group = response;
       } else {
         console.log('No se pueden obtener los datos del grupo')
       }
 
-    } catch(err) {
-        this.router.navigate(['/error']);
+    } catch (err) {
+      this.router.navigate(['/error']);
     }
 
     try {
       const response = await this.groupService.getUsersByGroup(this.myGroup.idGrupo);
-      if(response!=undefined) {
+      if (response != undefined) {
         this.users = response;
       } else {
         console.log('No se pueden obtener los usuarios del grupo')
       }
 
-    } catch(err) {
-        this.router.navigate(['/error']);
+    } catch (err) {
+      this.router.navigate(['/error']);
     }
 
     try {
       const response = await this.spentService.getTotalSpentByGroup(this.myGroup.idGrupo);
-      if(response!=undefined) {
+      if (response != undefined) {
         this.total = response.total_importe;
       } else {
         console.log('No se pueden obtener el total de gastos del grupo')
       }
 
-    } catch(err) {
-        this.router.navigate(['/error']);
+    } catch (err) {
+      this.router.navigate(['/error']);
+    }
+  }
+
+  // Método para truncar el texto a un número específico de palabras
+  truncateText(text: string, limit: number): string {
+    const words = text.split(' ');
+    if (words.length > limit) {
+      return words.slice(0, limit).join(' ') + '...';
+    } else {
+      return text;
     }
   }
 }

@@ -26,9 +26,6 @@ export class UserViewComponent {
 
     async ngOnInit(): Promise<any> {
 
-
-
-
       /* this.activatedRoute.params.subscribe(async (params:any) =>{
         console.log(params.id)
         const id = params._id;
@@ -43,8 +40,6 @@ export class UserViewComponent {
           this.router.navigate(['/error']);
         }
       }) */
-
-
 
 
       //Cambio para recoger el id de usuario logado desde el localstorage
@@ -63,4 +58,6 @@ export class UserViewComponent {
         }
       }
     }
+
+
 }
