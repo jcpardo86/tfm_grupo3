@@ -7,7 +7,6 @@ strong {
 	color: var(--orange);
 }
 
-
 .bg-orange {
 	background-color: var(--orange);
 	position: relative;
@@ -35,6 +34,7 @@ strong {
 	background-position: center;
 	height: 500px;
 	overflow: visible;
+  padding-top: 80px;
 
 }
 

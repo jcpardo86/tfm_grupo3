@@ -2,6 +2,7 @@
     <app-navbar></app-navbar>
 </header>
 <main>
+  <div style="margin-top: 70px;"></div>
     <section class="container">
         <div class="">
             <img src="assets/images/header_home.jpg" class="group-image rounded" alt="Amigos comiendo pizza">
@@ -15,7 +16,7 @@
 
         <div class="">
             <h3 class="font">Usuarios</h3>
-            <div class="mt-3"> 
+            <div class="mt-3">
                 @for(user of users; track user.idUsuario){
                     <span class="fs-5">{{user.nombre}} {{user.apellidos}} ; </span>
                 }
@@ -23,7 +24,7 @@
         </div>
 
         <section class="mt-5 section">
-        
+
             <div>
                 <div class="bg-secondary-subtle rounded-start-4 ps-4 pe-4 pt-5">
                     <div>
@@ -45,7 +46,7 @@
                         </div>
                     </div>
                 </div>
-            
+
                 <div class ="bg-secondary-subtle rounded-start-4 mt-3 ps-5 pt-3 pb-3 reparto">
                     <div class="deudas">
                         <h2 class="font">Reparto</h2>
