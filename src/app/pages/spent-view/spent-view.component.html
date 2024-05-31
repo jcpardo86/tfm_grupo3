@@ -17,49 +17,42 @@
                 </div>
 			</div>
 			<div class="col-lg-6 col-md-12 col-sm-12">
-        <form [formGroup]="modelForm" (ngSubmit)="getDataForm()">
-                    <h2>{{nombre_grupo}}</h2>
-
-                    <h4>Usuarios</h4>
-                    <label class="form-label">Pepe, María, Rocío y yo</label>
-                    <h3>{{tipo}} gasto</h3>
+        <h3>{{tipo}} GASTO</h3>
+        <form [formGroup]="modelForm" (ngSubmit)="getDataForm()">  
                     <!-- <div class="mb-3">
 						<label class="form-label">TÍTULO</label>
 						<input type="text" class="form-control" id="descripcionGrupo" formControlName="descripcionGrupo">
 					</div> -->
-                    <div class="mb-3">
-						<label class="form-label">DESCRIPCIÓN</label>
-            <input type="text" class="form-control" id="descripcion"  formControlName="descripcion">
-					</div>
-                    <div class="mb-3">
-						<label class="form-label">CANTIDAD TOTAL</label>
-						<input type="text" class="form-control" id="importe"  formControlName="importe">
-					</div>
-                    <div class="container">
-                        <div class="row row-gap-3">
-                          <div class="col-lg-8 mb-3">
-                            <label class="form-label">PAGADOR</label>
-                            <select   class="form-select form-select-md mb-6" id="idUsuario" formControlName="idUsuario" style="width:auto;">
-                                <option value="">Seleccione un usuario</option>
-                              @for(usuario of usuarios; track usuario.nombre){
-                                <option [value]="usuario.idUsuario">{{usuario.nombre}}</option>
-                              }
+            <div class="mb-3">
+						  <label class="form-label">DESCRIPCIÓN</label>
+              <input type="text" class="form-control" id="descripcion"  formControlName="descripcion">
+					  </div>
+            <div class="mb-3">
+						  <label class="form-label">IMPORTE</label>
+						  <input type="text" class="form-control" id="importe"  formControlName="importe">
+					  </div>
+            <div class="container">
+              <div class="row row-gap-3">
+                <div class="col-lg-8 mb-3">
+                  <label class="form-label">PAGADOR</label>
+                  <select   class="form-select form-select-md mb-6" id="idUsuario" formControlName="idUsuario" style="width:auto;">
+                    <option value="">Seleccione un usuario</option>
+                    @for(user of users; track user.idUsuario) {
+                      <option [value]="user.idUsuario">{{user.nombre}}</option>
+                    }
+                  </select>
+                </div>
+              </div>
+            </div>
 
-                              </select>
-                          </div>
-                          <div class="col-lg-4 mb-3">
-                            <label class="form-label">CANTIDAD PAGADA</label>
-                            <input type="text" class="form-control" id="cantidad">
-                          </div>
+            <div class="mb-3">
+						  <label class="form-label">FECHA</label>
+						  <input type="date" class="form-control" id="fecha"  formControlName="fecha">
+					  </div>
 
-                        </div>
-                      </div>
-
-                      <div class="row row-gap-3">
-
-                        <input type="submit"  [disabled]="!modelForm.valid" value="{{boton}}" class="btn btn-success btn-lg btn_personal rounded-5">
-
-                      </div>
+            <div class="row row-gap-3">
+              <input type="submit"  [disabled]="!modelForm.valid" value="{{boton}}" class="btn btn-success btn-lg btn_personal rounded-5">
+            </div>
 
 
 				</form>
