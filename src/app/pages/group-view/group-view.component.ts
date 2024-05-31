@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { GroupsService } from '../../services/groups.service';
 import { IGroup } from '../../interfaces/igroup.interface';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { UsersService } from '../../services/users.service';
 import { IUser } from '../../interfaces/iuser.interface';
 import { SpentsService } from '../../services/spents.service';
@@ -14,7 +14,7 @@ import { ChatComponent } from '../../components/chat/chat.component';
 @Component({
   selector: 'app-group-view',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, SpentCardComponent, ChatComponent],
+  imports: [NavbarComponent, FooterComponent, SpentCardComponent, ChatComponent, RouterLink],
   templateUrl: './group-view.component.html',
   styleUrl: './group-view.component.css'
 })
@@ -56,10 +56,10 @@ export class GroupViewComponent {
         if(response_1!=undefined && response_2!=undefined && response_3!=undefined && response_4!=undefined && response_5!=undefined) {
           this.group = response_1;
           this.users = response_2;
-          this.spents = response_3;
+          this.spents = response_3.sort((a,b) => a.idGasto-b.idGasto);
           this.totalSpent = response_4.total_importe;
           this.deudas = response_5;
-          console.log('Estoy aquí', response_5);
+          console.log('Estoy aquí', response_3);
       } else {
         console.log('No existen todos los datos del grupo')
       }

@@ -40,7 +40,7 @@
                         <span class="fs-2 importe">{{totalSpent}} €</span>
                         <span class="fs-6 gasto">AÑADIR GASTO</span>
                         <div class="iconmas-container">
-                            <a href="">
+                            <a [routerLink]="['/newspent', group.idGrupo]">
                                 <img src="assets/icons/icon_mas.png" class="icon-mas" alt="Icono añadir">
                             </a>
                         </div>

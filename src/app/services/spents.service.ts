@@ -30,10 +30,10 @@ export class SpentsService {
   };
   spentById(idGasto: number): Promise<ISpent>{
 
-    return lastValueFrom(this.httpClient.get<ISpent>(`${this.baseUrl}/spents/spent/${idGasto}`));
+    return lastValueFrom(this.httpClient.get<ISpent>(`${this.baseUrl}/spent/${idGasto}`));
   }
   updateSpent(spent: ISpent): Promise<any> {
-    return lastValueFrom(this.httpClient.put<ISpent>(`${this.baseUrl}/spents/${spent.idGasto}`, spent));
+    return lastValueFrom(this.httpClient.put<ISpent>(`${this.baseUrl}/${spent.idGasto}`, spent));
   };
 
 
