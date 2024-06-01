@@ -8,6 +8,7 @@ import { IGroup } from '../../interfaces/igroup.interface';
 import { GroupsService } from '../../services/groups.service';
 import { IGroupUser } from '../../interfaces/igroup-user.interface';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-form-group',
@@ -221,7 +222,7 @@ export class FormGroupComponent {
           };
           this.groupService.insertUserToGroup(newGroupUser);
         });
-        alert(`Grupo ${response.nombre} creado correctamente.`);
+        Swal.fire(`El grupo "${response.nombre}" ha sido creado correctamente`);
         this.router.navigate([`/group/${response.idGrupo}`]);
       }
     } else {

@@ -62,7 +62,7 @@ export class GroupsService {
     return lastValueFrom(this.httpClient.delete<IGroupUser>(`${this.baseUrl}/deleteGroupUsers/${idGroup}`));
   };
 
-  deleteGroup(idGroup: number): Promise<any>{
+  deleteGroup(idGroup: number | undefined): Promise<any>{
     return lastValueFrom(this.httpClient.delete<IGroupUser>(`${this.baseUrl}/${idGroup}`));
   };
 

@@ -6,6 +6,7 @@ import { SpentsService } from '../../services/spents.service';
 import { IUser } from '../../interfaces/iuser.interface';
 import { GroupsService } from '../../services/groups.service';
 import dayjs from 'dayjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-spent-view',
@@ -72,9 +73,8 @@ export class SpentViewComponent {
     if(this.modelForm.value.idGasto) {
     
       try {
-        console.log(this.modelForm.value);
         const response = await this.spentService.updateSpent(this.modelForm.value);
-        console.log('gasto actualizado', response);
+        Swal.fire(`El gasto ha sido actualizado correctamente}"`);
         this.router.navigate([`/group/${response.idGrupo}`]);
 
       } catch(error) {
@@ -85,9 +85,9 @@ export class SpentViewComponent {
       this.modelForm.value.idGrupo = this.id_group;
 
       try {
+
       const response = await this.spentService.insertSpent(this.modelForm.value);
-      console.log(this.modelForm.value);
-      console.log('nuevo gasto insertado', response);
+      Swal.fire(`El gasto ha sido añadido al grupo correctamente`);
       this.router.navigate([`/group/${this.id_group}`]);
 
       } catch(error) {
@@ -102,7 +102,6 @@ export class SpentViewComponent {
     this.activatedRouter.params.subscribe(async (params:any) => {
       
       if(params.id_spent) {
-        console.log('Estoy aquí', params.id_spent)
         this.tipo = 'ACTUALIZAR'
         this.boton = 'Actualizar'
 
@@ -146,3 +145,5 @@ export class SpentViewComponent {
   }
 
 }
+
+
