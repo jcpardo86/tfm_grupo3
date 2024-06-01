@@ -50,11 +50,11 @@
                 <div class ="bg-secondary-subtle rounded-start-4 mt-3 ps-5 pt-3 pb-3 reparto">
                     <div class="deudas">
                         <h2 class="font">Reparto</h2>
-                        <p class="pt-4">Pepe debe a María la cantidad de...</p>
-                        <p>Pepe debe a María la cantidad de... </p>
-                        <p>Pepe debe a María  la cantidad de...</p>
+                        @for(deuda of deudas; track deuda.id_deuda) {
+                            <p class="pt-4">{{deuda.deuda}}</p>
+                        }
                     </div>
-                    <button class="pt-2 pb-2 me-5 mb-3 rounded-5 btn-liquidar">LIQUIDAR GRUPO</button>
+                    <button class="pt-2 pb-2 me-5 mb-3 rounded-5 btn-liquidar" (click) = "onClickLiquidar()">LIQUIDAR GASTOS</button>
                 </div>
             </div>
 
