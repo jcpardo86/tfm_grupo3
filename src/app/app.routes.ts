@@ -4,6 +4,7 @@ import { FormGroupComponent } from './pages/form-group/form-group.component';
 import { GroupViewComponent } from './pages/group-view/group-view.component';
 import { UserViewComponent } from './pages/user-view/user-view.component';
 import { NewuserComponent } from './pages/newuser/newuser.component';
+import { authGuard } from './auth/guardAuth.guard';
 
 export const routes: Routes = [
 
@@ -16,10 +17,10 @@ export const routes: Routes = [
 
 	{ path: "", redirectTo: "home", pathMatch: "full" },
 	{ path: "home", component: HomeComponent },
-	{ path: "newgroup", component:  FormGroupComponent},
-	{ path: "updategroup/:id", component: FormGroupComponent },
-	{ path: "user", component: UserViewComponent },
-	{ path: "group/:_id", component: GroupViewComponent },
-  { path: "newuser", component: NewuserComponent },
-  { path: "updateuser/:_id", component: NewuserComponent}
+	{ path: "newgroup", component:  FormGroupComponent, canActivate:[authGuard] },
+	{ path: "updategroup/:id", component: FormGroupComponent, canActivate:[authGuard]},
+	{ path: "user", component: UserViewComponent, canActivate:[authGuard] },
+	{ path: "group/:_id", component: GroupViewComponent, canActivate:[authGuard] },
+  	{ path: "newuser", component: NewuserComponent },
+  	{ path: "updateuser/:_id", component: NewuserComponent, canActivate:[authGuard]}
 ];
