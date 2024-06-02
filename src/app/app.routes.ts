@@ -5,6 +5,7 @@ import { GroupViewComponent } from './pages/group-view/group-view.component';
 import { UserViewComponent } from './pages/user-view/user-view.component';
 import { NewuserComponent } from './pages/newuser/newuser.component';
 import { authGuard } from './auth/guardAuth.guard';
+import { SpentViewComponent } from './pages/spent-view/spent-view.component';
 
 export const routes: Routes = [
 
@@ -22,5 +23,7 @@ export const routes: Routes = [
 	{ path: "user", component: UserViewComponent, canActivate:[authGuard] },
 	{ path: "group/:_id", component: GroupViewComponent, canActivate:[authGuard] },
   	{ path: "newuser", component: NewuserComponent },
+	{ path: "newspent/:id_group", component: SpentViewComponent, canActivate: [authGuard]},
+	{ path: "updatespent/:id_spent", component: SpentViewComponent, canActivate: [authGuard]},
   	{ path: "updateuser/:_id", component: NewuserComponent, canActivate:[authGuard]}
 ];
