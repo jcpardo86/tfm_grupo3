@@ -31,12 +31,8 @@ export class SpentCardComponent {
 
 	async ngOnInit(): Promise<any> {
 
-
-		console.log('Spent-card', this.mySpent)
-
 		const date = dayjs(this.mySpent.fecha).format("YYYY-MM-DD");
 		this.mySpent.fecha = date;
-		console.log (date);
 
 		try {
 			const response = await this.userService.getUserById(this.mySpent.idUsuario);

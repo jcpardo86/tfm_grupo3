@@ -1,20 +1,30 @@
 <h2 class="font">Chat</h2>
-<div class="mt-4 mb-5">
-    <div class="mb-3" *ngFor="let a of myMessages">
-        <span>{{a.idUsuario}}</span>
-        <span>{{a.texto}}</span>
-        <span>{{a.fecha_hora}}</span>
-  
-    </div>
-</div>
-    
-<div>
-    <form action="" class="form-chat" novalidate="true" #chatFormulario="ngForm" (ngSubmit)="getDataForm(chatFormulario)"> <!--novalidate es para que no salten las validaciones que trae por defecto el navegador-->
-        <div>
-            <input type="text" class="form-control input-mensaje" placeholder="Escribe un mensaje..." name="input" ngModel>
+<div class="mt-4 mb-5 chat">
+    <ul class="mb-3">
+        @for(message of previousMessages; track message.idMensaje) {
+            <div class="container">
+                <p>{{message.idUsuario}}</p>
+                <div class="bg-info">
+                    <p>{{message.texto}}</p>
+                </div>
+            </div>
+        }
+        @for(message of newMessages; track message.idMensaje) {
+            <div class="container">
+                <p>{{message.idUsuario}}</p>
+                <div class="bg-info">
+                    <p>{{message.texto}}</p>
+                </div>
+            </div>
+        }
+    </ul>
+    <form [formGroup]="formChat" (ngSubmit)="getDataForm()">
+     <!--novalidate es para que no salten las validaciones que trae por defecto el navegador-->
+        <div class="container-newmsg">
+            <input type="text" class="form-control input-mensaje" placeholder="Escribe un mensaje..." formControlName="message" >
+            <input type="image" value="" src="../../../assets/icons/icon_enviar.png" class="input-enviar me-3">
         </div>
         <!--En los formularios se deben usar input de tipo submit en vez de button-->
-        <input type="image" value="" src="../../../assets/icons/icon_enviar.png" class="input-enviar me-3">
     </form>
 </div>
 

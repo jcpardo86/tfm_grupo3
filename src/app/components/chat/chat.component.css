@@ -1,3 +1,8 @@
+.chat{
+    display: flex;
+    flex-direction: column;
+}
+
 .font{
     color: var(--orange);
 }
@@ -10,9 +15,16 @@
 }
 
 .input-mensaje{
-    width: 150%
+    width: 80%
 }
 
 .input-enviar{
     width: 8%;
+}
+
+.container-newmsg{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
 }
