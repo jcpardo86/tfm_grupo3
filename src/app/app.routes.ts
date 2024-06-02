@@ -18,7 +18,7 @@ export const routes: Routes = [
 	{ path: "home", component: HomeComponent },
 	{ path: "newgroup", component:  FormGroupComponent},
 	{ path: "updategroup/:id", component: FormGroupComponent },
-	{ path: "user/:_id", component: UserViewComponent },
+	{ path: "user", component: UserViewComponent },
 	{ path: "group/:_id", component: GroupViewComponent },
   { path: "newuser", component: NewuserComponent },
   { path: "updateuser/:_id", component: NewuserComponent}
