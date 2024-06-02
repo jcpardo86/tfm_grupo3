@@ -140,8 +140,10 @@ export class SpentViewComponent {
   }
 
   async datosSelect(idGrupo: number | undefined) {
+    console.log('Estoy aquí', idGrupo);
     const response = await this.groupService.getUsersByGroup(idGrupo);
     this.users = response;
+    console.log(this.users);
   }
 
 }
