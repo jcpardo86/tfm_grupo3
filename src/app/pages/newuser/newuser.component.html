@@ -14,96 +14,85 @@
   </div>
 </header>
 
+<section class="container d-flex">
+  <div class="col-lg-7 row-gap-3 gap-3 justify-content-center mb-3">
 
-<section class="container mt-3">
-  <div class="row align-items-center">
-    <!-- Columna del formulario -->
-    <div class="col-md-7">
-      <div class="custom-section-width">
-        <h3 class="h3 mt-3 text-orange text-center mb-4">Crea tu usuario</h3>
-        <form [formGroup]="modelForm" class="card p-3" (ngSubmit)="getDataForm()">
-          <div class="my-2">
-            <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" placeholder="Introduce tu nombre" id="nombre"
-              formControlName="nombre">
-            @if(checkControl('nombre', 'required')){
-            <p class="error">Campo requerido</p>
-            }
-            @if(checkControl('nombre', 'minlength')){
-            <p class="error">El campo tiene que tener mínimo 3 caracteres</p>
-            }
-          </div>
+    <h3 class="h3 mt-3 text-orange">Crea tu usuario</h3>
 
-          <div class="my-2">
-            <label for="apellidos" class="form-label">Apellidos</label>
-            <input type="text" class="form-control" placeholder="Introduce tus apellidos" id="apellidos"
-              formControlName="apellidos">
-            @if(checkControl('apellidos', 'required')){
-            <p class="error">Campo requerido</p>
-            }
-            @if(checkControl('apellidos', 'minlength')){
-            <p class="error">El campo tiene que tener mínimo 3 caracteres</p>
-            }
-          </div>
+    <form [formGroup]="modelForm" class="card p-3 border-0" (ngSubmit)="onClickGuardarBD()">
 
-          <div class="my-2">
-            <label for="email" class="form-label">Email</label>
-            <input type="text" class="form-control" placeholder="Introduce un email" id="email" formControlName="email">
-            @if(checkControl('email', 'required')){
-            <p class="error">Este campo es obligatorio</p>
-            }
-            @if(checkControl('email', 'pattern')){
-            <p class="error">El texto introducido no es un email</p>
-            }
-          </div>
-
-          <div class="my-2">
-            <label for="repiteemail" class="form-label">Repita su email</label>
-            <input type="text" class="form-control" placeholder="Introduce un email" id="repiteemail"
-              formControlName="repiteemail">
-            @if(checkControl('repiteemail', 'required')){
-            <p class="error">Este campo es obligatorio</p>
-            }
-            @if(checkControl('repiteemail', 'pattern')){
-            <p class="error">El texto introducido no es un email</p>
-            }
-            @if(modelForm.hasError('checkemail')){
-            <p class="error">Los emails no coinciden</p>
-            }
-          </div>
-
-          <div class="my-2">
-            <label for="password" class="form-label">Contraseña:</label>
-            <input type="password" class="form-control" placeholder="Introduce tu contraseña" id="password"
-              formControlName="password">
-          </div>
-
-          <div class="my-2">
-            <label for="repitepass" class="form-label">Repita su contraseña:</label>
-            <input type="password" class="form-control" placeholder="Vuelve a introducir tu contraseña" id="repitepass"
-              formControlName="repitepass">
-          </div>
-
-          @if(modelForm.hasError('checkpassword')){
-          <p class="error">Las contraseñas no coinciden</p>
+      <div class="my-2">
+        <label for="nombre" class="form-label">Nombre: </label>
+        <input type="text" class="form-control" placeholder="Introduce tu nombre" id="nombre" formControlName="nombre">
+          @if(checkControl('nombre', 'required')){
+              <p class="error">Campo requerido</p>
           }
-
-          <!-- Opción de subir imagen -->
-
-          <div class="my-1 justify-content-between d-flex mt-5">
-            <a class="btn btn-primary btn-lg btn_personal rounded-5" [routerLink]="['/home']">VOLVER</a>
-            <button type="submit" class="btn btn-primary btn-lg btn_personal rounded-5">GUARDAR</button>
-          </div>
-        </form>
+          @if(checkControl('nombre', 'minlength') ){
+            <p class="error">El campo tiene que tener mínimo 3 caracteres</p>
+          }
       </div>
-    </div>
-    <div class="col-md-5">
-      <div class="custom-section-width">
-        <div class="my-2 text-end">
-          <label for="imagen" class="form-label">Subir imagen:</label>
-          <input type="file" class="form-control-file" id="imagen" name="imagen">
-        </div>
+      <div class="my-2">
+        <label for="apellidos" class="form-label">Apellidos: </label>
+        <input type="text" class="form-control" placeholder="Introduce tus apellidos" id="apellidos" formControlName="apellidos">
+        @if(checkControl('apellidos', 'required')){
+          <p class="error">Campo requerido</p>
+        }
+        @if(checkControl('apellidos', 'minlength') ){
+          <p class="error">El campo tiene que tener mínimo 3 caracteres</p>
+        }
       </div>
-    </div>
+
+      <div class="my-2">
+        <label for="email" class="form-label">Email: </label>
+        <input type="text" class="form-control" placeholder="Introduce un email" id="email" formControlName="email">
+        @if(checkControl('email', 'required')){
+          <p class="error">Este campo es obligatorio</p>
+        }
+        @if(checkControl('email', 'pattern')){
+          <p class="error">El texto introducido no es un email</p>
+        }
+      </div>
+
+      <div class="my-2">
+        <label for="repiteemail" class="form-label">Repita su email: </label>
+        <input type="text" class="form-control" placeholder="Introduce un email" id="repiteemail" formControlName="repiteemail">
+        @if(checkControl('repiteemail', 'required')){
+          <p class="error">Este campo es obligatorio</p>
+        }
+        @if(checkControl('repiteemail', 'pattern')){
+          <p class="error">El texto introducido no es un email</p>
+        }
+        @if(modelForm.hasError('checkemail')){
+          <p class="error">Los emails no coinciden</p>
+        }
+      </div>
+
+      <div class="my-2">
+        <label for="password" class="form-label">Contraseña:</label>
+        <input type="password" class="form-control" placeholder="Introduce tu contraseña" id="password" formControlName="password">
+        @if(checkControl('password', 'required')){
+          <p class="error">Este campo es obligatorio</p>
+        }
+        @if(checkControl('password', 'minlength')){
+          <p class="error">La contraseña tiene que tener mínimo 6 caracteres</p>
+        }
+      </div>
+
+      <div class="my-2">
+        <label for="repitepass" class="form-label">Repita su contraseña:</label>
+        <input type="password" class="form-control" placeholder="Vuelve a introducir tu contraseña" id="repitepass" formControlName="repitepass">
+        @if(modelForm.hasError('checkpassword')){
+          <p class="error">Las contraseñas no coinciden</p>
+        }
+
+      </div>
+
+      <div class="my-1 justify-content-between d-flex">
+        <a class="btn btn-primary btn-lg btn_personal rounded-5" [routerLink]="['/home']">VOLVER</a>
+        <button type="button" class="btn btn-secondary btn-lg btn_personal rounded-5" (click)="onClickResetForm()">RESET</button>
+        <button type="submit" class="btn btn-primary btn-lg btn_personal rounded-5">GUARDAR</button>
+      </div>
+
+    </form>
   </div>
-</section>
+   </section>

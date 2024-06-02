@@ -68,6 +68,11 @@ strong {
   width: 75px;
 }
 
+.error{
+  color: red;
+  font-size: small;
+
+}
 /*-----------------------media queries tablet ---------------------------*/
 
 @media (max-width: 768px) {

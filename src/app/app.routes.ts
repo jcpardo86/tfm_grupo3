@@ -3,10 +3,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { FormGroupComponent } from './pages/form-group/form-group.component';
 import { GroupViewComponent } from './pages/group-view/group-view.component';
 import { UserViewComponent } from './pages/user-view/user-view.component';
-import { authGuard } from './auth/guardAuth.guard';
-import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { NewuserComponent } from './pages/newuser/newuser.component';
-import { SpentViewComponent } from './pages/spent-view/spent-view.component';
 
 export const routes: Routes = [
 
@@ -19,15 +16,10 @@ export const routes: Routes = [
 
 	{ path: "", redirectTo: "home", pathMatch: "full" },
 	{ path: "home", component: HomeComponent },
-	{ path: "newuser", component: NewuserComponent },
-	{ path: "group/:_id", component: GroupViewComponent, canActivate: [authGuard] },
-	//A user le he quitado el /:_id
-  	{ path: "user", component: UserViewComponent, canActivate: [authGuard] },
-	{ path: "updategroup/:id", component: FormGroupComponent, canActivate: [authGuard] },
-	{ path: "newgroup", component: FormGroupComponent, canActivate: [authGuard] },
-	{ path: "updatespent/:id_spent", component: SpentViewComponent, canActivate: [authGuard] },
-	{ path: "newspent/:id_group", component: SpentViewComponent, canActivate: [authGuard]},
-	
-
-	{ path: "**", component: PageNotFoundComponent }
+	{ path: "newgroup", component:  FormGroupComponent},
+	{ path: "updategroup/:id", component: FormGroupComponent },
+	{ path: "user/:_id", component: UserViewComponent },
+	{ path: "group/:_id", component: GroupViewComponent },
+  { path: "newuser", component: NewuserComponent },
+  { path: "updateuser/:_id", component: NewuserComponent}
 ];
