@@ -3,7 +3,7 @@ import { FooterComponent } from '../../components/footer/footer.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { LoginComponent } from '../../components/login/login.component';
 import { RouterLink } from '@angular/router';
-import { ResetPasswordComponent } from '../../components/reset-password/reset-password.component';
+import { ResetPasswordComponent } from '../../components/reset-password-form/reset-password.component';
 
 @Component({
 	selector: 'app-home',

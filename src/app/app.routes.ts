@@ -7,8 +7,8 @@ import { NewuserComponent } from './pages/newuser/newuser.component';
 import { authGuard } from './auth/guardAuth.guard';
 import { SpentViewComponent } from './pages/spent-view/spent-view.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-import { ResetComponent } from './pages/reset/reset.component';
+import { ResetPasswordComponent } from './components/reset-password-form/reset-password.component';
+import { ResetComponent } from './pages/reset-password/reset.component';
 
 export const routes: Routes = [
 
