@@ -1,19 +1,25 @@
-<div class="card shadow text-center">  
-    <div class="card-body">
-        <h6 class="card-title">Grupo: {{myGroup.idGrupo}}</h6>
-            <p>Descripción: {{group.descripcion}}</p>
-            <ul>Usuarios: 
-            @for(user of users; track user.idUsuario){
-                    <li>{{user.nombre}}</li>
-            }
-            </ul>
-            <p>Total: {{total}} €</p>
-            
-        <a class="btn d-flex flex-column gap-3" [routerLink]="['/group', myGroup.idGrupo]">
-            <span class="fa-solid fa-magnifying-glass icon"></span>
-            <span>Ir al grupo</span>
-        </a>
-    <div>
-</div> 
 
-
+<div class="card shadow text-center rounded-lg">
+  <div class="bg-grey card-body rounded-top-lg">
+    <!-- Truncar el título a, por ejemplo, 5 palabras -->
+    <h3 class="card-title text-orange">Grupo: {{ truncateText(myGroup.idGrupo.toString(), 5) }}</h3>
+    <!-- Truncar la descripción a, por ejemplo, 20 palabras -->
+    <p class="p-2 rounded">Descripción: {{ truncateText(group.descripcion.toString(), 3) }}</p>
+    <h6 class="text-orange">Usuarios:</h6>
+    <ul class="p-2 rounded list-unstyled">
+      @for(user of users; track user.idUsuario){
+        <span>{{ user.nombre }}</span>
+        <span> - </span>
+      }
+    </ul>
+  </div>
+  <div class="bg-white full-width rounded-bottom-lg">
+    <div class="p-2 mx-4 rounded d-flex justify-content-between align-items-center">
+      <p class="m-0">Total:</p>
+      <h2 class="m-0 text-bold">{{ total }}€</h2>
+    </div>
+    <div class="text-center mt-3 mb-3">
+      <a class="btn btn-orange text-white rounded-pill" [routerLink]="['/group', myGroup.idGrupo]">Ir al grupo</a>
+    </div>
+  </div>
+</div>

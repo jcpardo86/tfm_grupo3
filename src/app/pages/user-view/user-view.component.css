@@ -1,0 +1,104 @@
+a {
+	color: black;
+}
+
+a:hover {
+	color: var(--orange);
+}
+
+input {
+	border: none;
+	background-color: var(--grey);
+}
+
+strong {
+	color: var(--orange);
+}
+
+
+.bg-orange {
+	background-color: var(--orange);
+	position: relative;
+	left: -75px;
+	top: 0px;
+	transform: rotate(-2.50deg);
+}
+
+.btn_personal {
+	padding: 0.7rem 2rem;
+	background-color: var(--orange);
+	color: white;
+	border: none;
+}
+
+.btn_personal:hover {
+	background-color: var(--light_orange);
+}
+
+.container_header {
+	background-image: url('../../../assets/images/header_grupos copia.jpg');
+	width: 100% !important;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	height: 500px;
+	overflow: visible;
+
+}
+
+.home_card {
+	background-color: var(--grey);
+}
+
+.home_card img {
+	padding-top: 2rem;
+	align-self: center;
+	width: 20%;
+
+}
+
+.logo {
+	width: 75px;
+}
+
+.rotate-on-hover:hover img {
+  transition: transform 0.3s ease;
+  transform: rotate(45deg); /* Ajusta el ángulo de rotación según tu preferencia */
+}
+.change-color-on-hover:hover strong {
+  color: black;
+}
+/*-----------------------media queries tablet ---------------------------*/
+
+@media (max-width: 768px) {
+	.bg-orange {
+		background-color: var(--orange);
+		position: relative;
+		left: -35px;
+		top: 0px;
+		transform: rotate(-2.50deg);
+	}
+
+	.logo {
+		width: 50px;
+	}
+}
+
+/*-----------------------media queries móvil ---------------------------*/
+
+@media (max-width: 576px) {
+
+	.bg-orange {
+		background-color: var(--orange);
+		position: relative;
+		left: -30px;
+		top: 70px;
+		transform: rotate(-2.50deg);
+	}
+
+
+	.logo {
+		width: 40px;
+	}
+
+}

@@ -1,28 +1,32 @@
-<nav class="navbar navbar-expand-md ">
-	<div class="container">
-		<a class="navbar-brand" href="">
-			<img src="assets/images/logo_divi.png" alt="Logo Divi" width="30px">
-		</a>
-		<button class="navbar-toggler navbar-btn" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
-			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
+<nav class="navbar navbar-expand-md navbar-fixed">
+  <div class="container">
+      <a class="navbar-brand" href="">
+          <img src="assets/images/logo_divi.png" alt="Logo Divi" width="30px">
+      </a>
+      <button class="navbar-toggler navbar-btn" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
 
-		<!-- elementos del menu colapse -->
-		<div class="collapse navbar-collapse" id="menu">
-			<ul class="navbar-nav ms-auto">
-				<li class="nav-item">
-					<a class="nav-link active" href="">GRUPOS</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link active" href="">USUARIO</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link active" href="">CERRAR SESIÓN</a>
-				</li>
-			</ul>
-
-		</div>
-
-	</div>
+      <!-- elementos del menu colapse -->
+      <div class="collapse navbar-collapse" id="menu">
+          <ul class="navbar-nav ms-auto">
+              @if (isUserLoged()) {
+                  <li class="nav-item">
+                      <a class="nav-link active" href="/user">GRUPOS</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link active" href="/newuser">USUARIO</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link active" (click)="closeSession()">CERRAR SESIÓN</a>
+                  </li>
+              } @else {
+                  <li class="nav-item">
+                      <a class="nav-link active" href="">INICIAR SESIÓN</a>
+                  </li>
+              }
+          </ul>
+      </div>
+  </div>
 </nav>

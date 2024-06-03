@@ -42,7 +42,7 @@ strong {
 }
 
 .container_header {
-  background-image: url('../../../assets/images/header_home.jpg');
+  background-image: url('../../../assets/images/header_usuario.jpg');
   width: 100% !important;
   background-size: cover;
   background-repeat: no-repeat;
@@ -51,6 +51,7 @@ strong {
   overflow: visible;
 
 }
+
 
 .home_card {
   background-color: var(--grey);
@@ -67,6 +68,11 @@ strong {
   width: 75px;
 }
 
+.error{
+  color: red;
+  font-size: small;
+
+}
 /*-----------------------media queries tablet ---------------------------*/
 
 @media (max-width: 768px) {

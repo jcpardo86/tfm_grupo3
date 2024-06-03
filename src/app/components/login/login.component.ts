@@ -2,6 +2,8 @@ import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { UsersService } from '../../services/users.service';
+import { NavbarComponent } from '../navbar/navbar.component';
+import Swal from 'sweetalert2';
 
 @Component({
 	selector: 'app-login',
@@ -39,9 +41,17 @@ export class LoginComponent {
 
 			localStorage.setItem('token', response.token!);
 			localStorage.setItem('idUserLogueado', response.id_user);
-			this.router.navigate([`/user/${response.id_user}`]);
+			this.router.navigate([`/user`]);
+			//LE HE QUITADO EL ID PARA QUE RECOJA EL TOKEN DEL USUARIO REGISTRADO
+			/*this.router.navigate([`/user/${response.id_user}`]);*/
 		} catch (error: any) {
-			alert("Email de usuario o contraseña incorrectos")
+			Swal.fire({
+				icon: 'error',
+				title: 'Error',
+				text: 'Usuario o contraseña incorrectos',
+			})
+
+
 			console.log(error.error.error);
 		}
 	}

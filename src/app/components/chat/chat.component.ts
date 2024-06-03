@@ -1,56 +1,75 @@
 import { Component, inject } from '@angular/core';
 
-import { ChatService } from '../../services/chat.service';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NgFor } from '@angular/common';
+
+import { io } from 'socket.io-client';
+import { MessagesService } from '../../services/messages.service';
+import { IMessage } from '../../interfaces/imessage.interface';
 
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [FormsModule, NgFor],
+  imports: [ReactiveFormsModule, NgFor],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css'
 })
 export class ChatComponent {
 
-  userChat = {
-    idUsuario: 2,
+  
+
+  socket = io('http://localhost:3000');
+
+  msg = {
+    idMensaje: 0,
+    idUsuario: 13,
     idGrupo: 2,
     fecha_hora: '2024-05-18 20:14',
     texto: ''
   };
 
-  chatService = inject(ChatService);
-
-  myMessages=[{
-    idUsuario: 0,
+  myMessage = {
+    idUsuario: 13,
     idGrupo: 2,
-    fecha_hora: '',
-    texto: '',
-  }];
+    fecha_hora: '2024-05-18 20:14',
+    texto: ''
+  };
 
-  eventName = "send-message";
+  messageService = inject(MessagesService);
 
+  previousMessages! : Array<IMessage>
+  newMessages : Array<IMessage> = []
 
+  formChat: FormGroup;
 
- ngOnInit(): void {
-
-  
-
-    this.chatService.listen('text-event').subscribe((data : any) => {
-      console.log(data);
-      this.myMessages = data;
-      console.log(this.myMessages);
+  constructor() {
+    this.formChat = new FormGroup({
+      message: new FormControl(),
     })
+  }
+
+ async ngOnInit() {
+
+    try {
+      const result = await this.messageService.getMessagesByGroup(2);
+      this.previousMessages = result;
+    } catch(error) {
+      console.log(error);
+    }
+
+    this.socket.on('chat_message_server', (message) => {
+      console.log(message);
+      this.newMessages.push(message);
+      console.log(this.newMessages);
+    });
  }
 
- getDataForm(chatFormulario: any) {
-  console.log (chatFormulario.value.input);
-  this.userChat.texto = chatFormulario.value.input;
-  this.chatService.emit(this.eventName, this.userChat);
-  chatFormulario.reset(); 
+ getDataForm() {
+  this.msg.texto = this.formChat.value.message;
+  this.socket.emit('chat_message_client', this.msg);
+  this.formChat.reset(); 
  }
-  
+
 }
 
 
