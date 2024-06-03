@@ -7,6 +7,8 @@ import { NewuserComponent } from './pages/newuser/newuser.component';
 import { authGuard } from './auth/guardAuth.guard';
 import { SpentViewComponent } from './pages/spent-view/spent-view.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { ResetComponent } from './pages/reset/reset.component';
 
 export const routes: Routes = [
 
@@ -19,6 +21,7 @@ export const routes: Routes = [
 
 	{ path: "", redirectTo: "home", pathMatch: "full" },
 	{ path: "home", component: HomeComponent },
+	{ path: "resetpassword", component: ResetComponent },
 	{ path: "newgroup", component: FormGroupComponent, canActivate: [authGuard] },
 	{ path: "updategroup/:id", component: FormGroupComponent, canActivate: [authGuard] },
 	{ path: "user", component: UserViewComponent, canActivate: [authGuard] },
