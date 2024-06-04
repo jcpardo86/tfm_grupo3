@@ -33,18 +33,18 @@
 
 .gasto{
     font-weight: 600;
-    width: 30%;
-    text-align: end;
+    width: 50%;
+    text-align: start;
 
 }
 
 .iconmas-container{
-    width: 10%;
+    width: 20%;
     text-align: end;
 }
 
 .icon-mas{
-    width: 80%;
+    width: 100%;
 }
 
 .reparto{
@@ -60,6 +60,10 @@
     background-color: rgba(255, 68, 0, 0.882);
     font-weight: 600;
     width: 30%;
+}
+.btn-liquidar:hover{
+  background-color: var(--light_orange);
+
 }
 
 .chat{

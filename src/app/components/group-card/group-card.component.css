@@ -28,7 +28,7 @@
 }
 
 .btn-orange:hover {
-  background-color: black;
+  background-color: var(--light_orange);
 }
 
 .list-unstyled {
