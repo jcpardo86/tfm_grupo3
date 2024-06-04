@@ -9,7 +9,7 @@ import { ISpent } from '../../interfaces/ispent.interface';
 import { SpentCardComponent } from '../../components/spent-card/spent-card.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { ChatComponent } from '../../components/chat/chat.component'; 
+import { ChatComponent } from '../../components/chat/chat.component';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -45,32 +45,41 @@ export class GroupViewComponent {
 
   router = inject(Router);
 
+
+
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(async (params:any) =>{
       const id = params._id;
-      try{
+      try {
         const response_1 = await this.groupService.getGroupById(id);
         const response_2 = await this.groupService.getUsersByGroup(id);
         const response_3 = await this.spentService.getSpentsByGroup(id);
         const response_4 = await this.spentService.getTotalSpentByGroup(id);
         const response_5 = await this.spentService.getDeudas(id);
-        if(response_1!=undefined && response_2!=undefined && response_3!=undefined && response_4!=undefined && response_5!=undefined) {
+
+        if (response_1 != undefined && response_2 != undefined && response_3 != undefined && response_4 != undefined && response_5 != undefined) {
           this.group = response_1;
           this.users = response_2;
-          this.spents = response_3.sort((a,b) => a.idGasto-b.idGasto);
+          this.spents = response_3.sort((a, b) => a.idGasto - b.idGasto);
           this.totalSpent = response_4.total_importe;
-          
-          for ( let i = 0; i < response_5.length; i++ ) {
-            this.deudas.push({ id_deuda: i, deuda: response_5[i]});
+
+          for (let i = 0; i < response_5.length; i++) {
+            this.deudas.push({ id_deuda: i, deuda: response_5[i] });
           }
-      } else {
-        console.log('No existen todos los datos del grupo')
-      }
-      }catch(err){
+
+          // Verificar si no hay gastos
+          if (this.spents.length === 0) {
+            this.totalSpent = 0;
+            this.deudas.push({ id_deuda: 0, deuda: "" });
+          }
+        } else {
+          console.log('No existen todos los datos del grupo');
+        }
+      } catch (err) {
         this.router.navigate(['/error']);
       }
-    })
-  };
+    });
+  }
 
   onClickLiquidar(): void {
 

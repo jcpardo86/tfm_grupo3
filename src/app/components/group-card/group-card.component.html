@@ -16,7 +16,7 @@
   <div class="bg-white full-width rounded-bottom-lg">
     <div class="p-2 mx-4 rounded d-flex justify-content-between align-items-center">
       <p class="m-0">Total:</p>
-      <h2 class="m-0 text-bold">{{ total }}€</h2>
+      <h2 class="m-0 text-bold">{{ total > 0 ? total + '€' : '0€' }}</h2>
     </div>
     <div class="text-center mt-3 mb-3">
       <a class="btn btn-orange text-white rounded-pill" [routerLink]="['/group', myGroup.idGrupo]">Ir al grupo</a>
