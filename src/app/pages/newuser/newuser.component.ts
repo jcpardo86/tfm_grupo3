@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -10,6 +10,8 @@ import { Router, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import Swal from 'sweetalert2';
+import { UsersService } from '../../services/users.service';
+import { IUser } from '../../interfaces/iuser.interface';
 
 @Component({
   selector: 'app-newuser',
@@ -20,6 +22,14 @@ import Swal from 'sweetalert2';
 })
 export class NewuserComponent {
   modelForm: FormGroup;
+  userService = inject(UsersService);
+  user: IUser = {
+    nombre: '',
+    apellidos: '',
+    email: '',
+    password: '',
+    imagen: '',
+  };
 
   constructor(private http: HttpClient, private router: Router) {
     this.modelForm = new FormGroup(
@@ -48,35 +58,30 @@ export class NewuserComponent {
           Validators.required,
           Validators.minLength(6),
         ]),
+        imagen: new FormControl(null, [Validators.required]),
       },
-      [this.checkPasswords, this.checkEmails]
+      [this.checkpasswords, this.checkemails]
     );
   }
 
   // Verificación de contraseña
-  checkPasswords(group: AbstractControl): any {
+  checkpasswords(group: AbstractControl): any {
     const password = group.get('password')?.value;
     const repitepass = group.get('repitepass')?.value;
-    return password === repitepass ? null : { checkpassword: true };
+    return ((password!==repitepass)? {'checkpasswords': true}: null);  
   }
 
   // Verificación de email
-  checkEmails(group: AbstractControl): any {
+  checkemails(group: AbstractControl): any {
     const email = group.get('email')?.value;
     const repiteemail = group.get('repiteemail')?.value;
-    return email === repiteemail ? null : { checkemail: true };
+    return ((email!==repiteemail)? {'checkemails': true}: null);  
   }
 
   // Inicialización de datos
   ngOnInit(): void {
     // lo pido a BBDD
-    let obj = {
-      id: 1,
-      nombre: 'Nombre',
-      apellidos: 'Apellidos',
-      email: 'jj@gmail.com',
-      password: '12345',
-    };
+ 
   }
 
   // Verificación de campos
@@ -93,59 +98,51 @@ export class NewuserComponent {
   // Verificación de errores de coincidencia
   checkControlPassword(): boolean | undefined {
     return (
-      this.modelForm.hasError('checkpassword') &&
+      this.modelForm.hasError('checkpasswords') &&
       this.modelForm.get('repitepass')?.touched
     );
   }
 
   checkControlEmail(): boolean | undefined {
     return (
-      this.modelForm.hasError('checkemail') &&
+      this.modelForm.hasError('checkemails') &&
       this.modelForm.get('repiteemail')?.touched
     );
   }
 
   // Envío de datos
-  onClickGuardarBD() {
-    if (this.modelForm.valid) {
-      this.http
-        .post('http://localhost:3000/api/users', this.modelForm.value).subscribe(
-          (response) => {
-            // handle successful response
-            console.log('Formulario enviado satisfactoriamente', response);
-            Swal.fire({
-              icon: 'success',
-              title: 'Registro exitoso',
-              text: 'El formulario se ha enviado correctamente',
-            });
-            this.router.navigate(['/home']);
-          },
-          (error) => {
-            console.error('Error en el envío del formulario', error);
-            Swal.fire({
-              icon: 'error',
-              title: 'Error',
-              text: 'Hubo un problema al enviar el formulario',
-            });
-          }
-        );
-    } else {
-      console.log('Error en el formulario');
-      Swal.fire({
-        icon: 'error',
-        title: 'Formulario inválido',
-        text: 'Por favor, corrige los errores en el formulario',
-      });
-    }
-  }
+  async onClickGuardarBD() {
 
- // Resetear el formulario
-  onClickResetForm() {
-    this.modelForm.reset();
-    Object.keys(this.modelForm.controls).forEach(key => {
-      this.modelForm.get(key)?.setErrors(null);
-      this.modelForm.get(key)?.markAsPristine();
-      this.modelForm.get(key)?.markAsUntouched();
-    });
+    console.log(this.modelForm.value);
+    if (this.modelForm.valid) {
+
+      this.user.nombre = this.modelForm.value.nombre;
+      this.user.apellidos = this.modelForm.value.apellidos;
+      this.user.email = this.modelForm.value.email;
+      this.user.password = this.modelForm.value.password;
+      this.user.imagen = this.modelForm.value.imagen;
+
+      try {
+        console.log(this.user);
+        const response = await this.userService.registertUser(this.user);
+        console.log (response);
+        if(response) {
+          console.log('He entrado en el if')
+          Swal.fire({
+            icon: 'success',
+            title: 'Registro correcto',
+            text: 'Bienvenido!. Ya puedes iniciar sesión con tu usuario en DIVI',
+          });
+          this.router.navigate(['/home']);
+        }
+      } catch (error){
+        console.log(error)
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Se ha producido un error en el registro. Por favor, inténtelo de nuevo.',
+        });
+      }
+    }
   }
 }
