@@ -1,0 +1,98 @@
+<app-navbar></app-navbar>
+
+<!-- Espaciador para empujar el contenido hacia abajo -->
+<div style="margin-top: 70px;"></div>
+
+<header class="container container_header rounded-bottom">
+  <div class="row">
+    <div class="col-6 mt-3 ps-3">
+      <!-- <img src="assets/images/logo_divi.png" alt="Logotipo de DIVI" class="logo"> -->
+    </div>
+  </div>
+  <div class="col-xl-5 col-lg-5 col-md-7 col-sm-10" style="margin-top: 200px;">
+    <h1 class="h2 bg-orange text-white mt-5 p-3 ps-5">¡Simplifica tus cuentas compartidas con divi!</h1>
+  </div>
+</header>
+
+<section class="container d-flex">
+  <div class="col-lg-7 row-gap-3 gap-3 justify-content-center mb-3">
+
+    <h3 class="h3 mt-3 text-orange">Crea tu usuario</h3>
+
+    <form [formGroup]="modelForm" class="card p-3 border-0" (ngSubmit)="onClickGuardarBD()">
+
+      <div class="my-2">
+        <label for="nombre" class="form-label">Nombre: </label>
+        <input type="text" class="form-control" placeholder="Introduce tu nombre" id="nombre" formControlName="nombre">
+          @if(checkControl('nombre', 'required')){
+              <p class="error">Campo requerido</p>
+          }
+          @if(checkControl('nombre', 'minlength') ){
+            <p class="error">El campo tiene que tener mínimo 3 caracteres</p>
+          }
+      </div>
+      <div class="my-2">
+        <label for="apellidos" class="form-label">Apellidos: </label>
+        <input type="text" class="form-control" placeholder="Introduce tus apellidos" id="apellidos" formControlName="apellidos">
+        @if(checkControl('apellidos', 'required')){
+          <p class="error">Campo requerido</p>
+        }
+        @if(checkControl('apellidos', 'minlength') ){
+          <p class="error">El campo tiene que tener mínimo 3 caracteres</p>
+        }
+      </div>
+
+      <div class="my-2">
+        <label for="email" class="form-label">Email: </label>
+        <input type="text" class="form-control" placeholder="Introduce un email" id="email" formControlName="email">
+        @if(checkControl('email', 'required')){
+          <p class="error">Este campo es obligatorio</p>
+        }
+        @if(checkControl('email', 'pattern')){
+          <p class="error">El texto introducido no es un email</p>
+        }
+      </div>
+
+      <div class="my-2">
+        <label for="repiteemail" class="form-label">Repita su email: </label>
+        <input type="text" class="form-control" placeholder="Introduce un email" id="repiteemail" formControlName="repiteemail">
+        @if(checkControl('repiteemail', 'required')){
+          <p class="error">Este campo es obligatorio</p>
+        }
+        @if(checkControl('repiteemail', 'pattern')){
+          <p class="error">El texto introducido no es un email</p>
+        }
+        @if(modelForm.hasError('checkemail')){
+          <p class="error">Los emails no coinciden</p>
+        }
+      </div>
+
+      <div class="my-2">
+        <label for="password" class="form-label">Contraseña:</label>
+        <input type="password" class="form-control" placeholder="Introduce tu contraseña" id="password" formControlName="password">
+        @if(checkControl('password', 'required')){
+          <p class="error">Este campo es obligatorio</p>
+        }
+        @if(checkControl('password', 'minlength')){
+          <p class="error">La contraseña tiene que tener mínimo 6 caracteres</p>
+        }
+      </div>
+
+      <div class="my-2">
+        <label for="repitepass" class="form-label">Repita su contraseña:</label>
+        <input type="password" class="form-control" placeholder="Vuelve a introducir tu contraseña" id="repitepass" formControlName="repitepass">
+        @if(modelForm.hasError('checkpassword')){
+          <p class="error">Las contraseñas no coinciden</p>
+        }
+
+      </div>
+
+      <div class="my-1 justify-content-between d-flex">
+        <a class="btn btn-primary btn-lg btn_personal rounded-5" [routerLink]="['/home']">VOLVER</a>
+        <button type="button" class="btn btn-secondary btn-lg btn_personal rounded-5" (click)="onClickResetForm()">RESET</button>
+        <button type="submit" class="btn btn-primary btn-lg btn_personal rounded-5">GUARDAR</button>
+      </div>
+
+    </form>
+  </div>
+   </section>

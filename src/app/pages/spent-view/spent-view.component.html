@@ -1,0 +1,65 @@
+<header></header>
+
+<main>
+  <div style="margin-top: 70px;"></div>
+	<section class="container mt-5">
+		<div class="row row-gap-3">
+			<div class="col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center">
+                <div>
+                    <img src="assets/images/grupo.png" alt="Grupo de amigos compartiendo una pizza" class="img-fluid rounded">
+                    <div class="d-flex justify-content-end align-items-center mt-3">
+                        <p class="me-3 mb-0"><strong>EDITAR FOTO DE GASTO</strong></p>
+                        <a href="#">
+                            <img src="assets\icons\editar_foto.png" alt="Añadir gasto">
+                        </a>
+                    </div>
+
+                </div>
+			</div>
+			<div class="col-lg-6 col-md-12 col-sm-12">
+        <h3>{{tipo}} GASTO</h3>
+        <form [formGroup]="modelForm" (ngSubmit)="getDataForm()">  
+                    <!-- <div class="mb-3">
+						<label class="form-label">TÍTULO</label>
+						<input type="text" class="form-control" id="descripcionGrupo" formControlName="descripcionGrupo">
+					</div> -->
+            <div class="mb-3">
+						  <label class="form-label">DESCRIPCIÓN</label>
+              <input type="text" class="form-control" id="descripcion"  formControlName="descripcion">
+					  </div>
+            <div class="mb-3">
+						  <label class="form-label">IMPORTE</label>
+						  <input type="text" class="form-control" id="importe"  formControlName="importe">
+					  </div>
+            <div class="container">
+              <div class="row row-gap-3">
+                <div class="col-lg-8 mb-3">
+                  <label class="form-label">PAGADOR</label>
+                  <select   class="form-select form-select-md mb-6" id="idUsuario" formControlName="idUsuario" style="width:auto;">
+                    <option value="">Seleccione un usuario</option>
+                    @for(user of users; track user.idUsuario) {
+                      <option [value]="user.idUsuario">{{user.nombre}}</option>
+                    }
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+						  <label class="form-label">FECHA</label>
+						  <input type="date" class="form-control" id="fecha"  formControlName="fecha">
+					  </div>
+
+            <div class="row row-gap-3">
+              <input type="submit"  [disabled]="!modelForm.valid" value="{{boton}}" class="btn btn-success btn-lg btn_personal rounded-5">
+            </div>
+
+
+				</form>
+			</div>
+		</div>
+
+	</section>
+</main>
+
+

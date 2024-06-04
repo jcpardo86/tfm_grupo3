@@ -1,0 +1,30 @@
+.chat{
+    display: flex;
+    flex-direction: column;
+}
+
+.font{
+    color: var(--orange);
+}
+
+.form-chat{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.input-mensaje{
+    width: 80%
+}
+
+.input-enviar{
+    width: 8%;
+}
+
+.container-newmsg{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+}

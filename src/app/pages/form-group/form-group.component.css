@@ -1,10 +1,14 @@
+a {
+	color: black;
+}
+
+a:hover {
+	color: var(--orange);
+}
+
 input {
 	border: none;
 	background-color: var(--grey);
-}
-
-strong {
-	color: var(--orange);
 }
 
 .bg-orange {
@@ -15,42 +19,38 @@ strong {
 	transform: rotate(-2.50deg);
 }
 
+.error {
+	color: tomato;
+}
+
 .btn_personal {
 	padding: 0.7rem 2rem;
 	background-color: var(--orange);
 	color: white;
 	border: none;
+	font-weight: bold;
 }
 
-.btn_personal:hover {
+.btn_borrar {
+	padding: 0.7rem 2rem;
 	background-color: var(--light_orange);
+	color: white;
+	border: none;
+	font-weight: bold;
 }
 
-.container_header {
-	background-image: url('../../../assets/images/header_home.jpg');
-	width: 100% !important;
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center;
-	height: 500px;
-	overflow: visible;
-  padding-top: 80px;
-
+h3{
+	color: var(--orange);
 }
 
-.home_card {
-	background-color: var(--grey);
+.custom-hr {
+    border-top: 5px solid var(--grey); 
+    margin-top: 10px; 
+    margin-bottom: 10px; 
 }
 
-.home_card img {
-	padding-top: 2rem;
-	align-self: center;
-	width: 20%;
-
-}
-
-.logo {
-	width: 75px;
+.p{
+	text-align: center;
 }
 
 /*-----------------------media queries tablet ---------------------------*/

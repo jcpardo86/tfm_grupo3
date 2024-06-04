@@ -1,3 +1,11 @@
+a {
+	color: black;
+}
+
+a:hover {
+	color: var(--orange);
+}
+
 input {
 	border: none;
 	background-color: var(--grey);
@@ -6,6 +14,7 @@ input {
 strong {
 	color: var(--orange);
 }
+
 
 .bg-orange {
 	background-color: var(--orange);
@@ -27,14 +36,13 @@ strong {
 }
 
 .container_header {
-	background-image: url('../../../assets/images/header_home.jpg');
+	background-image: url('../../../assets/images/header_grupos copia.jpg');
 	width: 100% !important;
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
 	height: 500px;
 	overflow: visible;
-  padding-top: 80px;
 
 }
 
@@ -53,6 +61,13 @@ strong {
 	width: 75px;
 }
 
+.rotate-on-hover:hover img {
+  transition: transform 0.3s ease;
+  transform: rotate(45deg); /* Ajusta el ángulo de rotación según tu preferencia */
+}
+.change-color-on-hover:hover strong {
+  color: black;
+}
 /*-----------------------media queries tablet ---------------------------*/
 
 @media (max-width: 768px) {
