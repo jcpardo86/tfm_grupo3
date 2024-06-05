@@ -1,15 +1,32 @@
 .font{
     color: var(--orange);
+    font-weight: 600;
 }
 
 .group-image{
     width: 100%;
 }
 
-.section{
-    /*background-color: blue;*/
-    display:flex;
+.container-ppal{
+    display: flex;
+    flex-direction: column;       
+}
+
+.container-second{
+    display: flex;
     justify-content: space-between;
+
+}
+
+.container-spents_and_total{
+    background-color: #EAEAEA;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.container-spents{
+    margin: 0px;
 }
 
 .container-total{
@@ -18,55 +35,32 @@
     align-items: center;
 }
 
-.totaltext{
-    width: 20%;
-    text-align: start;
-    font-weight: 600;
-
-}
-
-.importe{
-    width: 40%;
-    text-align: start;
+.total{
     font-weight: 600;
 }
 
 .gasto{
     font-weight: 600;
-    width: 50%;
     text-align: start;
-
-}
-
-.iconmas-container{
-    width: 20%;
-    text-align: end;
 }
 
 .icon-mas{
-    width: 100%;
-}
-
-.reparto{
-
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
-}
-
-.btn-liquidar{
-    border: none;
-    color: white;
-    background-color: rgba(255, 68, 0, 0.882);
-    font-weight: 600;
     width: 30%;
 }
-.btn-liquidar:hover{
-  background-color: var(--light_orange);
 
+.container-reparto{
+    background-color: #EAEAEA;
+    display: flex;
+    flex-direction: column;
+}
+
+.deudas{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .chat{
     background-color: rgba(128, 128, 128, 0.052);
-    width: 40%;
+    width: 50%;
 }
