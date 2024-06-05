@@ -22,6 +22,8 @@ import Swal from 'sweetalert2';
 export class GroupViewComponent {
 
   activatedRoute = inject(ActivatedRoute);
+  router = inject(Router);
+
 
   groupService = inject(GroupsService);
   userService = inject(UsersService);
@@ -29,52 +31,50 @@ export class GroupViewComponent {
 
   idGroup!: number;
 
-
   group: IGroup  = {
-    idGrupo: 0,
     nombre: "",
     descripcion: "",
     imagen: ""
   };
 
   users!: IUser[];
-
   spents!: ISpent[];
-
   totalSpent!: number;
-
   deudas: string[] = [];
 
-  router = inject(Router);
-
-
-
+ 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(async (params:any) =>{
       this.idGroup = params._id;
       try {
-        const response_1 = await this.groupService.getGroupById(this.idGroup);
-        const response_2 = await this.groupService.getUsersByGroup(this.idGroup);
-        const response_3 = await this.spentService.getSpentsByGroup(this.idGroup);
-        const response_4 = await this.spentService.getTotalSpentByGroup(this.idGroup);
-        const response_5 = await this.spentService.getDeudas(this.idGroup);
+        this.group = await this.groupService.getGroupById(this.idGroup);
+      } catch(error) {
+        console.log(error);
+      }
 
-        if (response_1 != undefined && response_2 != undefined && response_3 != undefined && response_4 != undefined && response_5 != undefined) {
-          this.group = response_1;
-          this.users = response_2;
-          this.spents = response_3.sort((a, b) => a.idGasto - b.idGasto);
-          this.totalSpent = response_4.total_importe;
-          this.deudas = response_5;
+      try {
+        this.users = await this.groupService.getUsersByGroup(this.idGroup);
+      } catch(error) {
+        console.log(error);
+      }
 
-          // Verificar si no hay gastos
-          if (this.spents.length === 0) {
-            this.totalSpent = 0;
-          }
-        } else {
-          console.log('No existen todos los datos del grupo');
-        }
-      } catch (err) {
-        this.router.navigate(['/error']);
+      try {
+        this.spents = await this.spentService.getSpentsByGroup(this.idGroup);
+      } catch(error) {
+        console.log(error);
+      }
+
+      try {
+        this.totalSpent = await this.spentService.getTotalSpentByGroup(this.idGroup);
+        console.log(this.totalSpent)
+      } catch(error) {
+        console.log(error);
+      }
+
+      try {
+        this.deudas = await this.spentService.getDeudas(this.idGroup);
+      } catch(error) {
+        console.log(error);
       }
     });
   }
