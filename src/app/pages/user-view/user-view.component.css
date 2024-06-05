@@ -46,6 +46,10 @@ strong {
 
 }
 */
+.texto {
+	text-align: justify;
+}
+
 .container_header {
   background-image: url('../../../assets/images/header_grupos_copia1.jpg');
   width: 100% !important;
