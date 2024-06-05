@@ -26,5 +26,27 @@
     display: flex;
     gap: 10px;
     align-items: center;
+}
 
+
+.container-msg{
+    display:flex;
+    flex-direction: column;
+    width: 95%;
+    gap: 10px;
+    border-radius: 7px 7px 7px 0;
+    background-color: lightgray;
+    width: 100%;
+}
+
+.chat-msg{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    width: 95%;
+    gap: 10px;
+}
+
+.datetime{
+    font-size: 0.8rem;
 }
