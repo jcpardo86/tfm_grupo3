@@ -3,6 +3,12 @@ import { Injectable, inject } from '@angular/core';
 import { ISpent } from '../interfaces/ispent.interface';
 import { Observable, lastValueFrom } from 'rxjs';
 import { IUser } from '../interfaces/iuser.interface';
+import { IGroupUser } from '../interfaces/igroup-user.interface';
+
+type userGroup = {
+	idUsuario: number | undefined;
+	idGrupo: number;
+};
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +42,9 @@ export class SpentsService {
     return lastValueFrom(this.httpClient.put<ISpent>(`${this.baseUrl}/${spent.idGasto}`, spent));
   };
 
-
+  updateSaldo(user_group: userGroup): Promise<any> {
+    console.log(user_group);
+    return lastValueFrom(this.httpClient.put<userGroup>(`${this.baseUrl}/`, user_group));
+  };
 
 }
