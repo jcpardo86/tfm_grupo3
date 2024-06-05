@@ -4,13 +4,18 @@
     <!-- Truncar el título a, por ejemplo, 5 palabras -->
     <h3 class="card-title text-orange">Grupo: {{ truncateText(myGroup.idGrupo.toString(), 5) }}</h3>
     <!-- Truncar la descripción a, por ejemplo, 20 palabras -->
-    <p class="p-2 rounded">Descripción: {{ truncateText(group.descripcion.toString(), 3) }}</p>
+    <p class="p-2 rounded">{{ truncateText(group.descripcion.toString(), 3) }}</p>
     <h6 class="text-orange">Usuarios:</h6>
     <ul class="p-2 rounded list-unstyled">
       @for(user of users; track user.idUsuario){
-        <span>{{ user.nombre }}</span>
-        <span> - </span>
-      }
+        @if($index < users.length-2) {
+          <span>{{user.nombre}}, </span>
+        } @else if ($index === users.length-2) {
+          <span>{{user.nombre}} y </span>
+        } @else {
+          <span>{{user.nombre}}</span>
+        }
+    }
     </ul>
   </div>
   <div class="bg-white full-width rounded-bottom-lg">
