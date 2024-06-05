@@ -7,6 +7,7 @@ import { io } from 'socket.io-client';
 import { MessagesService } from '../../services/messages.service';
 import { IMessage } from '../../interfaces/imessage.interface';
 import dayjs from 'dayjs';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-chat',
@@ -22,6 +23,7 @@ export class ChatComponent {
   socket = io('http://localhost:3000');
 
   messageService = inject(MessagesService);
+  userService = inject(UsersService);
 
   arrMessages : IMessage[] = [];
 
@@ -42,23 +44,28 @@ export class ChatComponent {
 
  async ngOnInit() {
 
+    this.msg.idUsuario = parseInt(localStorage.getItem('idUserLogueado') || '');
+    
     try {
       const messages = await this.messageService.getMessagesByGroup(this.id_group);
+      for(let message of messages) {
+        const user = await this.userService.getUserById(message.idUsuario);
+        message.nombre_usuario = user.nombre;
+      }
       this.arrMessages = messages;
     } catch(error) {
       console.log(error);
     }
 
-    this.socket.on('chat_message_server', (message) => {
-      console.log(message);
+    this.socket.on('chat_message_server', async (message) => {
+      const user = await this.userService.getUserById(this.msg.idUsuario);
+      message.nombre_usuario = user.nombre;
       this.arrMessages.push(message);
-      console.log(this.arrMessages);
     });
  }
 
  getDataForm() {
   this.msg.texto = this.formChat.value.message;
-  this.msg.idUsuario = parseInt(localStorage.getItem('idUserLogueado') || '');
   this.msg.idGrupo = this.id_group;
   this.msg.fecha_hora = dayjs(new Date()).format('YYYY-MM-DD HH:mm')
   console.log(this.msg);

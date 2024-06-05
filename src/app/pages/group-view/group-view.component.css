@@ -18,15 +18,21 @@
 
 }
 
+.container-spents_and_resume{
+    width: 100%
+}
+
 .container-spents_and_total{
     background-color: #EAEAEA;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    width: 100%
 }
 
 .container-spents{
     margin: 0px;
+    width: 100%;
 }
 
 .container-total{

@@ -62,12 +62,12 @@ export class GroupCardComponent {
 
     try {
       const response = await this.spentService.getTotalSpentByGroup(this.myGroup.idGrupo);
-      if (response != undefined) {
-        this.total = response.total_importe;
+      console.log('aquí', response);
+      if (response !== null) {
+        this.total = response;
       } else {
-        console.log('No se pueden obtener el total de gastos del grupo')
+        this.total = 0;
       }
-
     } catch (err) {
       this.router.navigate(['/error']);
     }
