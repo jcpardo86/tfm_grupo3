@@ -76,6 +76,7 @@ export class GroupViewComponent {
 
       try {
         this.deudas = await this.spentService.getDeudas(this.idGroup);
+        console.log(this.deudas);
       } catch(error) {
         console.log(error);
       }
