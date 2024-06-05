@@ -37,8 +37,8 @@ export class GroupViewComponent {
     imagen: ""
   };
 
-  users!: IUser[];
-  spents!: ISpent[];
+  users: IUser[] = [];
+  spents: ISpent[] = [];
   totalSpent!: number;
   deudas: string[] = [];
 
@@ -66,6 +66,9 @@ export class GroupViewComponent {
 
       try {
         this.totalSpent = await this.spentService.getTotalSpentByGroup(this.idGroup);
+        if (this.totalSpent == null) {
+          this.totalSpent = 0;
+        }
         console.log(this.totalSpent)
       } catch(error) {
         console.log(error);
