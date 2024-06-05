@@ -1,44 +1,36 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { NgFor } from '@angular/common';
+import { DatePipe, NgFor } from '@angular/common';
 
 import { io } from 'socket.io-client';
 import { MessagesService } from '../../services/messages.service';
 import { IMessage } from '../../interfaces/imessage.interface';
+import dayjs from 'dayjs';
 
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [ReactiveFormsModule, NgFor],
+  imports: [ReactiveFormsModule, NgFor, DatePipe],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css'
 })
 export class ChatComponent {
 
+  @Input() id_group!: number;
   
-
   socket = io('http://localhost:3000');
-
-  msg = {
-    idMensaje: 0,
-    idUsuario: 13,
-    idGrupo: 2,
-    fecha_hora: '2024-05-18 20:14',
-    texto: ''
-  };
-
-  myMessage = {
-    idUsuario: 13,
-    idGrupo: 2,
-    fecha_hora: '2024-05-18 20:14',
-    texto: ''
-  };
 
   messageService = inject(MessagesService);
 
-  previousMessages! : Array<IMessage>
-  newMessages : Array<IMessage> = []
+  arrMessages : IMessage[] = [];
+
+  msg : IMessage = {
+    idUsuario: 0,
+    idGrupo: 0,
+    fecha_hora: '',
+    texto: ''
+  };
 
   formChat: FormGroup;
 
@@ -51,21 +43,25 @@ export class ChatComponent {
  async ngOnInit() {
 
     try {
-      const result = await this.messageService.getMessagesByGroup(2);
-      this.previousMessages = result;
+      const messages = await this.messageService.getMessagesByGroup(this.id_group);
+      this.arrMessages = messages;
     } catch(error) {
       console.log(error);
     }
 
     this.socket.on('chat_message_server', (message) => {
       console.log(message);
-      this.newMessages.push(message);
-      console.log(this.newMessages);
+      this.arrMessages.push(message);
+      console.log(this.arrMessages);
     });
  }
 
  getDataForm() {
   this.msg.texto = this.formChat.value.message;
+  this.msg.idUsuario = parseInt(localStorage.getItem('idUserLogueado') || '');
+  this.msg.idGrupo = this.id_group;
+  this.msg.fecha_hora = dayjs(new Date()).format('YYYY-MM-DD HH:mm')
+  console.log(this.msg);
   this.socket.emit('chat_message_client', this.msg);
   this.formChat.reset(); 
  }

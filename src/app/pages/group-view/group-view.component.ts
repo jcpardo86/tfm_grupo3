@@ -45,6 +45,7 @@ export class GroupViewComponent {
 
   router = inject(Router);
 
+<<<<<<< Updated upstream
 
 
   ngOnInit(): void {
@@ -58,6 +59,20 @@ export class GroupViewComponent {
         const response_5 = await this.spentService.getDeudas(id);
 
         if (response_1 != undefined && response_2 != undefined && response_3 != undefined && response_4 != undefined && response_5 != undefined) {
+=======
+  idGroup!: number;
+
+  ngOnInit(): void {
+    this.activatedRoute.params.subscribe(async (params:any) =>{
+      this.idGroup = params._id;
+      try{
+        const response_1 = await this.groupService.getGroupById(this.idGroup);
+        const response_2 = await this.groupService.getUsersByGroup(this.idGroup);
+        const response_3 = await this.spentService.getSpentsByGroup(this.idGroup);
+        const response_4 = await this.spentService.getTotalSpentByGroup(this.idGroup);
+        const response_5 = await this.spentService.getDeudas(this.idGroup);
+        if(response_1!=undefined && response_2!=undefined && response_3!=undefined && response_4!=undefined && response_5!=undefined) {
+>>>>>>> Stashed changes
           this.group = response_1;
           this.users = response_2;
           this.spents = response_3.sort((a, b) => a.idGasto - b.idGasto);

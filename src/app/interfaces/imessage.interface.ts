@@ -1,5 +1,5 @@
 export interface IMessage {
-    idMensaje : number;
+    idMensaje? : number;
     idGrupo: number;
     idUsuario: number;
     fecha_hora: string;

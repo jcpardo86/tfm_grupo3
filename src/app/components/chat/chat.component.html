@@ -1,20 +1,11 @@
 <h2 class="font">Chat</h2>
 <div class="mt-4 mb-5 chat">
-    <ul class="mb-3">
-        @for(message of previousMessages; track message.idMensaje) {
-            <div class="container">
-                <p>{{message.idUsuario}}</p>
-                <div class="bg-info">
-                    <p>{{message.texto}}</p>
-                </div>
-            </div>
-        }
-        @for(message of newMessages; track message.idMensaje) {
-            <div class="container">
-                <p>{{message.idUsuario}}</p>
-                <div class="bg-info">
-                    <p>{{message.texto}}</p>
-                </div>
+    <ul class="mb-3 chat-msg">
+        @for(message of arrMessages; track $index) {
+            <div class="container-msg p-3">
+                <span><strong>{{message.idUsuario}}</strong></span>
+                <span>{{message.texto}}</span>
+                <span class="datetime">{{message.fecha_hora | date: 'dd-MM-yyyy HH:mm:ss'}} </span>
             </div>
         }
     </ul>

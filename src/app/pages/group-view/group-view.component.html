@@ -76,23 +76,9 @@
                   </div>
 
 
-
-              </div>
-
-              <div class ="bg-secondary-subtle rounded-start-4 mt-3 ps-5 pt-3 pb-3 reparto ">
-                  <div class="deudas"> <!-- Para alinear el reparto y el boton hace falta un d-flex  align-items-center justify-content-between pero eso hace que cuando el grupo tiene gastos, se pongan todos un al lado del otro. habria que hacer un if, para que si no hay gastos, se alinease y si hubiese gastos, se quedase como está-->
-                      <h2 class="font">Reparto</h2>
-                      @for(deuda of deudas; track deuda.id_deuda) {
-                          <p class="pt-4">{{deuda.deuda}}</p>
-                      }
-                  </div>
-                  <button class="pt-2 pb-2 me-5 rounded-5 btn-liquidar" (click) = "onClickLiquidar()">LIQUIDAR GASTOS</button>
-              </div>
-          </div>
-
-          <div class="rounded-end-4 ps-4 pt-5 chat">
-              <app-chat></app-chat>
-          </div>
-      </section>
-  </section>
+            <div class="rounded-end-4 ps-4 pt-5 chat">
+                <app-chat [id_group]="idGroup"></app-chat>
+            </div>
+        </section>
+    </section>
 </main>
