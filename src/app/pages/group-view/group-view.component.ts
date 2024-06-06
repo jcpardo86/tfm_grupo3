@@ -11,11 +11,13 @@ import { FooterComponent } from '../../components/footer/footer.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { ChatComponent } from '../../components/chat/chat.component';
 import Swal from 'sweetalert2';
+import { PayButtonComponent } from '../../components/pay-button/pay-button.component';
+import { IDebt } from '../../interfaces/idebt.interface';
 
 @Component({
   selector: 'app-group-view',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, SpentCardComponent, ChatComponent, RouterLink],
+  imports: [NavbarComponent, FooterComponent, SpentCardComponent, ChatComponent, RouterLink, PayButtonComponent],
   templateUrl: './group-view.component.html',
   styleUrl: './group-view.component.css'
 })
@@ -40,8 +42,9 @@ export class GroupViewComponent {
   users: IUser[] = [];
   spents: ISpent[] = [];
   totalSpent!: number;
-  deudas: string[] = [];
+  deudas: IDebt[] = [];
 
+  existeLiquidado: boolean = false;
  
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(async (params:any) =>{
@@ -76,7 +79,11 @@ export class GroupViewComponent {
 
       try {
         this.deudas = await this.spentService.getDeudas(this.idGroup);
-        console.log(this.deudas);
+        for(let deuda of this.deudas) {
+          if(deuda.liquidado ==="true"){
+            this.existeLiquidado = true;
+          }
+        }
       } catch(error) {
         console.log(error);
       }
