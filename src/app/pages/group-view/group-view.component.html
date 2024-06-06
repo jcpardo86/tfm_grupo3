@@ -72,6 +72,9 @@
 
           @if(deudas.length === 0) {
             <div class="text-center fs-4 pb-3">No hay deudas pendientes en este grupo</div>
+          } @else if (todoLiquidado) {
+            <div class="text-center fs-4 pb-3">Todas las deudas del grupo han sido liquidadas</div>
+            <button type="submit" (click) = "cerrarGrupo()">Cerrar Grupo</button>
           } @else {
             @for(deuda of deudas; track $index) {
               @if(deuda.liquidado !== "true") {
