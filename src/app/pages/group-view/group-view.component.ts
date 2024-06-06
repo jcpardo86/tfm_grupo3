@@ -45,6 +45,7 @@ export class GroupViewComponent {
   deudas: IDebt[] = [];
 
   existeLiquidado: boolean = false;
+  todoLiquidado: boolean = false;
  
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(async (params:any) =>{
@@ -82,6 +83,9 @@ export class GroupViewComponent {
         for(let deuda of this.deudas) {
           if(deuda.liquidado ==="true"){
             this.existeLiquidado = true;
+            this.todoLiquidado = true;
+          } else {
+            this.todoLiquidado = false;
           }
         }
       } catch(error) {
@@ -134,6 +138,10 @@ export class GroupViewComponent {
       text: `Todos los gastos están liquidados y el grupo "${this.group.nombre}" ha sido eliminado.`,
       icon: "success"
     });
+  }
+
+  cerrarGrupo() {
+    alert("Grupo cerrado!");
   }
 
 }
