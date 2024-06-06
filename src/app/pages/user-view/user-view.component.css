@@ -35,7 +35,7 @@ strong {
 	background-color: var(--light_orange);
 }
 
-.container_header {
+/*.container_header {
 	background-image: url('../../../assets/images/header_grupos copia.jpg');
 	width: 100% !important;
 	background-size: cover;
@@ -44,6 +44,25 @@ strong {
 	height: 500px;
 	overflow: visible;
 
+}
+*/
+.texto {
+	text-align: justify;
+}
+
+.container_header {
+  background-image: url('../../../assets/images/header_grupos_copia1.jpg');
+  width: 100% !important;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 300px !important; /* Ajusta este valor según tus necesidades */
+  overflow: visible;
+}
+
+.container_header h1 {
+  margin-top: 20px !important; /* Ajusta según sea necesario */
+  padding: 10px !important; /* Ajusta según sea necesario */
 }
 
 .home_card {
@@ -69,6 +88,11 @@ strong {
   color: black;
 }
 /*-----------------------media queries tablet ---------------------------*/
+@media (min-width: 1200px) {
+  .container_header {
+      height: 500px; /* Altura para pantallas grandes */
+  }
+}
 
 @media (max-width: 768px) {
 	.bg-orange {
@@ -82,6 +106,9 @@ strong {
 	.logo {
 		width: 50px;
 	}
+  .container_header {
+    height: 400px; /* Altura para pantallas medianas */
+}
 }
 
 /*-----------------------media queries móvil ---------------------------*/

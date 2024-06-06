@@ -1,15 +1,38 @@
 .font{
     color: var(--orange);
+    font-weight: 600;
 }
 
 .group-image{
     width: 100%;
 }
 
-.section{
-    /*background-color: blue;*/
-    display:flex;
+.container-ppal{
+    display: flex;
+    flex-direction: column;       
+}
+
+.container-second{
+    display: flex;
     justify-content: space-between;
+
+}
+
+.container-spents_and_resume{
+    width: 100%
+}
+
+.container-spents_and_total{
+    background-color: #EAEAEA;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%
+}
+
+.container-spents{
+    margin: 0px;
+    width: 100%;
 }
 
 .container-total{
@@ -18,51 +41,42 @@
     align-items: center;
 }
 
-.totaltext{
-    width: 20%;
-    text-align: start;
-    font-weight: 600;
-
-}
-
-.importe{
-    width: 40%;
-    text-align: start;
+.total{
     font-weight: 600;
 }
 
 .gasto{
     font-weight: 600;
-    width: 30%;
-    text-align: end;
-
-}
-
-.iconmas-container{
-    width: 10%;
-    text-align: end;
+    font-size: 0.9rem;
 }
 
 .icon-mas{
-    width: 80%;
-}
-
-.reparto{
-
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
-}
-
-.btn-liquidar{
-    border: none;
-    color: white;
-    background-color: rgba(255, 68, 0, 0.882);
-    font-weight: 600;
     width: 30%;
+}
+
+.container-reparto{
+    background-color: #EAEAEA;
+    display: flex;
+    flex-direction: column;
+}
+
+.deudas{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.texto-deuda{
+    width: 100%;
 }
 
 .chat{
     background-color: rgba(128, 128, 128, 0.052);
-    width: 40%;
+    width: 50%;
 }
+
+.rotate-on-hover:hover img {
+    transition: transform 0.3s ease;
+    transform: rotate(45deg); /* Ajusta el ángulo de rotación según tu preferencia */
+  }

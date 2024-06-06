@@ -31,6 +31,7 @@
             <p class="error">El campo tiene que tener mínimo 3 caracteres</p>
           }
       </div>
+
       <div class="my-2">
         <label for="apellidos" class="form-label">Apellidos: </label>
         <input type="text" class="form-control" placeholder="Introduce tus apellidos" id="apellidos" formControlName="apellidos">
@@ -62,7 +63,7 @@
         @if(checkControl('repiteemail', 'pattern')){
           <p class="error">El texto introducido no es un email</p>
         }
-        @if(modelForm.hasError('checkemail')){
+        @if(modelForm.hasError('checkemails')){
           <p class="error">Los emails no coinciden</p>
         }
       </div>
@@ -81,16 +82,18 @@
       <div class="my-2">
         <label for="repitepass" class="form-label">Repita su contraseña:</label>
         <input type="password" class="form-control" placeholder="Vuelve a introducir tu contraseña" id="repitepass" formControlName="repitepass">
-        @if(modelForm.hasError('checkpassword')){
+        @if(modelForm.hasError('checkpasswords')){
           <p class="error">Las contraseñas no coinciden</p>
         }
-
       </div>
+      <figure class="text-center">
+        <label for="imagen" class="form-label">Añade tu imagen</label>
+        <input type="text" class="form-control" id="imagen" formControlName="imagen">
+      </figure>
 
       <div class="my-1 justify-content-between d-flex">
         <a class="btn btn-primary btn-lg btn_personal rounded-5" [routerLink]="['/home']">VOLVER</a>
-        <button type="button" class="btn btn-secondary btn-lg btn_personal rounded-5" (click)="onClickResetForm()">RESET</button>
-        <button type="submit" class="btn btn-primary btn-lg btn_personal rounded-5">GUARDAR</button>
+        <input type="submit" value="Enviar" class="btn btn-secondary" [disabled]="!modelForm.valid">      
       </div>
 
     </form>

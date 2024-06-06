@@ -29,9 +29,8 @@ export class SpentViewComponent {
   groupService = inject(GroupsService);
 
   users: IUser[] = [];
-
+ 
   id_group!: number;
-
   
   constructor(){
     
@@ -73,9 +72,12 @@ export class SpentViewComponent {
     if(this.modelForm.value.idGasto) {
     
       try {
-        const response = await this.spentService.updateSpent(this.modelForm.value);
+        const response_1 = await this.spentService.updateSpent(this.modelForm.value);
+        for(let user of this.users) {
+          const response_2 = await this.spentService.updateSaldo({idGrupo: parseInt(this.modelForm.value.idGrupo), idUsuario: user.idUsuario});
+        }
         Swal.fire(`El gasto ha sido actualizado correctamente}"`);
-        this.router.navigate([`/group/${response.idGrupo}`]);
+        this.router.navigate([`/group/${response_1.idGrupo}`]);
 
       } catch(error) {
         console.log(error);
@@ -86,7 +88,12 @@ export class SpentViewComponent {
 
       try {
 
+      console.log(this.modelForm.value.idGrupo);
+      console.log(this.users);
       const response = await this.spentService.insertSpent(this.modelForm.value);
+      for(let user of this.users) {
+        const response_2 = await this.spentService.updateSaldo({idGrupo: parseInt(this.modelForm.value.idGrupo), idUsuario: user.idUsuario}); 
+      }
       Swal.fire(`El gasto ha sido añadido al grupo correctamente`);
       this.router.navigate([`/group/${this.id_group}`]);
 

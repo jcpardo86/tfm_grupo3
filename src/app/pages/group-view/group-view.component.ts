@@ -9,68 +9,90 @@ import { ISpent } from '../../interfaces/ispent.interface';
 import { SpentCardComponent } from '../../components/spent-card/spent-card.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { ChatComponent } from '../../components/chat/chat.component'; 
+import { ChatComponent } from '../../components/chat/chat.component';
 import Swal from 'sweetalert2';
+import { PayButtonComponent } from '../../components/pay-button/pay-button.component';
+import { IDebt } from '../../interfaces/idebt.interface';
 
 @Component({
   selector: 'app-group-view',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, SpentCardComponent, ChatComponent, RouterLink],
+  imports: [NavbarComponent, FooterComponent, SpentCardComponent, ChatComponent, RouterLink, PayButtonComponent],
   templateUrl: './group-view.component.html',
   styleUrl: './group-view.component.css'
 })
 export class GroupViewComponent {
 
   activatedRoute = inject(ActivatedRoute);
+  router = inject(Router);
+
 
   groupService = inject(GroupsService);
   userService = inject(UsersService);
   spentService = inject(SpentsService);
 
+  idGroup!: number;
 
   group: IGroup  = {
-    idGrupo: 0,
     nombre: "",
     descripcion: "",
     imagen: ""
   };
 
-  users!: IUser[];
-
-  spents!: ISpent[];
-
+  users: IUser[] = [];
+  spents: ISpent[] = [];
   totalSpent!: number;
+  deudas: IDebt[] = [];
 
-  deudas: Array<any> = [];
-
-  router = inject(Router);
-
+  existeLiquidado: boolean = false;
+  todoLiquidado: boolean = false;
+ 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(async (params:any) =>{
-      const id = params._id;
-      try{
-        const response_1 = await this.groupService.getGroupById(id);
-        const response_2 = await this.groupService.getUsersByGroup(id);
-        const response_3 = await this.spentService.getSpentsByGroup(id);
-        const response_4 = await this.spentService.getTotalSpentByGroup(id);
-        const response_5 = await this.spentService.getDeudas(id);
-        if(response_1!=undefined && response_2!=undefined && response_3!=undefined && response_4!=undefined && response_5!=undefined) {
-          this.group = response_1;
-          this.users = response_2;
-          this.spents = response_3.sort((a,b) => a.idGasto-b.idGasto);
-          this.totalSpent = response_4.total_importe;
-          
-          for ( let i = 0; i < response_5.length; i++ ) {
-            this.deudas.push({ id_deuda: i, deuda: response_5[i]});
+      this.idGroup = params._id;
+      try {
+        this.group = await this.groupService.getGroupById(this.idGroup);
+      } catch(error) {
+        console.log(error);
+      }
+
+      try {
+        this.users = await this.groupService.getUsersByGroup(this.idGroup);
+      } catch(error) {
+        console.log(error);
+      }
+
+      try {
+        this.spents = await this.spentService.getSpentsByGroup(this.idGroup);
+      } catch(error) {
+        console.log(error);
+      }
+
+      try {
+        this.totalSpent = await this.spentService.getTotalSpentByGroup(this.idGroup);
+        if (this.totalSpent == null) {
+          this.totalSpent = 0;
+        }
+        console.log(this.totalSpent)
+      } catch(error) {
+        console.log(error);
+      }
+
+      try {
+        this.deudas = await this.spentService.getDeudas(this.idGroup);
+        for(let deuda of this.deudas) {
+          if(deuda.liquidado ==="true"){
+            this.existeLiquidado = true;
+            this.todoLiquidado = true;
+          } else {
+            this.todoLiquidado = false;
           }
-      } else {
-        console.log('No existen todos los datos del grupo')
+        }
+      } catch(error) {
+        console.log(error);
       }
-      }catch(err){
-        this.router.navigate(['/error']);
-      }
-    })
-  };
+    });
+  }
 
   onClickLiquidar(): void {
 
@@ -116,6 +138,10 @@ export class GroupViewComponent {
       text: `Todos los gastos están liquidados y el grupo "${this.group.nombre}" ha sido eliminado.`,
       icon: "success"
     });
+  }
+
+  cerrarGrupo() {
+    alert("Grupo cerrado!");
   }
 
 }

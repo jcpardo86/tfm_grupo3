@@ -1,28 +1,25 @@
-<h2 class="font">Chat</h2>
+<h2 class="font ps-4 pt-4">Chat</h2>
 <div class="mt-4 mb-5 chat">
-    <ul class="mb-3">
-        @for(message of previousMessages; track message.idMensaje) {
-            <div class="container">
-                <p>{{message.idUsuario}}</p>
-                <div class="bg-info">
-                    <p>{{message.texto}}</p>
+    <ul class="mb-3 pe-4 chat-msg">
+        @for(message of arrMessages; track $index) {
+            @if(message.idUsuario === msg.idUsuario){
+                <div class="mymsg p-3 mb-3">
+                    <span>{{message.texto}}</span>
+                    <span class="datetime">[ {{message.fecha_hora | date: 'dd-MM-yyyy HH:mm:ss'}} ] </span>
                 </div>
-            </div>
-        }
-        @for(message of newMessages; track message.idMensaje) {
-            <div class="container">
-                <p>{{message.idUsuario}}</p>
-                <div class="bg-info">
-                    <p>{{message.texto}}</p>
+            } @else {
+                <div class="othermsg p-3 mb-3">
+                    <span><strong>{{message.nombre_usuario}}</strong>: {{message.texto}}</span>
+                    <span class="datetime">[ {{message.fecha_hora | date: 'dd-MM-yyyy HH:mm:ss'}} ] </span>
                 </div>
-            </div>
+            }
         }
     </ul>
     <form [formGroup]="formChat" (ngSubmit)="getDataForm()">
      <!--novalidate es para que no salten las validaciones que trae por defecto el navegador-->
-        <div class="container-newmsg">
-            <input type="text" class="form-control input-mensaje" placeholder="Escribe un mensaje..." formControlName="message" >
-            <input type="image" value="" src="../../../assets/icons/icon_enviar.png" class="input-enviar me-3">
+        <div class="chat-newmsg ps-4 pe-4">
+            <input type="text" class="form-control input-mensaje me-3" placeholder="Escribe un mensaje..." formControlName="message" >
+            <input type="image" value="" src="../../../assets/icons/icon_enviar.png" class="input-enviar">
         </div>
         <!--En los formularios se deben usar input de tipo submit en vez de button-->
     </form>

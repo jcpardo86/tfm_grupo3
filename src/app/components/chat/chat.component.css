@@ -1,18 +1,39 @@
+.font{
+    color: var(--orange);
+    font-weight: 600;
+}
+
 .chat{
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
-.font{
-    color: var(--orange);
-}
-
-.form-chat{
+.mymsg{
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
+    flex-direction: column;
+    text-align: end;
+    border-radius: 9px 9px 0px 9px;
+    background-color: #fea6422d;
+    width: 100%;
+
 }
+
+.othermsg{
+    display: flex;
+    flex-direction: column;
+    border-radius: 9px 9px 9px 0;
+    background-color: #EAEAEA;
+    width: 100%;
+}
+
+.chat-newmsg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
 
 .input-mensaje{
     width: 80%
@@ -20,11 +41,9 @@
 
 .input-enviar{
     width: 8%;
+    height: 70%;
 }
 
-.container-newmsg{
-    display: flex;
-    gap: 10px;
-    align-items: center;
-
+.datetime{
+    font-size: 0.8rem;
 }

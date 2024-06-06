@@ -3,6 +3,13 @@ import { Injectable, inject } from '@angular/core';
 import { ISpent } from '../interfaces/ispent.interface';
 import { Observable, lastValueFrom } from 'rxjs';
 import { IUser } from '../interfaces/iuser.interface';
+import { IGroupUser } from '../interfaces/igroup-user.interface';
+import { IDebt } from '../interfaces/idebt.interface';
+
+type userGroup = {
+	idUsuario: number | undefined;
+	idGrupo: number;
+};
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +28,9 @@ export class SpentsService {
     return lastValueFrom(this.httpClient.get<any>(`${this.baseUrl}/total/${idGroup}`));
   };
 
-  getDeudas(idGroup: number): Promise<any> {
-    return lastValueFrom(this.httpClient.get<any>(`${this.baseUrl}/saldos/${idGroup}`));
+  getDeudas(idGroup: number): Promise<IDebt[]> {
+    console.log("estoy en getDeudas", idGroup)
+    return lastValueFrom(this.httpClient.get<IDebt[]>(`${this.baseUrl}/saldos/${idGroup}`));
   };
 
   insertSpent(spent: ISpent): Promise<any> {
@@ -36,6 +44,12 @@ export class SpentsService {
     return lastValueFrom(this.httpClient.put<ISpent>(`${this.baseUrl}/${spent.idGasto}`, spent));
   };
 
+  updateSaldo(user_group: userGroup): Promise<any> {
+    console.log(user_group);
+    return lastValueFrom(this.httpClient.put<userGroup>(`${this.baseUrl}/`, user_group));
+  };
 
-
+  updateLiquidado(debt: IDebt): Promise<any> {
+    return lastValueFrom(this.httpClient.put<IDebt>(`${this.baseUrl}/liquidar/${debt.idGrupo}`, debt))
+  };
 }

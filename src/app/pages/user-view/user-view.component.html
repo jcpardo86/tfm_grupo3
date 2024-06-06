@@ -8,7 +8,7 @@
       <!--><img src="assets/images/logo_divi.png" alt="Logotipo de DIVI" class="logo">-->
     </div>
   </div>
-  <div class="col-xl-5 col-lg-5 col-md-7 col-sm-10" style="margin-top: 300px;">
+  <div class="col-xl-5 col-lg-5 col-md-7 col-sm-10" style="margin-top: 170px;">
     <h1 class="h2 bg-orange text-white mt-5 p-3 ps-5">¡Crea, gestiona y divide los gastos!</h1>
   </div>
 </main>
@@ -19,12 +19,12 @@
       <h2 class="h4 m-0"><strong>Tus grupos</strong></h2>
     </div>
     <div>
-      <h4>Lleva un registro detallado de los gastos compartidos dentro de este grupo. Divide equitativamente los costos y asegúrate de que todos paguen su parte justa.</h4>
+      <h4 class="texto">Lleva un registro detallado de los gastos compartidos dentro de cada grupo. Divide equitativamente los costos y asegúrate de que todos paguen su parte justa.</h4>
     </div>
   </div>
 
 <div class="mt-2">
-    <div class="mx-4 row gap-0">
+    <div class="mx-4 row justify-content-center gap-0">
         @for(group of arrGroups; track group.idGrupo){
             <article class="col-12 col-md-6 col-lg-3 mb-1 g-4 d-flex">
               <app-group-card [myGroup]="group" class="flex-grow-1"></app-group-card>
@@ -37,10 +37,10 @@
   <div class="col-lg-7">
       <hr class="custom-hr">
   </div>
-  <div class="col-auto">
+  <div class="col-auto pt-5">
       <a class="btn change-color-on-hover" [routerLink]="['/newgroup']"><strong>AÑADIR GRUPO</strong></a>
   </div>
-  <div class="col-auto">
+  <div class="col-auto pt-5">
       <a class="btn" [routerLink]="['/newgroup']" class="rotate-on-hover">
           <img src="assets\icons\añadir_usuario.png" alt="Añadir grupo">
       </a>
