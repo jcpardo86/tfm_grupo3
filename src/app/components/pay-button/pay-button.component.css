@@ -1,0 +1,23 @@
+.texto-deuda{
+    width: 100%;
+}
+
+.gasto{
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.liquidar{
+    display: flex;
+    align-items: center;
+    text-align: end;
+}
+
+.icon-pago{
+    width: 20%;
+}
+
+.rotate-on-hover:hover input {
+    transition: transform 0.3s ease;
+    transform: rotate(45deg); /* Ajusta el ángulo de rotación según tu preferencia */
+  }

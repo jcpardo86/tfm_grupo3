@@ -92,7 +92,7 @@ export class SpentViewComponent {
       console.log(this.users);
       const response = await this.spentService.insertSpent(this.modelForm.value);
       for(let user of this.users) {
-        const response_2 = await this.spentService.updateSaldo({idGrupo: parseInt(this.modelForm.value.idGrupo), idUsuario: user.idUsuario});
+        const response_2 = await this.spentService.updateSaldo({idGrupo: parseInt(this.modelForm.value.idGrupo), idUsuario: user.idUsuario}); 
       }
       Swal.fire(`El gasto ha sido añadido al grupo correctamente`);
       this.router.navigate([`/group/${this.id_group}`]);
