@@ -1,19 +1,29 @@
 <nav class="navbar navbar-expand-md navbar-fixed">
-  <div class="container">
-      <a class="navbar-brand" href="">
-          <img src="assets/images/logo_divi.png" alt="Logo Divi" width="30px">
-      </a>
-      <button class="navbar-toggler navbar-btn" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <!-- elementos del menu colapse -->
-      <div class="collapse navbar-collapse" id="menu">
-          <ul class="navbar-nav ms-auto">
-              @if (isUserLoged()) {
+    <div class="container">
+        <a class="navbar-brand" href="">
+            <img src="assets/images/logo_divi.png" alt="Logo Divi" width="30px">
+        </a>
+        <button class="navbar-toggler navbar-btn" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <!-- elementos del menu colapse -->
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav ms-auto">
+                @if (isUserLoged()) {
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/user">GRUPOS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active"  [routerLink]="['/updateuser', id_user]">USUARIO</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" (click)="closeSession()">CERRAR SESIÓN</a>
+                    </li>
+                } @else {
                   <li class="nav-item">
-                      <a class="nav-link active" href="/user">GRUPOS</a>
+                    <a class="nav-link active" href="#login">INICIAR SESIÓN</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link active"  [routerLink]="['/updateuser', id_user]">USUARIO</a>
