@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { UsersService } from '../../services/users.service';
+import { ResetService } from '../../services/reset.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -18,7 +19,7 @@ export class ResetPasswordComponent {
 	formBuilder = inject(FormBuilder)
 
 	// Inyecta el servicio UsersService para manejar operaciones relacionadas con los usuarios, como autenticación, registro y gestión de datos de usuario.
-	usersService = inject(UsersService)
+	resetService = inject(ResetService)
 
 	// Inyecta el servicio Router para gestionar la navegación y manipulación de rutas dentro de la aplicación.
 	router = inject(Router)
@@ -31,28 +32,48 @@ export class ResetPasswordComponent {
 				Validators.pattern(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)
 			]),
 		})
+
 	}
 
 	async onSubmit() {
 		try {
-			const response = await this.usersService.loginUser(this.resetForm.value);
+			await this.resetService.postMail(this.resetForm.value);
+			console.log(this.resetForm.value);
+			if (this.resetForm.value.email) {
+				Swal.fire({
+					icon: 'success',
+					title: 'Mail enviado',
+					text: 'Hemos enviado un mail a tu correo para que puedas restablecer tu contraseña',
+					confirmButtonColor: '#FE5F42',
+				}).then(() => {
+					this.router.navigate([`/home`]);
+				});
 
-			localStorage.setItem('token', response.token!);
-			localStorage.setItem('idUserLogueado', response.id_user);
-			this.router.navigate([`/user`]);
-			//LE HE QUITADO EL ID PARA QUE RECOJA EL TOKEN DEL USUARIO REGISTRADO
-			/*this.router.navigate([`/user/${response.id_user}`]);*/
+			}
+
+
+			// Swal.fire({
+			// 	icon: 'success',
+			// 	title: 'Mail enviado',
+			// 	text: 'Hemos enviado un mail a tu correo para que puedas restablecer tu contraseña',
+			// })
+
+			// this.router.navigate([`/home`]);
+
 		} catch (error: any) {
 			Swal.fire({
 				icon: 'error',
 				title: 'Error',
 				text: 'Usuario o contraseña incorrectos',
+				confirmButtonColor: '#FE5F42',
 			})
 
 
-			console.log(error.error.error);
 		}
+
 	}
+
+
 
 	// Método para verificar si un control específico tiene un error de validación.
 	checkControl(formControlName: string, validator: string): boolean | undefined {

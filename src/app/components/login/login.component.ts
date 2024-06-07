@@ -49,6 +49,7 @@ export class LoginComponent {
 				icon: 'error',
 				title: 'Error',
 				text: 'Usuario o contraseña incorrectos',
+				confirmButtonColor: '#FE5F42',
 			})
 
 
