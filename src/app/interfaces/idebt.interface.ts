@@ -1,9 +1,8 @@
 export interface IDebt {
+    idDeuda: number;
     idGrupo: number, 
-    idPagador: number,
-    namePagador: string,
-    idReceptor: number,
-    nameReceptor: string,
+    idUsuario: number,
+    receptor: number,
     importe: number,
-    liquidado?: string,
+    is_pagada: number,
 }

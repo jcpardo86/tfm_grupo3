@@ -5,6 +5,11 @@ import { IGroup } from '../interfaces/igroup.interface';
 import { IGroupUser } from '../interfaces/igroup-user.interface';
 import { IUser } from '../interfaces/iuser.interface';
 
+type updateStatusRequest = {
+	idGrupo: number;
+	status: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -58,9 +63,9 @@ export class GroupsService {
     return lastValueFrom(this.httpClient.post<IGroupUser>(`${this.baseUrl}/user/`, groupUser))
   };
 
-  updateStatusGroup(idGroup: number, status: string): Promise<any> {
+  updateStatusGroup(status: updateStatusRequest): Promise<any> {
     console.log(status);
-    return lastValueFrom(this.httpClient.put<any>(`${this.baseUrl}/close/${idGroup}`, status));
+    return lastValueFrom(this.httpClient.put<any>(`${this.baseUrl}/close/${status.idGrupo}`, status.status));
   };
 
   deleteGroupUsers(idGroup: number): Promise<any>{
