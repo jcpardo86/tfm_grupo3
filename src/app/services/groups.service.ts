@@ -50,19 +50,24 @@ export class GroupsService {
     });
   }
 
-  updateGroup(group: IGroup): Promise<IGroup>{
+  updateGroup(group: IGroup): Promise<IGroup> {
     return lastValueFrom(this.httpClient.put<IGroup>(`${this.baseUrl}/update`, group));
   };
 
-  insertUserToGroup(groupUser: IGroupUser): Promise<any>{
+  insertUserToGroup(groupUser: IGroupUser): Promise<any> {
     return lastValueFrom(this.httpClient.post<IGroupUser>(`${this.baseUrl}/user/`, groupUser))
+  };
+
+  updateStatusGroup(idGroup: number, status: string): Promise<any> {
+    console.log(status);
+    return lastValueFrom(this.httpClient.put<any>(`${this.baseUrl}/close/${idGroup}`, status));
   };
 
   deleteGroupUsers(idGroup: number): Promise<any>{
     return lastValueFrom(this.httpClient.delete<IGroupUser>(`${this.baseUrl}/deleteGroupUsers/${idGroup}`));
   };
 
-  deleteGroup(idGroup: number | undefined): Promise<any>{
+  deleteGroup(idGroup: number | undefined): Promise<any> {
     return lastValueFrom(this.httpClient.delete<IGroupUser>(`${this.baseUrl}/${idGroup}`));
   };
 
