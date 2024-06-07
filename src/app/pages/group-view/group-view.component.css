@@ -79,4 +79,23 @@
 .rotate-on-hover:hover img {
     transition: transform 0.3s ease;
     transform: rotate(45deg); /* Ajusta el ángulo de rotación según tu preferencia */
-  }
+}
+
+.containerDeudas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.btn_personal {
+	padding: 0.7rem 2rem;
+	background-color: var(--orange);
+	color: white;
+	border: none;
+    width: 40%;
+
+}
+
+.btn_personal:hover {
+	background-color: var(--light_orange);
+}

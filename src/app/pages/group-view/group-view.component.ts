@@ -140,8 +140,31 @@ export class GroupViewComponent {
     });
   }
 
-  cerrarGrupo() {
-    alert("Grupo cerrado!");
+  closeGroup() {
+    Swal.fire({
+      title: "¿Está seguro de que desea cerrar el grupo?",
+      text: "Una vez cerrado, será eliminado de su listado de grupos",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Sí, cerrar!"
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await this.groupService.updateStatusGroup(this.idGroup, 'close'); 
+          console.log(response);
+          Swal.fire({
+            title: "Grupo cerrado!",
+            text: "El grupo ha sido cerrado correctamente.",
+            icon: "success"
+          });
+        } catch(error) {
+          alert('Se ha producido un error al cerrar el grupo. Por favor, inténtelo de nuevo más tarde.')
+        }
+      }
+    });
   }
 
 }
