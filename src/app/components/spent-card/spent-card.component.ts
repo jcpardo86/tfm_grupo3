@@ -18,6 +18,8 @@ export class SpentCardComponent {
 
 	@Input() numSpent!: number;
 
+	@Input() editGastoBloqueado!: boolean;
+
 	myUser: IUser = {
 		idUsuario: 0,
 		nombre: "",

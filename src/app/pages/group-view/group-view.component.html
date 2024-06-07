@@ -42,7 +42,7 @@
             } @else {
               @for(spent of spents; track spent.idGasto; let i = $index) {
                 <article class="mb-3">
-                  <app-spent-card [mySpent]="spent" [numSpent]="i+1"></app-spent-card>
+                  <app-spent-card [mySpent]="spent" [numSpent]="i+1" [editGastoBloqueado]="existeLiquidado"></app-spent-card>
                 </article>
               }
             }
@@ -79,9 +79,9 @@
             </div>
           } @else {
             @for(deuda of deudas; track $index) {
-              @if(deuda.liquidado !== "true") {
+              @if(deuda.is_pagada !== 1) {
               <div class="card shadow rounded-lg deudas mb-3">
-                <span class="ps-5 texto-deuda">{{deuda.namePagador}} debe a {{deuda.nameReceptor}} la cantidad de {{deuda.importe}} €</span>
+                <span class="ps-5 texto-deuda">{{deuda.idUsuario}} debe a {{deuda.receptor}} la cantidad de {{deuda.importe}} €</span>
                 <app-pay-button [miDeuda]="deuda"></app-pay-button>
               </div>
               }
