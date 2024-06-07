@@ -1,18 +1,20 @@
 import { Component, inject } from '@angular/core';
-import { Router} from '@angular/router';
+import { Router, RouterLink} from '@angular/router';
 
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
 
 
-  router = inject(Router)
+  router = inject(Router);
+
+  id_user = parseInt(localStorage.getItem('idUserLogueado') || '');
 
   //Este método verifica si hay un token de usuario almacenado en el localStorage. Si existe, devuelve el token; si no, devuelve false. Este método se usa para determinar si un usuario está logueado.
   isUserLoged() {
@@ -24,3 +26,5 @@ export class NavbarComponent {
     this.router.navigate([`/home`]);
   }
 }
+
+

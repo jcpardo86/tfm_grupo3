@@ -17,7 +17,7 @@
 <section class="container d-flex">
   <div class="col-lg-7 row-gap-3 gap-3 justify-content-center mb-3">
 
-    <h3 class="h3 mt-3 text-orange">Crea tu usuario</h3>
+    <h3 class="h3 mt-3 text-orange">{{titleForm}}</h3>
 
     <form [formGroup]="modelForm" class="card p-3 border-0" (ngSubmit)="onClickGuardarBD()">
 
@@ -93,7 +93,7 @@
 
       <div class="my-1 justify-content-between d-flex">
         <a class="btn btn-primary btn-lg btn_personal rounded-5" [routerLink]="['/home']">VOLVER</a>
-        <input type="submit" value="Enviar" class="btn btn-secondary" [disabled]="!modelForm.valid">      
+        <input type="submit" [value]=[textBottom] class="btn btn-primary btn-lg btn_personal rounded-5" [disabled]="!modelForm.valid">      
       </div>
 
     </form>

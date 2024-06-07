@@ -43,5 +43,8 @@ export class UsersService {
     console.log('service',idGroup);
     return this.httpClient.get<IUser[]>(`${this.baseUrl}/groups/Allusers/${idGroup}`);
   }
-  
+
+  updateUser(user: IUser): Promise<any>{
+    return lastValueFrom(this.httpClient.put<any>(`${this.baseUrl}/${user.idUsuario}`, user));
+  }
 }
