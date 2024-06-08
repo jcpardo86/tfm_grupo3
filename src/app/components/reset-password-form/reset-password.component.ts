@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { UsersService } from '../../services/users.service';
 import { ResetService } from '../../services/reset.service';
 import Swal from 'sweetalert2';
 
@@ -18,7 +17,7 @@ export class ResetPasswordComponent {
 	// Inyecta el servicio FormBuilder para crear y gestionar formularios reactivos.
 	formBuilder = inject(FormBuilder)
 
-	// Inyecta el servicio UsersService para manejar operaciones relacionadas con los usuarios, como autenticación, registro y gestión de datos de usuario.
+	// Inyecta el servicio ResettService para manejar operaciones relacionadas con los usuarios, como autenticación, registro y gestión de datos de usuario.
 	resetService = inject(ResetService)
 
 	// Inyecta el servicio Router para gestionar la navegación y manipulación de rutas dentro de la aplicación.
@@ -50,15 +49,6 @@ export class ResetPasswordComponent {
 				});
 
 			}
-
-
-			// Swal.fire({
-			// 	icon: 'success',
-			// 	title: 'Mail enviado',
-			// 	text: 'Hemos enviado un mail a tu correo para que puedas restablecer tu contraseña',
-			// })
-
-			// this.router.navigate([`/home`]);
 
 		} catch (error: any) {
 			Swal.fire({

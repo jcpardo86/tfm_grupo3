@@ -3,7 +3,7 @@ import { ReactiveFormsModule, AbstractControl, FormGroup, FormControl, FormBuild
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import Swal from 'sweetalert2';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { ResetService } from '../../services/reset.service';
 
 
@@ -31,33 +31,43 @@ export class NewPasswordPageComponent {
 
 
 	async onSubmit() {
-		try {
+		if (this.newPassForm.valid) {
+			try {
+				const currentUrl = this.router.url;
+				const token = currentUrl.split('/')[2]; // Ajusta esto según la estructura de tu URL
+				console.log(`Current URL: ${currentUrl}`); // Debug URL
+				console.log(`Token: ${token}`); // Debug token
 
+				const passwordData = {
+					password: this.newPassForm.value.password,
+					confirmPassword: this.newPassForm.value.confirmPassword
+				};
 
-			console.log("lo que pasa a la función", this.router.url.split('/')[2], this.newPassForm.value);
+				const response = await this.resetService.patchPassword(passwordData, token);
 
-			await this.resetService.patchPassword(this.newPassForm.value, this.router.url.split('/')[2]);
-
-			console.log(this.newPassForm.value);
-			if (this.newPassForm.value.password && this.newPassForm.value.confirmPassword) {
+				console.log(this.newPassForm.value);
+				if (response && response.success) { // Asegúrate de que 'response.success' sea el indicador de éxito de tu API
+					Swal.fire({
+						icon: 'success',
+						title: 'Contraseña cambiada',
+						text: 'La contraseña ha sido cambiada correctamente',
+						confirmButtonColor: '#FE5F42',
+					}).then(() => {
+						this.router.navigate(['/home']);
+					});
+				}
+			} catch (error: any) {
 				Swal.fire({
-					icon: 'success',
-					title: 'Mail enviado',
-					text: 'Hemos enviado un mail a tu correo para que puedas restablecer tu contraseña',
+					icon: 'error',
+					title: 'Error',
+					text: 'Algo salió mal al cambiar la contraseña',
 					confirmButtonColor: '#FE5F42',
-				}).then(() => {
-					this.router.navigate([`/home`]);
 				});
 			}
-		} catch (error: any) {
-			Swal.fire({
-				icon: 'error',
-				title: 'Error',
-				text: 'Algo salió mal al cambiar la contraseña',
-				confirmButtonColor: '#FE5F42',
-			});
 		}
 	}
+
+
 
 	checkpassword(formValue: AbstractControl): any {
 		const password = formValue.get('password')?.value;
