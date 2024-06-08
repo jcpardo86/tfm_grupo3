@@ -13,6 +13,7 @@ import { ChatComponent } from '../../components/chat/chat.component';
 import Swal from 'sweetalert2';
 import { PayButtonComponent } from '../../components/pay-button/pay-button.component';
 import { IDebt } from '../../interfaces/idebt.interface';
+import { DebtsService } from '../../services/debts.service';
 
 @Component({
   selector: 'app-group-view',
@@ -30,6 +31,7 @@ export class GroupViewComponent {
   groupService = inject(GroupsService);
   userService = inject(UsersService);
   spentService = inject(SpentsService);
+  debtService = inject(DebtsService);
 
   idGroup!: number;
 
@@ -79,9 +81,10 @@ export class GroupViewComponent {
       }
 
       try {
-        this.deudas = await this.spentService.getDeudas(this.idGroup);
+        this.deudas = await this.debtService.getDebtsByGroup(this.idGroup);
+        console.log("deudas", this.deudas);
         for(let deuda of this.deudas) {
-          if(deuda.liquidado ==="true"){
+          if(deuda.is_pagada === 1){
             this.existeLiquidado = true;
             this.todoLiquidado = true;
           } else {
@@ -140,8 +143,31 @@ export class GroupViewComponent {
     });
   }
 
-  cerrarGrupo() {
-    alert("Grupo cerrado!");
+  closeGroup() {
+    Swal.fire({
+      title: "¿Está seguro de que desea cerrar el grupo?",
+      text: "Una vez cerrado, será eliminado de su listado de grupos",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Sí, cerrar!"
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await this.groupService.updateStatusGroup({idGrupo: this.idGroup, status:'close'}); 
+          console.log(response);
+          Swal.fire({
+            title: "Grupo cerrado!",
+            text: "El grupo ha sido cerrado correctamente.",
+            icon: "success"
+          });
+        } catch(error) {
+          alert('Se ha producido un error al cerrar el grupo. Por favor, inténtelo de nuevo más tarde.')
+        }
+      }
+    });
   }
 
 }

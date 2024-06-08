@@ -7,6 +7,7 @@ import { IUser } from '../../interfaces/iuser.interface';
 import { GroupsService } from '../../services/groups.service';
 import dayjs from 'dayjs';
 import Swal from 'sweetalert2';
+import { DebtsService } from '../../services/debts.service';
 
 @Component({
   selector: 'app-spent-view',
@@ -26,6 +27,7 @@ export class SpentViewComponent {
   router = inject(Router);
 
   spentService = inject(SpentsService);
+  debtService = inject(DebtsService)
   groupService = inject(GroupsService);
 
   users: IUser[] = [];
@@ -76,8 +78,10 @@ export class SpentViewComponent {
         for(let user of this.users) {
           const response_2 = await this.spentService.updateSaldo({idGrupo: parseInt(this.modelForm.value.idGrupo), idUsuario: user.idUsuario});
         }
+        const response_3 = await this.debtService.updateDebtsByGroup(this.modelForm.value);
+
         Swal.fire(`El gasto ha sido actualizado correctamente}"`);
-        this.router.navigate([`/group/${response_1.idGrupo}`]);
+        this.router.navigate([`/group/${response_1.idGrupo}`])
 
       } catch(error) {
         console.log(error);
@@ -94,6 +98,9 @@ export class SpentViewComponent {
       for(let user of this.users) {
         const response_2 = await this.spentService.updateSaldo({idGrupo: parseInt(this.modelForm.value.idGrupo), idUsuario: user.idUsuario}); 
       }
+
+      const response_3 = await this.debtService.updateDebtsByGroup(this.modelForm.value);
+
       Swal.fire(`El gasto ha sido añadido al grupo correctamente`);
       this.router.navigate([`/group/${this.id_group}`]);
 

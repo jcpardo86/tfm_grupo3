@@ -42,7 +42,7 @@
             } @else {
               @for(spent of spents; track spent.idGasto; let i = $index) {
                 <article class="mb-3">
-                  <app-spent-card [mySpent]="spent" [numSpent]="i+1"></app-spent-card>
+                  <app-spent-card [mySpent]="spent" [numSpent]="i+1" [editGastoBloqueado]="existeLiquidado"></app-spent-card>
                 </article>
               }
             }
@@ -51,7 +51,7 @@
           <div class="container-total pb-5 pt-3">
 
             <div class="total ps-4">
-              <span class="fs-2 ps-5 total-text">Total</span>
+              <span class="fs-2 ps-5 total-text">Gasto Total</span>
               <span class="fs-2 ps-4 total-importe">{{totalSpent}} €</span>
             </div>
             @if(!existeLiquidado) {
@@ -68,18 +68,20 @@
 
 
         <div class="container-reparto rounded-start-4 mt-3 pb-5 pt-3 ps-4 pe-4">
-          <h2 class="font pb-3">Deudas</h2>
+          <h2 class="font pb-4">Deudas Pendientes</h2>
 
           @if(deudas.length === 0) {
-            <div class="text-center fs-4 pb-3">No hay deudas pendientes en este grupo</div>
+            <div class="text-center fs-4 pb-3">Aún no hay deudas pendientes en este grupo</div>
           } @else if (todoLiquidado) {
-            <div class="text-center fs-4 pb-3">Todas las deudas del grupo han sido liquidadas</div>
-            <button type="submit" (click) = "cerrarGrupo()">Cerrar Grupo</button>
+            <div class ="containerDeudas">
+              <span class="fs-5 pb-5">No hay pagos pendientes - Todas las deudas del grupo han sido liquidadas</span>
+              <button type="submit" (click) ="closeGroup()" class="btn btn-primary btn-lg btn_personal mb-3 rounded-pill">CERRAR GRUPO</button>
+            </div>
           } @else {
             @for(deuda of deudas; track $index) {
-              @if(deuda.liquidado !== "true") {
+              @if(deuda.is_pagada !== 1) {
               <div class="card shadow rounded-lg deudas mb-3">
-                <span class="ps-5 texto-deuda">{{deuda.namePagador}} debe a {{deuda.nameReceptor}} la cantidad de {{deuda.importe}} €</span>
+                <span class="ps-5 texto-deuda">{{deuda.idUsuario}} debe a {{deuda.receptor}} la cantidad de {{deuda.importe}} €</span>
                 <app-pay-button [miDeuda]="deuda"></app-pay-button>
               </div>
               }

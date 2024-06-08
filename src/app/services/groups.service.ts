@@ -5,6 +5,11 @@ import { IGroup } from '../interfaces/igroup.interface';
 import { IGroupUser } from '../interfaces/igroup-user.interface';
 import { IUser } from '../interfaces/iuser.interface';
 
+type updateStatusRequest = {
+	idGrupo: number;
+	status: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -50,19 +55,24 @@ export class GroupsService {
     });
   }
 
-  updateGroup(group: IGroup): Promise<IGroup>{
+  updateGroup(group: IGroup): Promise<IGroup> {
     return lastValueFrom(this.httpClient.put<IGroup>(`${this.baseUrl}/update`, group));
   };
 
-  insertUserToGroup(groupUser: IGroupUser): Promise<any>{
+  insertUserToGroup(groupUser: IGroupUser): Promise<any> {
     return lastValueFrom(this.httpClient.post<IGroupUser>(`${this.baseUrl}/user/`, groupUser))
+  };
+
+  updateStatusGroup(status: updateStatusRequest): Promise<any> {
+    console.log(status);
+    return lastValueFrom(this.httpClient.put<any>(`${this.baseUrl}/close/${status.idGrupo}`, status.status));
   };
 
   deleteGroupUsers(idGroup: number): Promise<any>{
     return lastValueFrom(this.httpClient.delete<IGroupUser>(`${this.baseUrl}/deleteGroupUsers/${idGroup}`));
   };
 
-  deleteGroup(idGroup: number | undefined): Promise<any>{
+  deleteGroup(idGroup: number | undefined): Promise<any> {
     return lastValueFrom(this.httpClient.delete<IGroupUser>(`${this.baseUrl}/${idGroup}`));
   };
 

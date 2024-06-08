@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import Swal from 'sweetalert2';
@@ -30,6 +30,10 @@ export class NewuserComponent {
     password: '',
     imagen: '',
   };
+  titleForm: string = "Registro nuevo usuario";
+  textBottom: string = "Guardar";
+
+  activatedRoute = inject(ActivatedRoute)
 
   constructor(private http: HttpClient, private router: Router) {
     this.modelForm = new FormGroup(
@@ -81,6 +85,28 @@ export class NewuserComponent {
   // Inicialización de datos
   ngOnInit(): void {
     // lo pido a BBDD
+    this.activatedRoute.params.subscribe(async (params: any) => {
+      if(params._id) {
+        this.titleForm = "Actualizar usuario";
+        this.textBottom = "Actualizar";
+        const response = await this.userService.getUserById(params._id);
+        if (response) {
+          this.modelForm = new FormGroup(
+            {
+              idUsuario: new FormControl(response.idUsuario),
+              nombre: new FormControl(response.nombre, [Validators.required, Validators.minLength(3)]),
+              apellidos: new FormControl(response.apellidos, [Validators.required, Validators.minLength(3)]),
+              email: new FormControl(response.email, [Validators.required, Validators.pattern(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)]),
+              repiteemail: new FormControl(response.email, [Validators.required, Validators.pattern(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)]),
+              password: new FormControl(response.password, [Validators.required, Validators.minLength(6)]),
+              repitepass: new FormControl(response.password, [Validators.required, Validators.minLength(6)]),
+              imagen: new FormControl(response.imagen, [Validators.required]),
+            },
+            [this.checkpasswords, this.checkemails]
+          );
+        }
+      }
+    });
  
   }
 
@@ -115,6 +141,26 @@ export class NewuserComponent {
 
     console.log(this.modelForm.value);
     if (this.modelForm.valid) {
+      if(this.modelForm.value.idUsuario){
+        const response = await this.userService.updateUser(this.modelForm.value)
+        if(response) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Actualización correcta',
+            text: 'El usuario ha sido actualizado correctamente',
+          });
+          this.router.navigate(['/home']);
+        }
+        else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Se ha producido un error en la actualización del usuario. Por favor, inténtelo de nuevo.',
+          });
+        }
+              
+      }
+      else{
 
       this.user.nombre = this.modelForm.value.nombre;
       this.user.apellidos = this.modelForm.value.apellidos;
@@ -127,7 +173,6 @@ export class NewuserComponent {
         const response = await this.userService.registertUser(this.user);
         console.log (response);
         if(response) {
-          console.log('He entrado en el if')
           Swal.fire({
             icon: 'success',
             title: 'Registro correcto',
@@ -143,6 +188,7 @@ export class NewuserComponent {
           text: 'Se ha producido un error en el registro. Por favor, inténtelo de nuevo.',
         });
       }
+    }
     }
   }
 }
