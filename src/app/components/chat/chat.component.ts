@@ -48,6 +48,11 @@ export class ChatComponent {
     
     try {
       const messages = await this.messageService.getMessagesByGroup(this.id_group);
+
+      messages.sort((a: any, b: any) => {
+        return a.idMensaje - b.idMensaje;
+      }); 
+
       for(let message of messages) {
         const user = await this.userService.getUserById(message.idUsuario);
         message.nombre_usuario = user.nombre;
