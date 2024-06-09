@@ -54,14 +54,14 @@
               <span class="fs-2 ps-5 total-text">Gasto Total</span>
               <span class="fs-2 ps-4 total-importe">{{totalSpent}} €</span>
             </div>
-            @if(!existeLiquidado) {
+            <!--@if(!existeLiquidado)-->
               <div class="pe-5">
                 <span class="fs-6 pe-2 gasto">Añadir gasto</span>
                 <a [routerLink]="['/newspent', group.idGrupo]" class="rotate-on-hover">
                   <img src="assets/icons/icon_mas.png" class="icon-mas" alt="Icono añadir">
                 </a>
               </div>
-            }
+            
 
           </div>
         </div>
@@ -71,10 +71,8 @@
           <h2 class="font pb-4">Deudas Pendientes</h2>
 
           @if(deudas.length === 0) {
-            <div class="text-center fs-4 pb-3">Aún no hay deudas pendientes en este grupo</div>
-          } @else if (todoLiquidado) {
-            <div class ="containerDeudas">
-              <span class="fs-5 pb-5">No hay pagos pendientes - Todas las deudas del grupo han sido liquidadas</span>
+            <div class="containerDeudas">
+              <span class="text-center fs-4 pb-5">Aún no hay deudas pendientes en este grupo</span>
               <button type="submit" (click) ="closeGroup()" class="btn btn-primary btn-lg btn_personal mb-3 rounded-pill">CERRAR GRUPO</button>
             </div>
           } @else {
@@ -86,6 +84,13 @@
               </div>
               }
             }
+          }
+
+          @if (todoLiquidado === true) {
+            <div class ="containerDeudas">
+              <span class="fs-5 pb-5">No hay pagos pendientes - Todas las deudas del grupo han sido liquidadas</span>
+              <button type="submit" (click) ="closeGroup()" class="btn btn-primary btn-lg btn_personal mb-3 rounded-pill">CERRAR GRUPO</button>
+            </div>
           }
         </div>
 
@@ -99,3 +104,10 @@
 
   </section>
 </main>
+
+ <!--@else if (true) {
+            <div class ="containerDeudas">
+              <span class="fs-5 pb-5">No hay pagos pendientes - Todas las deudas del grupo han sido liquidadas</span>
+              <button type="submit" (click) ="closeGroup()" class="btn btn-primary btn-lg btn_personal mb-3 rounded-pill">CERRAR GRUPO</button>
+            </div>
+          }-->
