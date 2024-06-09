@@ -46,8 +46,7 @@ export class GroupViewComponent {
   totalSpent!: number;
   deudas: IDebt[] = [];
 
-  existeLiquidado: boolean = false;
-  todoLiquidado: boolean = false;
+  todoLiquidado: boolean = true;
  
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(async (params:any) =>{
@@ -86,10 +85,9 @@ export class GroupViewComponent {
       try {
         this.deudas = await this.debtService.getDebtsByGroup(this.idGroup);
         for(let deuda of this.deudas) {
-          if(deuda.is_pagada === 1){
-            this.todoLiquidado = true;
-          } else {
+          if(deuda.is_pagada !== 1){
             this.todoLiquidado = false;
+            break;
           }
         }
       } catch(error) {

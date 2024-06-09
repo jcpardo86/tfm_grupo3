@@ -42,7 +42,7 @@
             } @else {
               @for(spent of spents; track spent.idGasto; let i = $index) {
                 <article class="mb-3">
-                  <app-spent-card [mySpent]="spent" [numSpent]="i+1" [editGastoBloqueado]="existeLiquidado"></app-spent-card>
+                  <app-spent-card [mySpent]="spent" [numSpent]="i+1"></app-spent-card>
                 </article>
               }
             }
@@ -86,7 +86,7 @@
             }
           }
 
-          @if (todoLiquidado === true) {
+          @if (todoLiquidado === true && deudas.length !==0 ) {
             <div class ="containerDeudas">
               <span class="fs-5 pb-5">No hay pagos pendientes - Todas las deudas del grupo han sido liquidadas</span>
               <button type="submit" (click) ="closeGroup()" class="btn btn-primary btn-lg btn_personal mb-3 rounded-pill">CERRAR GRUPO</button>
