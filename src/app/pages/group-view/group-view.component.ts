@@ -66,6 +66,9 @@ export class GroupViewComponent {
 
       try {
         this.spents = await this.spentService.getSpentsByGroup(this.idGroup);
+        this.spents.sort((a: any, b: any) => {
+          return a.idGasto - b.idGasto;
+        }); 
       } catch(error) {
         console.log(error);
       }
