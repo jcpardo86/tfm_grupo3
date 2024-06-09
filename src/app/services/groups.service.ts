@@ -31,8 +31,12 @@ export class GroupsService {
     return lastValueFrom(this.httpClient.get<IGroup>(`${this.baseUrl}/group/${idGroup}`));
   }
 
-  getUserGroup(idUser: number | undefined, idGrupo: number | undefined): Promise<IGroupUser> {
-    return lastValueFrom(this.httpClient.get<IGroupUser>(`${this.baseUrl}/${idUser}/${idGrupo}`));
+  getUserGroup(idUser: number | undefined, idGroup: number | undefined): Promise<IGroupUser> {
+    return lastValueFrom(this.httpClient.get<IGroupUser>(`${this.baseUrl}/${idUser}/${idGroup}`));
+  }
+
+  getStatusGroup(idGroup: number): Promise<string> {
+    return lastValueFrom(this.httpClient.get<string>(`${this.baseUrl}/status/${idGroup}`));
   }
 
   updateGroupUser(group: IGroupUser): Promise<IGroupUser>{
@@ -65,7 +69,7 @@ export class GroupsService {
 
   updateStatusGroup(status: updateStatusRequest): Promise<any> {
     console.log(status);
-    return lastValueFrom(this.httpClient.put<any>(`${this.baseUrl}/close/${status.idGrupo}`, status.status));
+    return lastValueFrom(this.httpClient.put<any>(`${this.baseUrl}/status/${status.idGrupo}`, status));
   };
 
   deleteGroupUsers(idGroup: number): Promise<any>{

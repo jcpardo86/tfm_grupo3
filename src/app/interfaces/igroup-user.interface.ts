@@ -2,6 +2,8 @@ export interface IGroupUser {
     idGrupo: number,
     idUsuario: number,
     porcentaje: number,
-    rol: string   
+    rol: string,
+    saldo?: number,
+    importe_liquidado?: number,   
 }
 

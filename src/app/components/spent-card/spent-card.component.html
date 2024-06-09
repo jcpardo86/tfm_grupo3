@@ -14,10 +14,9 @@
         <p class="card-text">{{mySpent.fecha}}</p> 
     </div>    
     
-    @if(!editGastoBloqueado) {
+    <!--@if(!editGastoBloqueado)-->
       <a [routerLink]="['/updatespent', mySpent.idGasto]" class="iconeditar-container pe-3">
         <img src="assets/icons/icon_editar.png" class="icon-editar" alt="Icono editar">
       </a>
-    }
   </div>
 </div>

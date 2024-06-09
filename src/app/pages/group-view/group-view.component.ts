@@ -82,10 +82,8 @@ export class GroupViewComponent {
 
       try {
         this.deudas = await this.debtService.getDebtsByGroup(this.idGroup);
-        console.log("deudas", this.deudas);
         for(let deuda of this.deudas) {
           if(deuda.is_pagada === 1){
-            this.existeLiquidado = true;
             this.todoLiquidado = true;
           } else {
             this.todoLiquidado = false;
@@ -156,13 +154,14 @@ export class GroupViewComponent {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await this.groupService.updateStatusGroup({idGrupo: this.idGroup, status:'close'}); 
+          const response = await this.groupService.updateStatusGroup({idGrupo: this.idGroup, status: "close"}); 
           console.log(response);
           Swal.fire({
             title: "Grupo cerrado!",
             text: "El grupo ha sido cerrado correctamente.",
             icon: "success"
           });
+          this.router.navigate(['/user']); 
         } catch(error) {
           alert('Se ha producido un error al cerrar el grupo. Por favor, inténtelo de nuevo más tarde.')
         }

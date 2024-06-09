@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Type, inject } from '@angular/core';
 import { GroupCardComponent } from '../../components/group-card/group-card.component';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { GroupsService } from '../../services/groups.service';
@@ -15,14 +15,13 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 })
 export class UserViewComponent {
 
-    groupService = inject(GroupsService);
-
     activatedRoute = inject(ActivatedRoute);
-
-
-    arrGroups : IGroupUser[] = []; //arrUsers es un array de arrays de user (un elemento por página)
-
     router = inject(Router);
+
+    groupService = inject(GroupsService);
+    
+    arrGroups! : IGroupUser[];
+    arrStatus : String[] = [];
 
 
     async ngOnInit(): Promise<any> {
@@ -51,7 +50,12 @@ export class UserViewComponent {
           const response = await this.groupService.getGroupsByUser(id);
           if(response!=undefined) {
             this.arrGroups = response;
-          } else {
+            for(let group of this.arrGroups){
+              const status = await this.groupService.getStatusGroup(group.idGrupo);
+              this.arrStatus.push(status);
+            }
+            console.log(this.arrStatus)
+            } else {
             console.log('El usuario no pertenece a ningún grupo')
           }
         }catch(err){

@@ -17,17 +17,17 @@ export class PayButtonComponent {
   @Input() miDeuda!: IDebt;
   @Output() deudaPagada: EventEmitter<IDebt> = new EventEmitter();
 
-  //spentService = inject(SpentsService);
+  spentService = inject(SpentsService);
   debtService = inject(DebtsService);
 
 
   async getData() {
     // Tengo que crear un servicio para actualizar el campo importe_liquidado de tabla grupo_usuario
-    //const respuesta = await this.spentService.updateLiquidado(this.miDeuda);
-    //const respuesta_1 = await this.spentService.updateLiquidado(this.miDeuda);
+    console.log(this.miDeuda);
+    const respuesta_1 = await this.spentService.updateLiquidado(this.miDeuda);
+    console.log(this.miDeuda);
 
-    const respuesta = await this.debtService.updateStatus(this.miDeuda);
-    console.log(respuesta);
+    const respuesta_2 = await this.debtService.updateStatus(this.miDeuda);
 
     Swal.fire({
       title: "Pago realizado!",
