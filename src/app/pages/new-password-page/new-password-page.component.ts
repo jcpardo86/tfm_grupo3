@@ -34,7 +34,7 @@ export class NewPasswordPageComponent {
 		if (this.newPassForm.valid) {
 			try {
 				const currentUrl = this.router.url;
-				const token = currentUrl.split('/')[2]; // Ajusta esto según la estructura de tu URL
+				const token = currentUrl.split('/')[2]; // saca el token de la URL
 				console.log(`Current URL: ${currentUrl}`); // Debug URL
 				console.log(`Token: ${token}`); // Debug token
 

@@ -54,7 +54,7 @@ export class ResetPasswordComponent {
 			Swal.fire({
 				icon: 'error',
 				title: 'Error',
-				text: 'Usuario o contraseña incorrectos',
+				text: 'Usuario incorrecto',
 				confirmButtonColor: '#FE5F42',
 			})
 
