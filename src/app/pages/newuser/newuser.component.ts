@@ -36,6 +36,9 @@ export class NewuserComponent {
 
 	activatedRoute = inject(ActivatedRoute)
 
+	imageURL: string | null = null;
+
+
 	constructor(private http: HttpClient, private router: Router) {
 		this.modelForm = new FormGroup(
 			{
@@ -104,12 +107,20 @@ export class NewuserComponent {
 							imagen: new FormControl(response.imagen, [Validators.required]),
 						},
 						[this.checkpasswords, this.checkemails]
+
 					);
+
 				}
+				const rutaimagen = response.imagen ? `http://localhost:3000${response.imagen}` : null;
+				this.imageURL = rutaimagen; // Asigna la URL de la imagen a la propiedad imageURL
+
 			}
+
 		});
 
 	}
+
+
 
 	// Verificación de campos
 	checkControl(
