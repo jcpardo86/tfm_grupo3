@@ -25,7 +25,7 @@ export class FormUserComponent {
     imagen: '',
   };
   titleForm: string = "Registro nuevo usuario";
-  textBottom: string = "Guardar";
+  textBottom: string = "GUARDAR";
 
   activatedRoute = inject(ActivatedRoute)
 
@@ -82,7 +82,7 @@ export class FormUserComponent {
     this.activatedRoute.params.subscribe(async (params: any) => {
       if(params.id_user) {
         this.titleForm = "Actualizar usuario";
-        this.textBottom = "Actualizar";
+        this.textBottom = "ACTUALIZAR";
         const response = await this.userService.getUserById(params.id_user);
         if (response) {
           this.modelForm = new FormGroup(
