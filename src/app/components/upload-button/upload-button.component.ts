@@ -28,7 +28,11 @@ export class UploadButtonComponent {
 		if (file && file.type === 'image/jpeg') {
 			this.selectedFile = file;
 		} else {
-			alert('Please select a JPG file.');
+			Swal.fire({
+				icon: 'error',
+				title: 'Por favor selecciona una imagen .jpg',
+				confirmButtonColor: '#FE5F42',
+			})
 		}
 	}
 
@@ -69,7 +73,11 @@ export class UploadButtonComponent {
 				title: 'Imagen de usuario actualizada',
 				confirmButtonColor: '#FE5F42',
 
+			}).then(() => {
+				window.location.reload();
 			})
+
+
 
 		} catch (error) {
 			console.error('Error uploading file!', error);
