@@ -140,7 +140,28 @@ export class GroupViewComponent {
       text: `Todos los gastos están liquidados y el grupo "${this.group.nombre}" ha sido eliminado.`,
       icon: "success"
     });
-  }
+  };
+
+
+  async updateDebtList() {
+    try {
+      this.deudas = await this.debtService.getDebtsByGroup(this.idGroup);
+      this.deudas.sort((a: any, b: any) => {
+      return a.idDeuda - b.idDeuda;
+      }); 
+      this.todoLiquidado = true;
+      for(let deuda of this.deudas) {
+        console.log(deuda);
+        if(deuda.is_pagada !== 1){
+          console.log(deuda.is_pagada);
+          this.todoLiquidado = false;
+          break;
+        }
+      }
+    } catch(error) {
+      console.log(error);
+    }
+  };
 
   closeGroup() {
     Swal.fire({
@@ -162,7 +183,7 @@ export class GroupViewComponent {
             text: "El grupo ha sido cerrado correctamente.",
             icon: "success"
           });
-          this.router.navigate(['/user']); 
+          this.router.navigate(['/groups']); 
         } catch(error) {
           alert('Se ha producido un error al cerrar el grupo. Por favor, inténtelo de nuevo más tarde.')
         }

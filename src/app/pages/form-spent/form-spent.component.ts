@@ -1,22 +1,23 @@
-import { Component, Input, inject, input } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { FooterComponent } from "../../components/footer/footer.component";
-import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { SpentsService } from '../../services/spents.service';
-import { IUser } from '../../interfaces/iuser.interface';
-import { GroupsService } from '../../services/groups.service';
+import { Component, inject } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import dayjs from 'dayjs';
 import Swal from 'sweetalert2';
+import { SpentsService } from '../../services/spents.service';
 import { DebtsService } from '../../services/debts.service';
+import { GroupsService } from '../../services/groups.service';
+import { IUser } from '../../interfaces/iuser.interface';
+import { FooterComponent } from '../../components/footer/footer.component';
+import { REACTIVE_NODE } from '@angular/core/primitives/signals';
 
 @Component({
-  selector: 'app-spent-view',
+  selector: 'app-form-spent',
   standalone: true,
   imports: [FooterComponent, ReactiveFormsModule],
-  templateUrl: './spent-view.component.html',
-  styleUrl: './spent-view.component.css'
+  templateUrl: './form-spent.component.html',
+  styleUrl: './form-spent.component.css'
 })
-export class SpentViewComponent {
+export class FormSpentComponent {
 
   tipo: string = 'AÑADIR';
   boton: string = 'Guardar';
@@ -39,10 +40,19 @@ export class SpentViewComponent {
     this.modelForm = new FormGroup({
       idGasto: new FormControl('',[]),
       idGrupo: new FormControl('',[]),
-      idUsuario: new FormControl('',[]),
-      descripcion: new FormControl('',[]),
-      importe: new FormControl('',[]),
-      fecha: new FormControl('',[]), 
+      idUsuario: new FormControl('',[
+        Validators.required,
+      ]),
+      descripcion: new FormControl('',[
+        Validators.required
+      ]),
+      importe: new FormControl('',[
+        Validators.required,
+        Validators.pattern(/^(0*[1-9][0-9]*(\.[0-9]+)?|0+\.[0-9]*[1-9][0-9]*)$/gm)
+      ]),
+      fecha: new FormControl('',[
+        Validators.required
+      ]), 
     }, [])
 
   }
@@ -80,7 +90,7 @@ export class SpentViewComponent {
         }
         const response_3 = await this.debtService.updateDebtsByGroup(this.modelForm.value);
 
-        Swal.fire(`El gasto ha sido actualizado correctamente}"`);
+        Swal.fire(`El gasto ha sido actualizado correctamente"`);
         this.router.navigate([`/group/${response_1.idGrupo}`])
 
       } catch(error) {
@@ -130,9 +140,15 @@ export class SpentViewComponent {
           idGasto: new FormControl(response.idGasto,[]),
           idGrupo: new FormControl(response.idGrupo,[]),
           idUsuario: new FormControl(response.idUsuario,[]),
-          descripcion: new FormControl(response.descripcion,[]),
-          importe: new FormControl(response.importe,[]),
-          fecha: new FormControl(response.fecha,[])
+          descripcion: new FormControl(response.descripcion,[
+            Validators.required
+          ]),
+          importe: new FormControl(response.importe,[
+            Validators.required
+          ]),
+          fecha: new FormControl(response.fecha,[
+            Validators.required
+          ])
           }, []);
           
       } else {
@@ -160,6 +176,16 @@ export class SpentViewComponent {
     console.log(this.users);
   }
 
-}
+    // Verificación de campos
+    checkControl(
+      formControlName: string,
+      validador: string
+    ): boolean | undefined {
+      return (
+        this.modelForm.get(formControlName)?.hasError(validador) &&
+        this.modelForm.get(formControlName)?.touched
+      );
+    }
 
+}
 

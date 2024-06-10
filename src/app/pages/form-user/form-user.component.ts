@@ -1,26 +1,20 @@
 import { Component, inject } from '@angular/core';
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { UsersService } from '../../services/users.service';
 import { IUser } from '../../interfaces/iuser.interface';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
 
 @Component({
-  selector: 'app-newuser',
+  selector: 'app-form-user',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, NavbarComponent],
-  templateUrl: './newuser.component.html',
-  styleUrls: ['./newuser.component.css'],
+  imports: [ReactiveFormsModule, NavbarComponent, RouterLink],
+  templateUrl: './form-user.component.html',
+  styleUrl: './form-user.component.css'
 })
-export class NewuserComponent {
+export class FormUserComponent {
   modelForm: FormGroup;
   userService = inject(UsersService);
   user: IUser = {
@@ -86,10 +80,10 @@ export class NewuserComponent {
   ngOnInit(): void {
     // lo pido a BBDD
     this.activatedRoute.params.subscribe(async (params: any) => {
-      if(params._id) {
+      if(params.id_user) {
         this.titleForm = "Actualizar usuario";
         this.textBottom = "Actualizar";
-        const response = await this.userService.getUserById(params._id);
+        const response = await this.userService.getUserById(params.id_user);
         if (response) {
           this.modelForm = new FormGroup(
             {
@@ -98,8 +92,8 @@ export class NewuserComponent {
               apellidos: new FormControl(response.apellidos, [Validators.required, Validators.minLength(3)]),
               email: new FormControl(response.email, [Validators.required, Validators.pattern(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)]),
               repiteemail: new FormControl(response.email, [Validators.required, Validators.pattern(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)]),
-              password: new FormControl(response.password, [Validators.required, Validators.minLength(6)]),
-              repitepass: new FormControl(response.password, [Validators.required, Validators.minLength(6)]),
+              password: new FormControl("", [Validators.required, Validators.minLength(6)]),
+              repitepass: new FormControl("", [Validators.required, Validators.minLength(6)]),
               imagen: new FormControl(response.imagen, [Validators.required]),
             },
             [this.checkpasswords, this.checkemails]

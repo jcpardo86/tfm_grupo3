@@ -23,9 +23,7 @@ export class PayButtonComponent {
 
   async getData() {
     // Tengo que crear un servicio para actualizar el campo importe_liquidado de tabla grupo_usuario
-    console.log(this.miDeuda);
     const respuesta_1 = await this.spentService.updateLiquidado(this.miDeuda);
-    console.log(this.miDeuda);
 
     const respuesta_2 = await this.debtService.updateStatus(this.miDeuda);
 
@@ -39,7 +37,7 @@ export class PayButtonComponent {
       confirmButtonText: "ok"
     }).then((result) => {
       if (result.isConfirmed) {
-       location.reload();
+       this.deudaPagada.emit();
       }
     });
 
