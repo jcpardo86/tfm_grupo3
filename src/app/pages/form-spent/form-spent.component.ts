@@ -9,11 +9,12 @@ import { GroupsService } from '../../services/groups.service';
 import { IUser } from '../../interfaces/iuser.interface';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { REACTIVE_NODE } from '@angular/core/primitives/signals';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
 
 @Component({
   selector: 'app-form-spent',
   standalone: true,
-  imports: [FooterComponent, ReactiveFormsModule],
+  imports: [FooterComponent, ReactiveFormsModule,NavbarComponent],
   templateUrl: './form-spent.component.html',
   styleUrl: './form-spent.component.css'
 })
