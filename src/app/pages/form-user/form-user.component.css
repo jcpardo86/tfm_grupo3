@@ -5,11 +5,7 @@ a {
   a:hover {
     color: var(--orange);
   }
-  
-  input {
-    border: none;
-    background-color: var(--grey);
-  }
+
   
   strong {
     color: var(--orange);
