@@ -46,8 +46,7 @@ export class GroupViewComponent {
   totalSpent!: number;
   deudas: IDebt[] = [];
 
-  existeLiquidado: boolean = false;
-  todoLiquidado: boolean = false;
+  todoLiquidado: boolean = true;
  
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(async (params:any) =>{
@@ -66,6 +65,9 @@ export class GroupViewComponent {
 
       try {
         this.spents = await this.spentService.getSpentsByGroup(this.idGroup);
+        this.spents.sort((a: any, b: any) => {
+          return a.idGasto - b.idGasto;
+        }); 
       } catch(error) {
         console.log(error);
       }
@@ -82,13 +84,10 @@ export class GroupViewComponent {
 
       try {
         this.deudas = await this.debtService.getDebtsByGroup(this.idGroup);
-        console.log("deudas", this.deudas);
         for(let deuda of this.deudas) {
-          if(deuda.is_pagada === 1){
-            this.existeLiquidado = true;
-            this.todoLiquidado = true;
-          } else {
+          if(deuda.is_pagada !== 1){
             this.todoLiquidado = false;
+            break;
           }
         }
       } catch(error) {
@@ -141,7 +140,28 @@ export class GroupViewComponent {
       text: `Todos los gastos están liquidados y el grupo "${this.group.nombre}" ha sido eliminado.`,
       icon: "success"
     });
-  }
+  };
+
+
+  async updateDebtList() {
+    try {
+      this.deudas = await this.debtService.getDebtsByGroup(this.idGroup);
+      this.deudas.sort((a: any, b: any) => {
+      return a.idDeuda - b.idDeuda;
+      }); 
+      this.todoLiquidado = true;
+      for(let deuda of this.deudas) {
+        console.log(deuda);
+        if(deuda.is_pagada !== 1){
+          console.log(deuda.is_pagada);
+          this.todoLiquidado = false;
+          break;
+        }
+      }
+    } catch(error) {
+      console.log(error);
+    }
+  };
 
   closeGroup() {
     Swal.fire({
@@ -156,13 +176,14 @@ export class GroupViewComponent {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await this.groupService.updateStatusGroup({idGrupo: this.idGroup, status:'close'}); 
+          const response = await this.groupService.updateStatusGroup({idGrupo: this.idGroup, status: "close"}); 
           console.log(response);
           Swal.fire({
             title: "Grupo cerrado!",
             text: "El grupo ha sido cerrado correctamente.",
             icon: "success"
           });
+          this.router.navigate(['/groups']); 
         } catch(error) {
           alert('Se ha producido un error al cerrar el grupo. Por favor, inténtelo de nuevo más tarde.')
         }
