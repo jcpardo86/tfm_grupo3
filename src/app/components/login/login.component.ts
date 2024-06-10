@@ -41,7 +41,7 @@ export class LoginComponent {
 
 			localStorage.setItem('token', response.token!);
 			localStorage.setItem('idUserLogueado', response.id_user);
-			this.router.navigate([`/user`]);
+			this.router.navigate([`/groups`]);
 			//LE HE QUITADO EL ID PARA QUE RECOJA EL TOKEN DEL USUARIO REGISTRADO
 			/*this.router.navigate([`/user/${response.id_user}`]);*/
 		} catch (error: any) {

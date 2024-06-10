@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, inject } from '@angular/core';
 import { ISpent } from '../../interfaces/ispent.interface';
 import { UsersService } from '../../services/users.service';
 import { IUser } from '../../interfaces/iuser.interface';
 import { RouterLink } from '@angular/router';
 import dayjs from 'dayjs';
+import { SpentsService } from '../../services/spents.service';
 
 @Component({
 	selector: 'app-spent-card',
@@ -28,6 +29,7 @@ export class SpentCardComponent {
 	};
 
 	userService = inject(UsersService);
+	spentService = inject(SpentsService);
 
 	async ngOnInit(): Promise<any> {
 

@@ -52,4 +52,8 @@ export class SpentsService {
   updateLiquidado(debt: IDebt): Promise<any> {
     return lastValueFrom(this.httpClient.put<IDebt>(`${this.baseUrl}/liquidar/${debt.idGrupo}`, debt))
   };
+
+  deleteSpent(id_debt: number): Promise<any> {
+    return lastValueFrom(this.httpClient.delete<any>(`${this.baseUrl}/${id_debt}`))
+  };
 }

@@ -80,7 +80,7 @@
               @if(deuda.is_pagada !== 1) {
               <div class="card shadow rounded-lg deudas mb-3">
                 <span class="ps-5 texto-deuda">{{deuda.idUsuario}} debe a {{deuda.receptor}} la cantidad de {{deuda.importe}} €</span>
-                <app-pay-button [miDeuda]="deuda"></app-pay-button>
+                <app-pay-button [miDeuda]="deuda" (deudaPagada)="updateDebtList()"></app-pay-button>
               </div>
               }
             }
