@@ -1,33 +1,4 @@
 import { Component, inject } from '@angular/core';
-<<<<<<< HEAD:src/app/pages/form-user/form-user.component.ts
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import Swal from 'sweetalert2';
-import { UsersService } from '../../services/users.service';
-import { IUser } from '../../interfaces/iuser.interface';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { NavbarComponent } from '../../components/navbar/navbar.component';
-
-@Component({
-  selector: 'app-form-user',
-  standalone: true,
-  imports: [ReactiveFormsModule, NavbarComponent, RouterLink],
-  templateUrl: './form-user.component.html',
-  styleUrl: './form-user.component.css'
-})
-export class FormUserComponent {
-  modelForm: FormGroup;
-  userService = inject(UsersService);
-  user: IUser = {
-    nombre: '',
-    apellidos: '',
-    email: '',
-    password: '',
-    imagen: '',
-  };
-  titleForm: string = "Registro nuevo usuario";
-  textBottom: string = "GUARDAR";
-=======
 import {
 	AbstractControl,
 	FormControl,
@@ -47,8 +18,8 @@ import { UploadButtonComponent } from '../../components/upload-button/upload-but
 	selector: 'app-newuser',
 	standalone: true,
 	imports: [ReactiveFormsModule, RouterLink, NavbarComponent, UploadButtonComponent],
-	templateUrl: './newuser.component.html',
-	styleUrls: ['./newuser.component.css'],
+	templateUrl: './form-user.component.html',
+	styleUrls: ['./form-user.component.css'],
 })
 export class NewuserComponent {
 	modelForm: FormGroup;
@@ -62,7 +33,6 @@ export class NewuserComponent {
 	};
 	titleForm: string = "Registro nuevo usuario";
 	textBottom: string = "Guardar";
->>>>>>> upload-images:src/app/pages/newuser/newuser.component.ts
 
 	activatedRoute = inject(ActivatedRoute)
 
@@ -102,42 +72,13 @@ export class NewuserComponent {
 		);
 	}
 
-<<<<<<< HEAD:src/app/pages/form-user/form-user.component.ts
-  // Inicialización de datos
-  ngOnInit(): void {
-    // lo pido a BBDD
-    this.activatedRoute.params.subscribe(async (params: any) => {
-      if(params.id_user) {
-        this.titleForm = "Actualizar usuario";
-        this.textBottom = "ACTUALIZAR";
-        const response = await this.userService.getUserById(params.id_user);
-        if (response) {
-          this.modelForm = new FormGroup(
-            {
-              idUsuario: new FormControl(response.idUsuario),
-              nombre: new FormControl(response.nombre, [Validators.required, Validators.minLength(3)]),
-              apellidos: new FormControl(response.apellidos, [Validators.required, Validators.minLength(3)]),
-              email: new FormControl(response.email, [Validators.required, Validators.pattern(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)]),
-              repiteemail: new FormControl(response.email, [Validators.required, Validators.pattern(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)]),
-              password: new FormControl("", [Validators.required, Validators.minLength(6)]),
-              repitepass: new FormControl("", [Validators.required, Validators.minLength(6)]),
-              imagen: new FormControl(response.imagen, [Validators.required]),
-            },
-            [this.checkpasswords, this.checkemails]
-          );
-        }
-      }
-    });
- 
-  }
-=======
+
 	// Verificación de contraseña
 	checkpasswords(group: AbstractControl): any {
 		const password = group.get('password')?.value;
 		const repitepass = group.get('repitepass')?.value;
 		return ((password !== repitepass) ? { 'checkpasswords': true } : null);
 	}
->>>>>>> upload-images:src/app/pages/newuser/newuser.component.ts
 
 	// Verificación de email
 	checkemails(group: AbstractControl): any {
@@ -263,4 +204,8 @@ export class NewuserComponent {
 			}
 		}
 	}
+}
+
+export class FormUserComponent {
+
 }
