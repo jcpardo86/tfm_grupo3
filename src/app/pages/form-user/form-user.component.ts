@@ -21,7 +21,7 @@ import { UploadButtonComponent } from '../../components/upload-button/upload-but
 	templateUrl: './form-user.component.html',
 	styleUrls: ['./form-user.component.css'],
 })
-export class NewuserComponent {
+export class FormUserComponent {
 	modelForm: FormGroup;
 	userService = inject(UsersService);
 	user: IUser = {
@@ -71,7 +71,6 @@ export class NewuserComponent {
 			[this.checkpasswords, this.checkemails]
 		);
 	}
-
 
 	// Verificación de contraseña
 	checkpasswords(group: AbstractControl): any {
@@ -204,8 +203,4 @@ export class NewuserComponent {
 			}
 		}
 	}
-}
-
-export class FormUserComponent {
-
 }
