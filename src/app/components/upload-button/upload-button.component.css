@@ -1,0 +1,42 @@
+input::file-selector-button {
+	font-weight: bold;
+	color: white;
+	background-color: var(--light_orange);
+	padding: 1em;
+	border: none;
+	border-radius: 30px;
+}
+
+input::file-selector-button:hover {
+	background-color: var(--orange);
+}
+
+.custom-file-upload {
+	width: 100%;
+	font-size: 0.7rem;
+	border: none;
+	border-radius: 0.7rem;
+	display: inline-block;
+	padding: 6px;
+	cursor: pointer;
+}
+
+
+.bg-orange {
+	background-color: var(--orange);
+	position: relative;
+	left: -75px;
+	top: 0px;
+	transform: rotate(-2.50deg);
+}
+
+.btn_personal {
+	padding: 0.7rem 2rem;
+	background-color: var(--orange);
+	color: white;
+	border: none;
+}
+
+.btn_personal:hover {
+	background-color: var(--light_orange);
+}

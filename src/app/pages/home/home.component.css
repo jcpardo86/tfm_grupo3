@@ -24,6 +24,7 @@ strong {
 
 .btn_personal:hover {
 	background-color: var(--light_orange);
+
 }
 
 .container_header {
@@ -34,7 +35,7 @@ strong {
 	background-position: center;
 	height: 500px;
 	overflow: visible;
-  padding-top: 80px;
+	padding-top: 80px;
 
 }
 
