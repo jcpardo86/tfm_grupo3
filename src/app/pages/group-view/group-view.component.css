@@ -100,3 +100,8 @@
 .btn_personal:hover {
 	background-color: var(--light_orange);
 }
+
+.user-image {
+    width: 3.5%;
+    border: 1px, solid, black;
+}

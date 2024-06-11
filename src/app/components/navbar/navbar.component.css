@@ -36,3 +36,13 @@ li:hover {
 	outline: none;
 	box-shadow: none;
 }
+
+.user {
+	display: flex;
+	justify-content: center;
+}
+
+.user-image {
+	width: 20%;
+
+}

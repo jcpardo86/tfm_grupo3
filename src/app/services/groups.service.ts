@@ -21,23 +21,27 @@ export class GroupsService {
 
   getGroupsByUser(idUser: number | undefined): Promise<IGroupUser[]> {
     return lastValueFrom(this.httpClient.get<IGroupUser[]>(`${this.baseUrl}/${idUser}`));
-  }
+  };
 
   getUsersByGroup(idGroup: number | undefined): Promise<IUser[]> {
     return lastValueFrom(this.httpClient.get<IUser[]>(`${this.baseUrl}/users/${idGroup}`));
-  }
+  };
 
   getGroupById(idGroup: number): Promise<IGroup> {
     return lastValueFrom(this.httpClient.get<IGroup>(`${this.baseUrl}/group/${idGroup}`));
-  }
+  };
 
   getUserGroup(idUser: number | undefined, idGroup: number | undefined): Promise<IGroupUser> {
     return lastValueFrom(this.httpClient.get<IGroupUser>(`${this.baseUrl}/${idUser}/${idGroup}`));
-  }
+  };
 
   getStatusGroup(idGroup: number): Promise<string> {
     return lastValueFrom(this.httpClient.get<string>(`${this.baseUrl}/status/${idGroup}`));
-  }
+  };
+
+  getImageGroup(id_group: number | undefined): Promise<any> {
+    return lastValueFrom(this.httpClient.get<any>(`${this.baseUrl}/groupimage/${id_group}`));
+  };
 
   updateGroupUser(group: IGroupUser): Promise<IGroupUser>{
     return lastValueFrom(this.httpClient.put<IGroupUser>(`${this.baseUrl}/updateGroupUser`, group));

@@ -15,8 +15,9 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="/groups">GRUPOS</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item user pe-0 ps-0">
                         <a class="nav-link active"  [routerLink]="['/updateuser', id_user]">USUARIO</a>
+                        <img class="user-image border rounded-circle border-dark me-0" [src]=[image] alt=""/>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" (click)="closeSession()">CERRAR SESIÓN</a>

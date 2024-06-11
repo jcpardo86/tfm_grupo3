@@ -69,6 +69,10 @@ a {
     font-size: small;
   
   }
+
+  .user-image {
+    width: 50%;
+  }
   /*-----------------------media queries tablet ---------------------------*/
   
   @media (max-width: 768px) {

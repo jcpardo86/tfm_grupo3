@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
+//import { firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { UploadsService } from '../../services/uploads.service';
 
 @Component({
 	selector: 'app-upload-button',
@@ -13,9 +14,13 @@ import Swal from 'sweetalert2';
 	styleUrls: ['./upload-button.component.css']
 })
 export class UploadButtonComponent {
+
 	selectedFile: File | null = null;
 
+	//LARA - Nuevo añadido
+	uploadService = inject(UploadsService);
 
+	activatedRoute = inject(ActivatedRoute);
 
 	userId: string = ''; // Inicialmente vacío
 
@@ -27,6 +32,7 @@ export class UploadButtonComponent {
 		const file: File = event.target.files[0];
 		if (file && file.type === 'image/jpeg') {
 			this.selectedFile = file;
+
 		} else {
 			Swal.fire({
 				icon: 'error',
@@ -46,27 +52,46 @@ export class UploadButtonComponent {
 			return;
 		}
 
+		//LARA - lo he añadido nuevo
+		this.activatedRoute.params.subscribe(async (params: any) => {
+			this.userId = params.id_user;
+		});
 
-
+		//this.activatedRoute.params.subscribe(async (params: any) => {
 		try {
-			const currentUrl = this.router.url;
-			const idUsuario = currentUrl.split('/')[2]; // saca el token de la URL
+
+			/*const currentUrl = this.router.url;
+			const idUsuario = currentUrl.split('upload/')[2]; // saca el token de la URL
 			console.log(`Current URL: ${currentUrl}`); // Debug URL
-			console.log(`usuario id: ${idUsuario}`); // Debug token
+			console.log(`usuario id: ${idUsuario}`); // Debug token*/
 
 			const formData = new FormData();
 
 			console.log('File to upload:', this.selectedFile);
-			console.log('User ID:', idUsuario);
+			console.log('User ID:', this.userId);
 
 
 			formData.append('imagen', this.selectedFile);
-			formData.append('idUsuario', idUsuario);
+			formData.append('idUsuario', this.userId);
 
-			console.log("idUsuario despues de append", idUsuario);
+			console.log("idUsuario despues de append", this.userId);
 
-
-			const response = await firstValueFrom(this.http.post('http://localhost:3000/api/upload/userimage', formData));
+			// LARA - Nuevo añadido, para inyectarlo como servicio
+			
+			const response = this.uploadService.updateImageUser(formData);
+			console.log('File successfully uploaded!', response);
+			Swal.fire({
+				icon: 'success',
+				title: 'Imagen de usuario actualizada',
+				confirmButtonColor: '#FE5F42',
+			}).then(() => {
+				//window.location.reload();
+				//Añadido nuevo
+				this.router.navigate(['/home']);
+			});
+ 			
+			//
+			/*const response = await firstValueFrom(this.http.post('http://localhost:3000/api/upload/userimage', formData));
 			console.log('File successfully uploaded!', response);
 			Swal.fire({
 				icon: 'success',
@@ -75,7 +100,7 @@ export class UploadButtonComponent {
 
 			}).then(() => {
 				window.location.reload();
-			})
+			})*/
 
 
 
@@ -89,5 +114,6 @@ export class UploadButtonComponent {
 			})
 
 		}
-	}
+	}//)
 }
+//}

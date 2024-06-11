@@ -9,10 +9,17 @@
 				alt="Dos amigos comiendo un bocata en la cocina">
 		</div>
 
-		<div class="description pt-5">
-			<h2 class="font">{{group.nombre}}</h2>
-			<p class="fs-5 pt-2">{{group.descripcion}}</p>
-		</div>
+    <div class="users pt-4">
+        <h2 class="font">Usuarios</h2>
+        <div class="pt-2">
+            @for(user of users; track user.idUsuario){
+
+                <img class="user-image border rounded-circle border-dark me-2" [src]=[user.imagen] alt=""/>
+                <span class="fs-5 me-4"> {{user.nombre}} {{user.apellidos}} </span>
+     
+            }
+        </div>
+    </div>
 
 		<div class="users pt-4">
 			<h2 class="font">Usuarios</h2>

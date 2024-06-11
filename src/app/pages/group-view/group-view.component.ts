@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 import { PayButtonComponent } from '../../components/pay-button/pay-button.component';
 import { IDebt } from '../../interfaces/idebt.interface';
 import { DebtsService } from '../../services/debts.service';
+import { UploadsService } from '../../services/uploads.service';
 
 @Component({
   selector: 'app-group-view',
@@ -45,6 +46,7 @@ export class GroupViewComponent {
   spents: ISpent[] = [];
   totalSpent!: number;
   deudas: IDebt[] = [];
+  images: string[] = [];
 
   todoLiquidado: boolean = true;
  
@@ -59,6 +61,10 @@ export class GroupViewComponent {
 
       try {
         this.users = await this.groupService.getUsersByGroup(this.idGroup);
+        for(let i in this.users) {
+          const response = await this.userService.getImageUser(this.users[i].idUsuario);
+          this.users[i].imagen = (`http://localhost:3000/userimage/${this.users[i].imagen}`)
+        }
       } catch(error) {
         console.log(error);
       }
