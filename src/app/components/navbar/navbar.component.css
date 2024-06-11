@@ -15,10 +15,10 @@
 }
 
 /* Espaciado superior para el contenido de la página */
-body {
-	padding-top: 70px;
-	/* Ajusta este valor según la altura de tu navbar */
-}
+/* body {
+	padding-top: 70px; */
+/* Ajusta este valor según la altura de tu navbar */
+/* } */
 
 /* Otros estilos existentes */
 li:hover {
@@ -39,10 +39,11 @@ li:hover {
 
 .user {
 	display: flex;
-	justify-content: center;
+	justify-content: left;
 }
 
 .user-image {
-	width: 20%;
-
+	vertical-align: middle;
+	width: 40px;
+	height: 40px;
 }
