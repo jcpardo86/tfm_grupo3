@@ -15,12 +15,19 @@ strong {
 	color: var(--orange);
 }
 
+hr {
+	border: 1px solid var(--grey);
+}
+
+.hr_container {
+	width: 100%;
+}
 
 .bg-orange {
 	background-color: var(--orange);
 	position: relative;
 	left: -75px;
-	top: 0px;
+	top: 40px;
 	transform: rotate(-2.50deg);
 }
 
@@ -35,35 +42,22 @@ strong {
 	background-color: var(--light_orange);
 }
 
-/*.container_header {
+.container_header {
 	background-image: url('../../../assets/images/header_grupos copia.jpg');
 	width: 100% !important;
 	background-size: cover;
 	background-repeat: no-repeat;
-	background-position: center;
-	height: 500px;
+	background-position: top;
+	height: 400px !important;
 	overflow: visible;
 
 }
-*/
+
 .texto {
 	text-align: justify;
 }
 
-.container_header {
-  background-image: url('../../../assets/images/header_grupos_copia1.jpg');
-  width: 100% !important;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  height: 300px !important; /* Ajusta este valor según tus necesidades */
-  overflow: visible;
-}
 
-.container_header h1 {
-  margin-top: 20px !important; /* Ajusta según sea necesario */
-  padding: 10px !important; /* Ajusta según sea necesario */
-}
 
 .home_card {
 	background-color: var(--grey);
@@ -81,17 +75,21 @@ strong {
 }
 
 .rotate-on-hover:hover img {
-  transition: transform 0.3s ease;
-  transform: rotate(45deg); /* Ajusta el ángulo de rotación según tu preferencia */
+	transition: transform 0.3s ease;
+	transform: rotate(45deg);
+	/* Ajusta el ángulo de rotación según tu preferencia */
 }
+
 .change-color-on-hover:hover strong {
-  color: black;
+	color: black;
 }
+
 /*-----------------------media queries tablet ---------------------------*/
 @media (min-width: 1200px) {
-  .container_header {
-      height: 500px; /* Altura para pantallas grandes */
-  }
+	.container_header {
+		height: 400px;
+		/* Altura para pantallas grandes */
+	}
 }
 
 @media (max-width: 768px) {
@@ -99,16 +97,18 @@ strong {
 		background-color: var(--orange);
 		position: relative;
 		left: -35px;
-		top: 0px;
+		top: 40px;
 		transform: rotate(-2.50deg);
 	}
 
 	.logo {
 		width: 50px;
 	}
-  .container_header {
-    height: 400px; /* Altura para pantallas medianas */
-}
+
+	.container_header {
+		height: 400px;
+		/* Altura para pantallas medianas */
+	}
 }
 
 /*-----------------------media queries móvil ---------------------------*/
