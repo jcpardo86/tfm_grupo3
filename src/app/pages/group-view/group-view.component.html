@@ -21,20 +21,6 @@
         </div>
     </div>
 
-		<div class="users pt-4">
-			<h2 class="font">Usuarios</h2>
-			<div class="pt-2">
-				@for(user of users; track user.idUsuario){
-				@if($index < users.length-2) { <span class="fs-5">{{user.nombre}} {{user.apellidos}}, </span>
-					} @else if ($index === users.length-2) {
-					<span class="fs-5">{{user.nombre}} {{user.apellidos}} y </span>
-					} @else {
-					<span class="fs-5">{{user.nombre}} {{user.apellidos}}</span>
-					}
-					}
-			</div>
-		</div>
-
 		<div class="mt-5 container-second">
 
 			<div class="container-spents_and_resume">
