@@ -10,73 +10,73 @@ import dayjs from 'dayjs';
 import { UsersService } from '../../services/users.service';
 
 @Component({
-  selector: 'app-chat',
-  standalone: true,
-  imports: [ReactiveFormsModule, NgFor, DatePipe],
-  templateUrl: './chat.component.html',
-  styleUrl: './chat.component.css'
+	selector: 'app-chat',
+	standalone: true,
+	imports: [ReactiveFormsModule, NgFor, DatePipe],
+	templateUrl: './chat.component.html',
+	styleUrl: './chat.component.css'
 })
 export class ChatComponent {
 
-  @Input() id_group!: number;
-  
-  socket = io('http://localhost:3000');
+	@Input() id_group!: number;
 
-  messageService = inject(MessagesService);
-  userService = inject(UsersService);
+	socket = io('http://localhost:3000');
 
-  arrMessages : IMessage[] = [];
+	messageService = inject(MessagesService);
+	userService = inject(UsersService);
 
-  msg : IMessage = {
-    idUsuario: 0,
-    idGrupo: 0,
-    fecha_hora: '',
-    texto: ''
-  };
+	arrMessages: IMessage[] = [];
 
-  formChat: FormGroup;
+	msg: IMessage = {
+		idUsuario: 0,
+		idGrupo: 0,
+		fecha_hora: '',
+		texto: ''
+	};
 
-  constructor() {
-    this.formChat = new FormGroup({
-      message: new FormControl(),
-    })
-  }
+	formChat: FormGroup;
 
- async ngOnInit() {
+	constructor() {
+		this.formChat = new FormGroup({
+			message: new FormControl(),
+		})
+	}
 
-    this.msg.idUsuario = parseInt(localStorage.getItem('idUserLogueado') || '');
-    
-    try {
-      const messages = await this.messageService.getMessagesByGroup(this.id_group);
+	async ngOnInit() {
 
-      messages.sort((a: any, b: any) => {
-        return a.idMensaje - b.idMensaje;
-      }); 
+		this.msg.idUsuario = parseInt(localStorage.getItem('idUserLogueado') || '');
 
-      for(let message of messages) {
-        const user = await this.userService.getUserById(message.idUsuario);
-        message.nombre_usuario = user.nombre;
-      }
-      this.arrMessages = messages;
-    } catch(error) {
-      console.log(error);
-    }
+		try {
+			const messages = await this.messageService.getMessagesByGroup(this.id_group);
 
-    this.socket.on('chat_message_server', async (message) => {
-      const user = await this.userService.getUserById(this.msg.idUsuario);
-      message.nombre_usuario = user.nombre;
-      this.arrMessages.push(message);
-    });
- }
+			messages.sort((a: any, b: any) => {
+				return a.idMensaje - b.idMensaje;
+			});
 
- getDataForm() {
-  this.msg.texto = this.formChat.value.message;
-  this.msg.idGrupo = this.id_group;
-  this.msg.fecha_hora = dayjs(new Date()).format('YYYY-MM-DD HH:mm')
-  console.log(this.msg);
-  this.socket.emit('chat_message_client', this.msg);
-  this.formChat.reset(); 
- }
+			for (let message of messages) {
+				const user = await this.userService.getUserById(message.idUsuario);
+				message.nombre_usuario = user.nombre;
+			}
+			this.arrMessages = messages;
+		} catch (error) {
+			console.log(error);
+		}
+
+		this.socket.on('chat_message_server', async (message) => {
+			const user = await this.userService.getUserById(this.msg.idUsuario);
+			message.nombre_usuario = user.nombre;
+			this.arrMessages.push(message);
+		});
+	}
+
+	getDataForm() {
+		this.msg.texto = this.formChat.value.message;
+		this.msg.idGrupo = this.id_group;
+		this.msg.fecha_hora = dayjs(new Date()).format('YYYY-MM-DD HH:mm')
+		console.log(this.msg);
+		this.socket.emit('chat_message_client', this.msg);
+		this.formChat.reset();
+	}
 
 }
 

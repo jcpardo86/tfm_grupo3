@@ -1,49 +1,49 @@
-.font{
-    color: var(--orange);
-    font-weight: 600;
+.font {
+	color: var(--orange);
+	font-weight: 600;
 }
 
-.chat{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.chat {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
-.mymsg{
-    display: flex;
-    flex-direction: column;
-    text-align: end;
-    border-radius: 9px 9px 0px 9px;
-    background-color: #fea6422d;
-    width: 100%;
-
-}
-
-.othermsg{
-    display: flex;
-    flex-direction: column;
-    border-radius: 9px 9px 9px 0;
-    background-color: #EAEAEA;
-    width: 100%;
-}
-
-.chat-newmsg{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.mymsg {
+	display: flex;
+	flex-direction: column;
+	text-align: end;
+	border-radius: 9px 9px 0px 9px;
+	background-color: #fea6422d;
+	width: 100%;
 
 }
 
-
-.input-mensaje{
-    width: 80%
+.othermsg {
+	display: flex;
+	flex-direction: column;
+	border-radius: 9px 9px 9px 0;
+	background-color: #EAEAEA;
+	width: 100%;
 }
 
-.input-enviar{
-    width: 8%;
-    height: 70%;
+.chat-newmsg {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
 }
 
-.datetime{
-    font-size: 0.8rem;
+
+.input-mensaje {
+	width: 80%
+}
+
+.input-enviar {
+	width: 8%;
+	height: 70%;
+}
+
+.datetime {
+	font-size: 0.8rem;
 }
