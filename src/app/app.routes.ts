@@ -10,6 +10,7 @@ import { NewPasswordPageComponent } from './pages/new-password-page/new-password
 import { GroupListComponent } from './pages/group-list/group-list.component';
 import { FormSpentComponent } from './pages/form-spent/form-spent.component';
 import { FormUserComponent } from './pages/form-user/form-user.component';
+import { UploadButtonComponent } from './components/upload-button/upload-button.component';
 
 
 export const routes: Routes = [
@@ -33,5 +34,8 @@ export const routes: Routes = [
 	{ path: "updateuser/:id_user", component: FormUserComponent, canActivate: [authGuard] },
 	{ path: "newspent/:id_group", component: FormSpentComponent, canActivate: [authGuard] },
 	{ path: "updatespent/:id_spent", component: FormSpentComponent, canActivate: [authGuard] },
+	{ path: "updateuser/upload/:id_user", component: UploadButtonComponent },
+	{ path: "newuser/upload/:id_user", component: UploadButtonComponent },
+
 	{ path: "**", component: PageNotFoundComponent }
 ];

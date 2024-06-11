@@ -1,5 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink} from '@angular/router';
+import { UsersService } from '../../services/users.service';
+import { IUser } from '../../interfaces/iuser.interface';
 
 
 @Component({
@@ -13,6 +15,9 @@ export class NavbarComponent {
 
 
   router = inject(Router);
+  userService = inject(UsersService);
+  
+  image: string = "";
 
   id_user = parseInt(localStorage.getItem('idUserLogueado') || '');
 
@@ -24,6 +29,16 @@ export class NavbarComponent {
   closeSession() {
     localStorage.clear();
     this.router.navigate([`/home`]);
+  }
+
+  async ngOnInit() {
+    try {
+        const response = await this.userService.getImageUser(this.id_user);
+        this.image = (`http://localhost:3000/userimage/${response[0].imagen}`)
+      
+    } catch(error) {
+      console.log(error);
+    }
   }
 }
 
