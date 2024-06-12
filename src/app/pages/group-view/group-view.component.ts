@@ -175,8 +175,8 @@ export class GroupViewComponent {
       text: "Una vez cerrado, será eliminado de su listado de grupos",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#FE5F42",
+      cancelButtonColor: "#716add",
       cancelButtonText: "Cancelar",
       confirmButtonText: "Sí, cerrar!"
     }).then(async (result) => {
@@ -187,7 +187,8 @@ export class GroupViewComponent {
           Swal.fire({
             title: "Grupo cerrado!",
             text: "El grupo ha sido cerrado correctamente.",
-            icon: "success"
+            icon: "success",
+            confirmButtonColor: "#FE5F42"
           });
           this.router.navigate(['/groups']); 
         } catch(error) {

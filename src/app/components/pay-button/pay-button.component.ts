@@ -32,9 +32,10 @@ export class PayButtonComponent {
       text: "La deuda ha quedado saldada!",
       icon: "success",
       showCancelButton: false,
-      confirmButtonColor: "#3085d6",
+      confirmButtonColor: "#FE5F42",
       cancelButtonColor: "#d33",
       confirmButtonText: "ok"
+      
     }).then((result) => {
       if (result.isConfirmed) {
        this.deudaPagada.emit();
