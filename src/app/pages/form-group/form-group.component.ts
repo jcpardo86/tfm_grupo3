@@ -284,7 +284,7 @@ export class FormGroupComponent {
 			  }
 			
 			} else {
-				Swal.fire(`El grupo ha sido creado correctamente`);
+				Swal.fire(`La operación se ha realizado correctamente`);
 				this.router.navigate([`/group/${idGrupoUpdate}`]);
 			}
 		})
