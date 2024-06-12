@@ -91,7 +91,11 @@ export class FormSpentComponent {
         }
         const response_3 = await this.debtService.updateDebtsByGroup(this.modelForm.value);
 
-        Swal.fire(`El gasto ha sido actualizado correctamente"`);
+        Swal.fire({
+          text: "El gasto ha sido actualizado",
+          icon: "success",
+          confirmButtonColor: "#FE5F42"
+        });
         this.router.navigate([`/group/${response_1.idGrupo}`])
 
       } catch(error) {
@@ -112,7 +116,11 @@ export class FormSpentComponent {
 
       const response_3 = await this.debtService.updateDebtsByGroup(this.modelForm.value);
 
-      Swal.fire(`El gasto ha sido añadido al grupo correctamente`);
+      Swal.fire({
+        text: "El gasto ha sido añadido al grupo",
+        icon: "success",
+        confirmButtonColor: "#FE5F42"
+      });
       this.router.navigate([`/group/${this.id_group}`]);
 
       } catch(error) {

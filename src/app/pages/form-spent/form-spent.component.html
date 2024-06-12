@@ -7,19 +7,10 @@
 	<section class="container mt-5">
 		<div class="row row-gap-3">
 			<div class="col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center">
-                <div>
-                    <img src="assets/images/grupo.png" alt="Grupo de amigos compartiendo una pizza" class="img-fluid rounded">
-                    <div class="d-flex justify-content-end align-items-center mt-3">
-                        <p class="me-3 mb-0"><strong>EDITAR FOTO DE GASTO</strong></p>
-                        <a href="#">
-                            <img src="assets\icons\editar_foto.png" alt="Añadir gasto">
-                        </a>
-                    </div>
-
-                </div>
-			</div>
+        <img src="assets/images/grupo.png" alt="Grupo de amigos compartiendo una pizza" class="img-fluid rounded img-group mt-3">
+      </div>
 			<div class="col-lg-6 col-md-12 col-sm-12">
-        <h3>{{tipo}} GASTO</h3>
+        <h3 class="title mt-3 mb-4">{{tipo}} GASTO</h3>
         <form [formGroup]="modelForm" (ngSubmit)="getDataForm()">  
                     <!-- <div class="mb-3">
 						<label class="form-label">TÍTULO</label>
@@ -46,8 +37,8 @@
               <div class="row row-gap-3">
                 <div class="col-lg-8 mb-3">
                   @if(tipo==="AÑADIR") {
-                    <label class="form-label">PAGADOR</label>
-                    <select class="form-select form-select-md mb-6" id="idUsuario" formControlName="idUsuario" style="width:auto;">
+                    <label class="row form-label">PAGADOR</label>
+                    <select class="row form-select  form-select-md mb-6" id="idUsuario" formControlName="idUsuario" style="width:auto">
                       <option value="">Seleccione un usuario</option>
                       @for(user of users; track user.idUsuario) {
                         <option [value]="user.idUsuario">{{user.nombre}}</option>
@@ -66,8 +57,8 @@
 						  <input type="date" class="form-control" id="fecha"  formControlName="fecha">
 					  </div>
 
-            <div class="row row-gap-3">
-              <input type="submit"  [disabled]="!modelForm.valid" value="{{boton}}" class="btn btn-success btn-lg btn_personal rounded-5">
+            <div class="row row-gap-3 justify-content-center mt-4">
+              <input type="submit"  [disabled]="!modelForm.valid" value="{{boton}}" class="btn btn-primary btn-lg btn_personal mb-3 rounded-pill">
             </div>
 
 
