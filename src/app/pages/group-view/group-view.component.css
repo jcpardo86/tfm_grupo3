@@ -1,3 +1,4 @@
+/* group-view.component.css */
 .font {
 	color: var(--orange);
 	font-weight: 600;
@@ -15,11 +16,11 @@
 .container-second {
 	display: flex;
 	justify-content: space-between;
-
 }
 
-.container-spents_and_resume {
-	width: 100%
+.container-spents_and_resume,
+.container-spents_and_total {
+	width: 100%;
 }
 
 .container-spents_and_total {
@@ -27,11 +28,10 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	width: 100%
 }
 
 .container-spents {
-	margin: 0px;
+	margin: 0;
 	width: 100%;
 }
 
@@ -73,13 +73,11 @@
 
 .chat {
 	background-color: rgba(128, 128, 128, 0.052);
-	width: 50%;
 }
 
 .rotate-on-hover:hover img {
 	transition: transform 0.3s ease;
 	transform: rotate(45deg);
-	/* Ajusta el ángulo de rotación según tu preferencia */
 }
 
 .containerDeudas {
@@ -94,7 +92,6 @@
 	color: white;
 	border: none;
 	width: 40%;
-
 }
 
 .btn_personal:hover {
@@ -102,6 +99,6 @@
 }
 
 .user-image {
-    width: 3.5%;
-    border: 1px, solid, black;
+	width: 3.5%;
+	border: 1px solid black;
 }
