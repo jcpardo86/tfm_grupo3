@@ -65,9 +65,8 @@
 							@for(deuda of deudas; track $index) {
 							@if(deuda.is_pagada !== 1) {
 							<div class="card shadow rounded-lg deudas mb-3">
-								<span class="ps-5 texto-deuda">{{deuda.idUsuario}} debe a {{deuda.receptor}} la cantidad
-									de
-									{{deuda.importe}} €</span>
+								<span class="ps-5 texto-deuda"><strong>{{deuda.nombre_usuario}}</strong> debe a <strong>{{deuda.nombre_receptor}}</strong> la cantidad
+									de {{deuda.importe}} €</span>
 								<app-pay-button [miDeuda]="deuda" (deudaPagada)="updateDebtList()"></app-pay-button>
 							</div>
 							}
@@ -91,29 +90,6 @@
 							<app-chat [id_group]="idGroup"></app-chat>
 						</div>
 					</div>
-<<<<<<< Updated upstream
-=======
-					} @else {
-					@for(deuda of deudas; track $index) {
-					@if(deuda.is_pagada !== 1) {
-					<div class="card shadow rounded-lg deudas mb-3">
-						<span class="ps-5 texto-deuda"><strong>{{deuda.nombre_usuario}}</strong> debe a <strong>{{deuda.nombre_receptor}}</strong> la cantidad de
-							{{deuda.importe}} €</span>
-						<app-pay-button [miDeuda]="deuda" (deudaPagada)="updateDebtList()"></app-pay-button>
-					</div>
-					}
-					}
-					}
-
-					@if (todoLiquidado === true && deudas.length !==0 ) {
-					<div class="containerDeudas">
-						<span class="fs-5 pb-5">No hay pagos pendientes - Todas las deudas del grupo han sido
-							liquidadas</span>
-						<button type="submit" (click)="closeGroup()"
-							class="btn btn-primary btn-lg btn_personal mb-3 rounded-pill">CERRAR GRUPO</button>
-					</div>
-					}
->>>>>>> Stashed changes
 				</div>
 			</div>
 		</div>
