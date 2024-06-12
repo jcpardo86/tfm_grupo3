@@ -35,6 +35,7 @@ export const routes: Routes = [
 	{ path: "newspent/:id_group", component: FormSpentComponent, canActivate: [authGuard] },
 	{ path: "updatespent/:id_spent", component: FormSpentComponent, canActivate: [authGuard] },
 	{ path: "updateuser/upload/:id_user", component: UploadButtonComponent },
+	{ path: "updategroup/upload/:id_group", component: UploadButtonComponent },
 	{ path: "newuser/upload/:id_user", component: UploadButtonComponent },
 
 	{ path: "**", component: PageNotFoundComponent }

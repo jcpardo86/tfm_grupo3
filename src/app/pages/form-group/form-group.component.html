@@ -8,60 +8,35 @@
 		<div class="row row-gap-3">
 			<div class="col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center">
                 <div>
-                    <img src="assets/images/grupo.png" alt="Grupo de amigos compartiendo una pizza" class="img-fluid rounded">
-                    <div class="d-flex justify-content-end align-items-center mt-3">
-                        <p class="me-3 mb-0"><strong>EDITAR FOTO DE GRUPO</strong></p>
-                        <a href="#">
-                            <img src="assets\icons\editar_foto.png" alt="Añadir usuario">
-                        </a>
-                    </div>
-
+                    <img class="img-fluid rounded" [src]=[image] alt=""/> 
                 </div>
 			</div>
 			<div class="col-lg-6 col-md-12 col-sm-12">
 				<form [formGroup]="modelForm">
-                    <h3>{{tipo}} grupo</h3>
+                    <h3>{{tipo}} GRUPO</h3>
 					<div class="mb-3">
-						<label class="form-label">Nombre del grupo</label>
+						<label class="form-label">NOMBRE DEL GRUPO</label>
 						<input type="text" class="form-control" id="nombreGrupo" formControlName="nombreGrupo">
                         @if(checkControlGrupo('nombreGrupo', 'required')){
                             <p class="error">Campo requerido</p>
+                        }@else if(checkControlGrupo('nombreGrupo', 'minlength')){
+                            <p class="error">La longitud del campo ha de ser mayor</p>
                         }
 					</div>
 					<div class="mb-3">
-						<label class="form-label">Descripción breve</label>
+						<label class="form-label">DESCRIPCIÓN BREVE</label>
 						<input type="text" class="form-control" id="descripcionGrupo" formControlName="descripcionGrupo">
                         @if(checkControlGrupo('descripcionGrupo', 'required')){
                             <p class="error">Campo requerido</p>
+                        }@else if(checkControlGrupo('descripcionGrupo', 'minlength')){
+                            <p class="error">La longitud del campo ha de ser mayor</p>
                         }
 					</div>
                     <form [formGroup]="aniadirUsuarioForm">
                         <div class="mb-3 row">
-                            @if(checkActualizar()){
-                                    <div class="col-lg-9">
-                                        <label class="form-label">Email usuario</label>
-                                        <input type="text" class="form-control mb-3" id="usuarioAñadir" formControlName="email">
-                                        @if(checkControlAniadir('email', 'required')){
-                                            <p class="error">Campo requerido</p>
-                                        }@else if(checkControlAniadir('email', 'email')){
-                                            <p class="error">Introduzca un email</p>
-                                        }@else if(!existeUsuario){
-                                            <p class="error">No existe el email indicado</p>
-                                        }
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <label class="form-label">% del gasto</label>
-                                        <input type="text" class="form-control mb-3" id="gastoUsuario" formControlName="porcentaje">
-                                        @if(checkControlAniadir('porcentaje', 'required')){
-                                            <p class="error">Campo requerido</p>
-                                        }@else if(checkControlAniadir('porcentaje', 'pattern')){
-                                            <p class="error">Introduzca un porcentaje válido (0-100)</p>
-                                        }
-                                    </div>
-
-                            }@else{
+                         @if(!checkActualizar()){
                                 <div class="col-lg-9">
-                                    <label class="form-label">Email usuario</label>
+                                    <label class="form-label">EMAIL USUARIO</label>
                                     <input type="text" class="form-control" id="usuarioAñadir" formControlName="email">
                                     @if(checkControlAniadir('email', 'required')){
                                         <p class="error">Campo requerido</p>
@@ -77,7 +52,7 @@
                                     @if(checkControlAniadir('porcentaje', 'required')){
                                         <p class="error">Campo requerido</p>
                                     }@else if(checkControlAniadir('porcentaje', 'pattern')){
-                                        <p class="error">Introduzca un porcentaje válido (0-100)</p>
+                                        <p class="error">Introduzca un porcentaje válido (1-99)</p>
                                     }
                                 </div>
                             }
@@ -86,43 +61,44 @@
 
                     <div class="row">
                         @if(arrUsuarios.length > 0){
-                            <label class="form-label"><strong>Miembros</strong></label>
+                            <label class="form-label"><strong>MIEMBROS</strong></label>
                         }
                         @for(usuario of arrUsuarios; track usuario.idUsuario){
                             <div class="col-12">
                                 <p>{{usuario.nombre}} {{usuario.apellidos}} - {{usuario.porcentaje}}%</p>
                             </div>
                         }
-                        <div class="col-4">
-                            <button type="button" class="btn btn-primary btn-sm btn_personal rounded-5" (click)="limpiar()" [hidden]="arrUsuarios.length === 0">Reiniciar miembros</button>
-                        </div>
-                          @if(!correctPorcentajes() && buttonPulsed){
-                            <p class="error">Los porcentajes asignados no son válidos</p>
+                        @if(!checkActualizar()){
+                            <div class="col-4">
+                                <button type="button" class="btn btn-primary btn-sm btn_personal rounded-5" (click)="limpiar()" [hidden]="arrUsuarios.length === 0">Reiniciar miembros</button>
+                            </div>
+                        }
+                        @if(!correctPorcentajes() && buttonPulsed){
+                            <p class="error">Los porcentajes asignados no son válidos, han de sumar 100</p>
                         }
                         @if(!correctEmails && buttonPulsed){
                             <p class="error">Tiene que introducirse como un miembro del grupo</p>
                         }
                     </div>
-                    <div class="mb-3 row align-items-center">
-                        <div class="col-lg-7">
-                            <hr class="custom-hr">
-                        </div>
-                        <div class="col-lg-3">
-                            <p><strong>AÑADE USUARIO</strong></p>
-                        </div>
-                        <div class="col-lg-2">
-                            <a (click)="aniadirUsuario()">
-                                <img src="assets\icons\añadir_usuario.png" alt="Añadir usuario">
-                            </a>
-                        </div>
-                    </div>
-                    @if(checkActualizar()){
-                        <div class="row">z
-                            <div class="col-lg-6 d-flex justify-content-end">
-                                <button type="button" class="btn btn-primary btn-lg btn_borrar rounded-5">BORRAR GRUPO</button>
+                    @if(!checkActualizar()){
+                        <div class="mb-3 row align-items-center">
+                            <div class="col-lg-7">
+                                <hr class="custom-hr">
                             </div>
+                            <div class="col-lg-3">
+                                <p><strong>AÑADE USUARIO</strong></p>
+                            </div>
+                            <div class="col-lg-2">
+                                <a (click)="aniadirUsuario()">
+                                    <img src="assets\icons\añadir_usuario.png" alt="Añadir usuario">
+                                </a>
+                            </div>
+                        </div>
+                    }
+                    @if(checkActualizar()){
+                        <div class="row">
                             <div class="col-lg-6 d-flex justify-content-end">
-                                <button type="button" class="btn btn-primary btn-lg btn_personal rounded-5" (click)="crearGrupo()">GUARDAR CAMBIOS</button>
+                                <button type="button" class="btn btn-primary btn-lg btn_personal rounded-5" (click)="(buttonPulsed = true) && crearGrupo()" [disabled]="!modelForm.valid">GUARDAR CAMBIOS</button>
                             </div>
                         </div>
                     }@else {

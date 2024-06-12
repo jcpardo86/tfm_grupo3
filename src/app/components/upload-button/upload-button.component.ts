@@ -22,12 +22,22 @@ export class UploadButtonComponent {
 
 	activatedRoute = inject(ActivatedRoute);
 
-	userId: string = ''; // Inicialmente vacío
+	id: string = ''; // Inicialmente vacío
+
+	tipo: string = 'usuario';
 
 	constructor(private http: HttpClient, private router: Router) { }
 
+	isImagenGrupo: boolean = false;
 
-
+	ngOnInit() {
+		this.activatedRoute.params.subscribe(async (params: any) => {
+			if(params.id_group){
+				this.isImagenGrupo = true;
+				this.tipo = 'grupo'
+			}
+		})
+	}
 	onFileSelected(event: any): void {
 		const file: File = event.target.files[0];
 		if (file && file.type === 'image/jpeg') {
@@ -52,10 +62,16 @@ export class UploadButtonComponent {
 			return;
 		}
 
-		//LARA - lo he añadido nuevo
-		this.activatedRoute.params.subscribe(async (params: any) => {
-			this.userId = params.id_user;
-		});
+		if(this.isImagenGrupo){
+			this.activatedRoute.params.subscribe(async (params: any) => {
+				this.id = params.id_group;
+			});
+		}else{
+			this.activatedRoute.params.subscribe(async (params: any) => {
+				this.id = params.id_user;
+			});
+		}
+		
 
 		//this.activatedRoute.params.subscribe(async (params: any) => {
 		try {
@@ -68,27 +84,46 @@ export class UploadButtonComponent {
 			const formData = new FormData();
 
 			console.log('File to upload:', this.selectedFile);
-			console.log('User ID:', this.userId);
+			console.log('User ID:', this.id);
 
 
 			formData.append('imagen', this.selectedFile);
-			formData.append('idUsuario', this.userId);
-
-			console.log("idUsuario despues de append", this.userId);
-
-			// LARA - Nuevo añadido, para inyectarlo como servicio
+			if(this.isImagenGrupo){
+				formData.append('idGrupo', this.id);
+				console.log("idGrupo despues de append", this.id);
+			}else{
+				formData.append('idUsuario', this.id);
+				console.log("idUsuario despues de append", this.id);
+			}
 			
-			const response = this.uploadService.updateImageUser(formData);
-			console.log('File successfully uploaded!', response);
-			Swal.fire({
-				icon: 'success',
-				title: 'Imagen de usuario actualizada',
-				confirmButtonColor: '#FE5F42',
-			}).then(() => {
-				//window.location.reload();
-				//Añadido nuevo
-				this.router.navigate(['/home']);
-			});
+			if(this.isImagenGrupo){
+				console.log("EE")
+				console.log(formData)
+				const response = this.uploadService.updateImageGroup(formData);
+				console.log('File successfully uploaded!', response);
+				Swal.fire({
+					icon: 'success',
+					title: 'Imagen de grupo actualizada',
+					confirmButtonColor: '#FE5F42',
+				}).then(() => {
+					//window.location.reload();
+					//Añadido nuevo
+					this.router.navigate([`/group/${this.id}`]);
+				});
+			}else{
+				const response = this.uploadService.updateImageUser(formData);
+				console.log('File successfully uploaded!', response);
+				Swal.fire({
+					icon: 'success',
+					title: 'Imagen de usuario actualizada',
+					confirmButtonColor: '#FE5F42',
+				}).then(() => {
+					//window.location.reload();
+					//Añadido nuevo
+					this.router.navigate(['/home']);
+				});
+			}
+			
  			
 			//
 			/*const response = await firstValueFrom(this.http.post('http://localhost:3000/api/upload/userimage', formData));
@@ -101,8 +136,6 @@ export class UploadButtonComponent {
 			}).then(() => {
 				window.location.reload();
 			})*/
-
-
 
 		} catch (error) {
 			console.error('Error uploading file!', error);

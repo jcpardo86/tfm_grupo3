@@ -18,7 +18,6 @@ export class GroupsService {
   private httpClient = inject(HttpClient);
   private baseUrl : string = 'http://localhost:3000/api/groups'
 
-
   getGroupsByUser(idUser: number | undefined): Promise<IGroupUser[]> {
     return lastValueFrom(this.httpClient.get<IGroupUser[]>(`${this.baseUrl}/${idUser}`));
   };
@@ -46,7 +45,6 @@ export class GroupsService {
   updateGroupUser(group: IGroupUser): Promise<IGroupUser>{
     return lastValueFrom(this.httpClient.put<IGroupUser>(`${this.baseUrl}/updateGroupUser`, group));
   };
-
 
   insertGroup(group: IGroup): Promise<IGroup> {
     return new Promise((resolve, reject) => {

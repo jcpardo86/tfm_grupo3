@@ -19,16 +19,13 @@ import { UploadButtonComponent } from '../../components/upload-button/upload-but
 	styleUrls: ['./form-group.component.css']
 })
 
-
-//TODO: Editar foto
-
 export class FormGroupComponent {
 	userService = inject(UsersService);
 	groupService = inject(GroupsService);
 	router = inject(Router);
 	activedRoute = inject(ActivatedRoute)
 
-	tipo: string = 'Añadir'
+	tipo: string = 'AÑADIR'
 
 	modelForm: FormGroup;
 	aniadirUsuarioForm: FormGroup;
@@ -37,6 +34,7 @@ export class FormGroupComponent {
 	isActualizar: boolean = false;
 	arrUsuarios: IUser[];
 	correctEmails: boolean = true;
+	existsImage: boolean = false;
 
 	newUser: IUser = {
 		idUsuario: 0,
@@ -57,6 +55,9 @@ export class FormGroupComponent {
 	};
 
 	idGrupoUpdate: number = 0;
+
+	image: string = "";
+	imageString: string = "";
 
 	constructor() {
 		this.modelForm = new FormGroup({
@@ -81,7 +82,7 @@ export class FormGroupComponent {
 			]),
 			porcentaje: new FormControl('', [
 				Validators.required,
-				Validators.pattern("^100$|^([0-9]|[1-9][0-9])$")
+				Validators.pattern("^([1-9]|[1-9][0-9])$")
 			])
 		},
 			[])
@@ -92,39 +93,55 @@ export class FormGroupComponent {
 			if (params.id) {
 				this.idGrupoUpdate = params.id;
 				this.isActualizar = true;
-				this.tipo = 'Actualizar'
-				const responseGroup = await this.groupService.getGroupById(params.id)
-				this.modelForm = new FormGroup({
-					nombreGrupo: new FormControl(responseGroup.nombre, [
-						Validators.required,
-						Validators.minLength(3),
-						Validators.required
-					]),
-					descripcionGrupo: new FormControl(responseGroup.descripcion, [
-						Validators.required,
-						Validators.minLength(3),
-					])
-				},
-					[])
-				const response = await this.groupService.getUsersByGroup(responseGroup.idGrupo)
-				response.forEach(async user => {
-					const userGrupo = await this.groupService.getUserGroup(user.idUsuario, responseGroup.idGrupo)
-					user.porcentaje = userGrupo.porcentaje;
-				});
-				this.arrUsuarios = response;
-				this.aniadirUsuarioForm = new FormGroup({
-					email: new FormControl('', [
-						Validators.required,
-						Validators.email
-					]),
-					porcentaje: new FormControl('', [
-						Validators.required,
-						Validators.pattern("^100$|^([0-9]|[1-9][0-9])$")
-					])
-				},
-					[])
+				this.tipo = 'ACTUALIZAR';
+	
+				try {
+					const responseGroup = await this.groupService.getGroupById(params.id);
+					this.modelForm = new FormGroup({
+						nombreGrupo: new FormControl(responseGroup.nombre, [
+							Validators.required,
+							Validators.minLength(3),
+						]),
+						descripcionGrupo: new FormControl(responseGroup.descripcion, [
+							Validators.required,
+							Validators.minLength(3),
+						])
+					});
+	
+					const response = await this.groupService.getUsersByGroup(responseGroup.idGrupo);
+					for (const user of response) {
+						const userGrupo = await this.groupService.getUserGroup(user.idUsuario, responseGroup.idGrupo);
+						if (Array.isArray(userGrupo) && userGrupo.length > 0) {
+							user.porcentaje = userGrupo[0].porcentaje;
+						}
+					}
+					this.arrUsuarios = response;
+				} catch (error) {
+					console.error('Error fetching group data or users:', error);
+				}
 			}
-		})
+		});
+	
+		this.loadGroupImage();
+	}
+	
+	async loadGroupImage() {
+		try {
+			const response = await this.groupService.getImageGroup(this.idGrupoUpdate);
+			if (Array.isArray(response) && response.length > 0) {
+				if (response[0].imagen !== undefined && response[0].imagen != null && response[0].imagen.length > 0) {
+					this.image = `http://localhost:3000/groupimage/${response[0].imagen}`;
+					this.imageString = `${response[0].imagen}`;
+				}else{
+					this.image = 'assets/images/grupo.png';
+				}
+			}else {
+				this.image = 'assets/images/grupo.png';
+			}
+			
+		} catch (error) {
+			console.error('Error fetching group image:', error);
+		}
 	}
 
 	async aniadirUsuario() {
@@ -138,6 +155,15 @@ export class FormGroupComponent {
 					this.existeUsuario = true;
 					if (!this.arrUsuarios.find(user => user.email === email)) {
 						this.arrUsuarios.push(this.newUser);
+						this.resetFormAniadir();
+						const id = localStorage.getItem('idUserLogueado');
+						try {
+							const response = await this.userService.getUserById(Number(id));
+							this.userLogueado = response;
+						} catch (err) {
+							console.log(err);
+						}
+						if (this.arrUsuarios.find(user => user.email === this.userLogueado.email))this.setCorrectEmails(true);
 					}
 					if (this.correctPorcentajes()) {
 						this.buttonPulsed = false;
@@ -175,68 +201,92 @@ export class FormGroupComponent {
 	}
 
 	async crearGrupo() {
-		const id = localStorage.getItem('idUserLogueado');
-		try {
-			const response = await this.userService.getUserById(Number(id));
-			this.userLogueado = response;
-		} catch (err) {
-			console.log(err);
-		}
-
-		if (this.arrUsuarios.find(user => user.email === this.userLogueado.email)) {
-			this.setCorrectEmails(true);
-			const formGroup: IGroup = {
-				idGrupo: this.idGrupoUpdate,
-				nombre: this.modelForm.value.nombreGrupo,
-				descripcion: this.modelForm.value.descripcionGrupo,
-				imagen: "prueba.png"
-			};
-			if (this.isActualizar) {
-				const response = await this.groupService.updateGroup(formGroup);
-				this.groupService.deleteGroupUsers(this.idGrupoUpdate);
-				this.arrUsuarios.forEach(usuario => {
-					let rol = 'GUEST';
-					if (usuario.email == this.userLogueado.email) {
-						rol = 'ADMIN';
-					}
-					const newGroupUser: IGroupUser = {
-						idGrupo: this.idGrupoUpdate,
-						idUsuario: (usuario.idUsuario !== undefined ? usuario.idUsuario : 0),
-						porcentaje: (usuario.porcentaje !== undefined ? usuario.porcentaje : 0),
-						rol: rol
-					};
-					this.groupService.insertUserToGroup(newGroupUser);
-				});
-			} else {
-
-				const response = await this.groupService.insertGroup(formGroup);
-				this.arrUsuarios.forEach(usuario => {
-					let rol = 'GUEST';
-					if (usuario.email == this.userLogueado.email) {
-						rol = 'ADMIN';
-					}
-					const newGroupUser: IGroupUser = {
-						idGrupo: (response.idGrupo !== undefined ? response.idGrupo : 0),
-						idUsuario: (usuario.idUsuario !== undefined ? usuario.idUsuario : 0),
-						porcentaje: (usuario.porcentaje !== undefined ? usuario.porcentaje : 0),
-						rol: rol
-					};
-					this.groupService.insertUserToGroup(newGroupUser);
-				});
-				Swal.fire(`El grupo "${response.nombre}" ha sido creado correctamente`);
-				this.router.navigate([`/group/${response.idGrupo}`]);
+		if( this.correctPorcentajes()){
+			const id = localStorage.getItem('idUserLogueado');
+			try {
+				const response = await this.userService.getUserById(Number(id));
+				this.userLogueado = response;
+			} catch (err) {
+				console.log(err);
 			}
-		} else {
-			this.setCorrectEmails(false);
+			if (this.arrUsuarios.find(user => user.email === this.userLogueado.email)) {
+				this.setCorrectEmails(true);
+				const formGroup: IGroup = {
+					idGrupo: this.idGrupoUpdate,
+					nombre: this.modelForm.value.nombreGrupo,
+					descripcion: this.modelForm.value.descripcionGrupo,
+					imagen: this.imageString
+				};
+				if (this.isActualizar) {
+					const response = await this.groupService.updateGroup(formGroup);
+					this.uploadFoto(this.idGrupoUpdate);
+				} else {
+					const response = await this.groupService.insertGroup(formGroup);
+					this.arrUsuarios.forEach(usuario => {
+						let rol = 'GUEST';
+						if (usuario.email == this.userLogueado.email) {
+							rol = 'ADMIN';
+						}
+						const newGroupUser: IGroupUser = {
+							idGrupo: (response.idGrupo !== undefined ? response.idGrupo : 0),
+							idUsuario: (usuario.idUsuario !== undefined ? usuario.idUsuario : 0),
+							porcentaje: (usuario.porcentaje !== undefined ? usuario.porcentaje : 0),
+							rol: rol
+						};
+						this.groupService.insertUserToGroup(newGroupUser);
+					});
+					this.uploadFoto(response.idGrupo)
+				}
+			} else {
+				this.setCorrectEmails(false);
+			}
 		}
 	}
-
 
 	setCorrectEmails(value: boolean) {
 		this.correctEmails = value;
 	}
 
 	limpiar() {
+		this.buttonPulsed = false;
 		this.arrUsuarios = [];
+	}
+
+	resetFormAniadir(){
+		this.aniadirUsuarioForm = new FormGroup({
+			email: new FormControl('', [
+				Validators.required,
+				Validators.email
+			]),
+			porcentaje: new FormControl('', [
+				Validators.required,
+				Validators.pattern("^([1-9]|[1-9][0-9])$")
+			])
+		},
+			[])
+	}
+
+	uploadFoto(idGrupoUpdate: number | undefined){		
+		Swal.fire({
+			title: "¿Desea subir una foto de grupo?",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			cancelButtonText: "Cancelar",
+			confirmButtonText: "Sí!"
+		  }).then(async (result) => {
+			if (result.isConfirmed) {
+			  try {
+				this.router.navigate([`/updategroup/upload/${idGrupoUpdate}`]); 
+			  } catch(error) {
+				alert('Se ha producido un error al subir la imagen del grupo. Por favor, inténtelo de nuevo más tarde.')
+			  }
+			
+			} else {
+				Swal.fire(`El grupo ha sido creado correctamente`);
+				this.router.navigate([`/group/${idGrupoUpdate}`]);
+			}
+		})
 	}
 }
