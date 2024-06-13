@@ -2,7 +2,8 @@
 	<h2 class="font ps-4 pt-4">Chat</h2>
 
 	<div class="mt-4 mb-5 chat scr overflow-auto ">
-		<ul class="mb-3 pe-4 chat-msg mh-50">
+		<ul id="chat-ul" class="mb-3 pe-4 chat-msg mh-50" style="max-height: 255px;
+    overflow: auto;">
 			@for(message of arrMessages; track $index) {
 			@if(message.idUsuario === msg.idUsuario){
 			<div class="mymsg p-3 mb-3">

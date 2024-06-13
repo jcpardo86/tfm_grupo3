@@ -4,6 +4,7 @@ export interface IGroupUser {
     porcentaje: number,
     rol: string,
     saldo?: number,
-    importe_liquidado?: number,   
+    importe_liquidado?: number,
+    nombre?: string
 }
 
