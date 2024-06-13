@@ -69,6 +69,14 @@ export class ChatComponent {
 		});
 	}
 
+  //Scroll barra
+
+  async ngAfterContentChecked() {
+    let ulChat = document.getElementById("chat-ul") || document.createElement('div');
+    console.log(ulChat);
+    ulChat.scrollTop = ulChat.scrollHeight;
+  }
+
 	getDataForm() {
 		this.msg.texto = this.formChat.value.message;
 		this.msg.idGrupo = this.id_group;
