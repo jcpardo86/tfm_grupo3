@@ -38,7 +38,7 @@
                                 <div class="col-lg-9">
                                     <label class="form-label">EMAIL USUARIO</label>
                                     <input type="text" class="form-control" id="usuarioAñadir" formControlName="email">
-                                    @if(checkControlAniadir('email', 'required')){
+                                    @if(checkControlAniadir('email', 'required') || emailAniadirUsuarioIncompletos){
                                         <p class="error">Campo requerido</p>
                                     }@else if(checkControlAniadir('email', 'email')){
                                         <p class="error">Introduzca un email</p>
@@ -49,7 +49,7 @@
                                 <div class="col-lg-3">
                                     <label class="form-label">% del gasto</label>
                                     <input type="text" class="form-control" id="gastoUsuario" formControlName="porcentaje">
-                                    @if(checkControlAniadir('porcentaje', 'required')){
+                                    @if(checkControlAniadir('porcentaje', 'required') || porcentajeAniadirUsuarioIncompletos){
                                         <p class="error">Campo requerido</p>
                                     }@else if(checkControlAniadir('porcentaje', 'pattern')){
                                         <p class="error">Introduzca un porcentaje válido (1-99)</p>

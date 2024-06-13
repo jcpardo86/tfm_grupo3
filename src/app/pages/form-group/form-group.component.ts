@@ -35,6 +35,8 @@ export class FormGroupComponent {
 	arrUsuarios: IUser[];
 	correctEmails: boolean = true;
 	existsImage: boolean = false;
+	emailAniadirUsuarioIncompletos: boolean = false;
+	porcentajeAniadirUsuarioIncompletos: boolean = false;
 
 	newUser: IUser = {
 		idUsuario: 0,
@@ -145,7 +147,17 @@ export class FormGroupComponent {
 	}
 
 	async aniadirUsuario() {
-		if (!this.checkControlAniadir('email', 'required') && !this.checkControlAniadir('email', 'email') && !this.checkControlAniadir('porcentaje', 'required') && !this.checkControlAniadir('porcentaje', 'pattern')) {
+		if(this.aniadirUsuarioForm.value.porcentaje == null || this.aniadirUsuarioForm.value.porcentaje.length == 0){
+			this.porcentajeAniadirUsuarioIncompletos = true
+		}else{
+			this.porcentajeAniadirUsuarioIncompletos = false;
+		}
+		if(this.aniadirUsuarioForm.value.email == null || this.aniadirUsuarioForm.value.email.length == 0){
+			this.emailAniadirUsuarioIncompletos = true
+		}else{
+			this.emailAniadirUsuarioIncompletos = false;
+		}
+		if ((this.aniadirUsuarioForm.value.porcentaje != null && this.aniadirUsuarioForm.value.porcentaje.length > 0)&& (this.aniadirUsuarioForm.value.email != null && this.aniadirUsuarioForm.value.email.length > 0)) {
 			const email = this.aniadirUsuarioForm.value.email;
 			try {
 				const response = await this.userService.getUserByEmail(email);
@@ -175,7 +187,6 @@ export class FormGroupComponent {
 				this.router.navigate(['/error']);
 			}
 		}
-
 	}
 
 	checkActualizar(): boolean {
