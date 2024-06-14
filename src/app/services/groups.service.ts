@@ -30,8 +30,8 @@ export class GroupsService {
     return lastValueFrom(this.httpClient.get<IGroup>(`${this.baseUrl}/group/${idGroup}`));
   };
 
-  getUserGroup(idUser: number | undefined, idGroup: number | undefined): Promise<IGroupUser> {
-    return lastValueFrom(this.httpClient.get<IGroupUser>(`${this.baseUrl}/${idUser}/${idGroup}`));
+  getUserGroup(idUser: number | undefined, idGroup: number | undefined): Promise<IGroupUser[]> {
+    return lastValueFrom(this.httpClient.get<IGroupUser[]>(`${this.baseUrl}/${idUser}/${idGroup}`));
   };
 
   getStatusGroup(idGroup: number): Promise<string> {

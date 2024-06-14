@@ -19,6 +19,8 @@ export class SpentCardComponent {
 
 	@Input() numSpent!: number;
 
+	@Input() rolUser!: string;
+
 	myUser: IUser = {
 		idUsuario: 0,
 		nombre: "",
