@@ -53,17 +53,23 @@ export class ChatComponent {
 				return a.idMensaje - b.idMensaje;
 			});
 
-			for (let message of messages) {
-				const user = await this.userService.getUserById(message.idUsuario);
-				message.nombre_usuario = user.nombre;
+			console.log(messages);
+
+			for (let i in messages) {
+				const user = await this.userService.getUserById(messages[i].idUsuario);
+				console.log('user', user)
+				messages[i].nombre_usuario = user.nombre;
 			}
+			console.log('messages', messages);
 			this.arrMessages = messages;
+
 		} catch (error) {
 			console.log(error);
 		}
 
 		this.socket.on('chat_message_server', async (message) => {
-			const user = await this.userService.getUserById(this.msg.idUsuario);
+			console.log('nuevo mensaje', message);
+			const user = await this.userService.getUserById(message.idUsuario);
 			message.nombre_usuario = user.nombre;
 			this.arrMessages.push(message);
 		});
@@ -73,7 +79,6 @@ export class ChatComponent {
 
   async ngAfterContentChecked() {
     let ulChat = document.getElementById("chat-ul") || document.createElement('div');
-    console.log(ulChat);
     ulChat.scrollTop = ulChat.scrollHeight;
   }
 
@@ -81,7 +86,6 @@ export class ChatComponent {
 		this.msg.texto = this.formChat.value.message;
 		this.msg.idGrupo = this.id_group;
 		this.msg.fecha_hora = dayjs(new Date()).format('YYYY-MM-DD HH:mm')
-		console.log(this.msg);
 		this.socket.emit('chat_message_client', this.msg);
 		this.formChat.reset();
 	}
