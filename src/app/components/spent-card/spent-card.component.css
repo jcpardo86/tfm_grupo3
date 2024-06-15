@@ -1,44 +1,44 @@
-.tarjeta{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0px;
-    
+.tarjeta {
+	display: flex;
+	align-items: center;
+	/* justify-content: ; */
+	gap: 0px;
+
 }
 
-.iconcompra-container{
-    width: 10%;
-    padding-right: 10px;
-    padding-left: 30px;
+.iconcompra-container {
+	width: 10%;
+	padding-right: 10px;
+	padding-left: 30px;
 }
 
-.text-container{
-    width: 80%;
+.text-container {
+	width: 80%;
 }
 
-.iconeditar-container{
-    width: 10%;
-    text-align: center;
+.iconeditar-container {
+	width: 20%;
 }
 
-.icon-editar{
-    max-width: 60%; 
+.icon-editar {
+
+	max-width: 2rem;
 }
 
 .icon-carrito {
-    width: 150%;
+	width: 3rem;
+	align-self: center;
+	margin-left: 1rem;
 }
 
-.pagador{
-    display: flex;
-    justify-content:space-between;
-    padding-top: 15px;
+.pagador {
+	display: flex;
 }
 
-.texto{
-    width: 70%;
+.texto {
+	width: 60%;
 }
 
-.importe{
-    width: 30%;
+.importe {
+	width: 30%;
 }
