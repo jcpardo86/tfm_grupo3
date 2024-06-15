@@ -36,7 +36,8 @@ export class ResetPasswordComponent {
 
 	async onSubmit() {
 		try {
-			await this.resetService.postMail(this.resetForm.value);
+			console.log(this.resetForm.value)
+			console.log (await this.resetService.postMail(this.resetForm.value));
 			console.log(this.resetForm.value);
 			if (this.resetForm.value.email) {
 				Swal.fire({

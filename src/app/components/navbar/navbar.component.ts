@@ -34,8 +34,10 @@ export class NavbarComponent {
   async ngOnInit() {
     try {
         const response = await this.userService.getImageUser(this.id_user);
-        this.image = (`http://localhost:3000/userimage/${response[0].imagen}`)
-      
+
+        if(response[0]!==undefined) {
+          this.image = (`http://localhost:3000/userimage/${response[0].imagen}`)
+        }
     } catch(error) {
       console.log(error);
     }
