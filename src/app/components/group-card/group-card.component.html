@@ -2,7 +2,7 @@
 <div class="card shadow text-center rounded-lg">
   <div class="bg-grey card-body rounded-top-lg">
     <!-- Truncar el título a, por ejemplo, 5 palabras -->
-    <h3 class="card-title text-orange">{{ truncateText(group.nombre, 5) }}
+    <h3 class="card-title text-orange">{{ truncateText(group.nombre, 3) }}
       @if(myRol==="admin") {
         <a [routerLink]="['/updategroup', myGroup.idGrupo]" class="iconeditar-container pe-3">
           <img src="assets/icons/icon_editar.png" class="icon-editar" alt="Icono editar">
@@ -11,7 +11,7 @@
     </h3>
 
     <!-- Truncar la descripción a, por ejemplo, 20 palabras -->
-    <p class="p-2 rounded">{{ truncateText(group.descripcion.toString(), 3) }}</p>
+    <p class="p-2 rounded">{{ truncateText(group.descripcion.toString(), 5) }}</p>
     <h6 class="text-orange">Usuarios:</h6>
     <ul class="p-2 rounded list-unstyled">
       @for(user of users; track user.idUsuario){

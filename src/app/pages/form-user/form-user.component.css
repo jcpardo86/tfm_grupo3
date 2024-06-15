@@ -1,17 +1,17 @@
 a {
     color: black;
   }
-  
+
   a:hover {
     color: var(--orange);
   }
 
-  
+
   strong {
     color: var(--orange);
   }
-  
-  
+
+
   .bg-orange {
     background-color: var(--orange);
     position: relative;
@@ -19,24 +19,24 @@ a {
     top: 0px;
     transform: rotate(-2.50deg);
   }
-  
+
   .text-orange {
     color: var(--orange);
   }
-  
+
   .btn_personal {
     padding: 0.7rem 2rem;
     background-color: var(--orange);
     color: white;
     border: none;
     width: 40%;
-  
+
   }
-  
+
   .btn_personal:hover {
     background-color: var(--light_orange);
   }
-  
+
   .container_header {
     background-image: url('../../../assets/images/header_usuario.jpg');
     width: 100% !important;
@@ -45,36 +45,32 @@ a {
     background-position: center;
     height: 500px;
     overflow: visible;
-  
+
   }
-  
-  
+
   .home_card {
     background-color: var(--grey);
   }
-  
+
   .home_card img {
     padding-top: 2rem;
     align-self: center;
     width: 20%;
-  
+
   }
-  
+
   .logo {
     width: 75px;
   }
-  
+
   .error{
     color: red;
     font-size: small;
-  
+
   }
 
-  .user-image {
-    width: 50%;
-  }
   /*-----------------------media queries tablet ---------------------------*/
-  
+
   @media (max-width: 768px) {
     .bg-orange {
       background-color: var(--orange);
@@ -83,16 +79,16 @@ a {
       top: 0px;
       transform: rotate(-2.50deg);
     }
-  
+
     .logo {
       width: 50px;
     }
   }
-  
+
   /*-----------------------media queries móvil ---------------------------*/
-  
+
   @media (max-width: 576px) {
-  
+
     .bg-orange {
       background-color: var(--orange);
       position: relative;
@@ -100,11 +96,10 @@ a {
       top: 70px;
       transform: rotate(-2.50deg);
     }
-  
-  
+
+
     .logo {
       width: 40px;
     }
-  
+
   }
-  
