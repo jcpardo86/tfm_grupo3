@@ -16,6 +16,7 @@ import { SpentsService } from '../../services/spents.service';
 export class GroupCardComponent {
 
   @Input() myGroup!: IGroupUser;
+  @Input() myRol! : String;
 
   group: IGroup = {
     idGrupo: 0,
