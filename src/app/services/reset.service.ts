@@ -10,10 +10,7 @@ type resetPassword = {
 type newPassword = {
 	email: string;
 	confirmPassword: string;
-
 }
-
-
 
 @Injectable({
 	providedIn: 'root'
@@ -24,7 +21,8 @@ export class ResetService {
 	private baseUrl: string = 'http://localhost:3000/api/reset'
 
 	postMail(email: resetPassword): Promise<any> {
-		return lastValueFrom(this.httpClient.post<resetPassword>(`${this.baseUrl}`, email));
+		console.log('estoy en postMail')
+		return lastValueFrom(this.httpClient.post<any>(`${this.baseUrl}`, email));
 	};
 
 	// patchPassword(password: newPassword, token: string): Promise<any> {
