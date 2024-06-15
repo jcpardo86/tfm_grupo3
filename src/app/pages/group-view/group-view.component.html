@@ -10,12 +10,13 @@
 				alt="Dos amigos comiendo un bocata en la cocina">
 		</div>
 
-		<div class="users pt-4">
+		<div class=" pt-4">
 			<h2 class="font">Usuarios</h2>
 			<div class="pt-2">
 				@for(user of users; track user.idUsuario){
 				<img class="user-image border rounded-circle border-dark me-2" [src]=[user.imagen] alt="" />
-				<span class="fs-5 me-4">{{user.nombre}} {{user.apellidos}}</span>
+				<span class="fs-5 me-4 ">{{user.nombre}}
+					{{user.apellidos}}</span>
 				}
 			</div>
 		</div>
@@ -26,7 +27,7 @@
 					<div class=" ">
 						<div class="container-spents_and_total rounded-4">
 							<h2 class="font ps-4 pt-4 pb-3">Gastos</h2>
-							<div class="container-spents rounded-4 ps-4 pe-4 pb-1">
+							<div class="container-spents ps-4 pe-4 pb-1">
 								@if(this.spents.length === 0) {
 								<div class="text-center fs-4 pb-5">Aún no has añadido ningún gasto al grupo</div>
 								} @else {
@@ -69,7 +70,8 @@
 							@for(deuda of deudas; track $index) {
 							@if(deuda.is_pagada !== 1) {
 							<div class="card shadow rounded-lg deudas mb-3">
-								<span class="ps-5 texto-deuda"><strong>{{deuda.nombre_usuario}}</strong> debe a <strong>{{deuda.nombre_receptor}}</strong> la cantidad
+								<span class="ps-5 texto-deuda"><strong>{{deuda.nombre_usuario}}</strong> debe a
+									<strong>{{deuda.nombre_receptor}}</strong> la cantidad
 									de {{deuda.importe}} €</span>
 								@if(rol==="admin") {
 								<app-pay-button [miDeuda]="deuda" (deudaPagada)="updateDebtList()"></app-pay-button>
