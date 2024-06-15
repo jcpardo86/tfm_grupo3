@@ -1,22 +1,22 @@
 <div class="card shadow">
 
-  <div class="tarjeta">
-  
-    <div class="iconcompra-container">
-      <img src="assets/icons/carrito_compra.png" class="icon-carrito" alt="Icono carrito compra">
-    </div>
-    <div class="card-body text-container ps-5">
-        <h5 class="card-title fs-5">Gasto {{numSpent}} - {{mySpent.descripcion}}</h5>
-        <div class="pagador">
-          <p class="card-text texto">Paga: {{myUser.nombre}} {{myUser.apellidos}} </p>
-          <p class="card-text importe">-{{mySpent.importe}} €</p> 
-        </div>
-        <p class="card-text">{{mySpent.fecha}}</p> 
-    </div> 
-    @if(rolUser==="admin"){
-      <a [routerLink]="['/updatespent', mySpent.idGasto]" class="iconeditar-container pe-3">
-        <img src="assets/icons/icon_editar.png" class="icon-editar" alt="Icono editar">
-      </a>
-    }
-  </div>
+	<div class="tarjeta">
+
+		<div class="iconcompra-container">
+			<img src="assets/icons/carrito_compra.png" class="icon-carrito" alt="Icono carrito compra">
+		</div>
+		<div class="card-body text-container ps-5">
+			<h5 class="card-title fs-5">Gasto {{numSpent}} - {{mySpent.descripcion}}</h5>
+			<div class="pagador">
+				<p class="card-text texto">Paga: {{myUser.nombre}} {{myUser.apellidos}} </p>
+				<p class="card-text importe">-{{mySpent.importe}} €</p>
+			</div>
+			<p class="card-text">{{mySpent.fecha}}</p>
+		</div>
+		@if(rolUser==="admin"){
+		<a [routerLink]="['/updatespent', mySpent.idGasto]" class="iconeditar-container pe-3">
+			<img src="assets/icons/icon_editar.png" class="icon-editar" alt="Icono editar">
+		</a>
+		}
+	</div>
 </div>
