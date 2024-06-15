@@ -43,12 +43,12 @@ hr {
 }
 
 .container_header {
-	background-image: url('../../../assets/images/header_grupos copia.jpg');
+	background-image: url('../../../assets/images/header_grupos_copia1.jpg');
 	width: 100% !important;
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: top;
-	height: 400px !important;
+	height: 250px !important;
 	overflow: visible;
 
 }

@@ -1,5 +1,23 @@
-<p class="mt-3">Sube tu imagen de {{tipo}}</p>
-<div class="file-upload-container">
-	<input class=" custom-file-upload" type="file" accept=".jpg" (change)="onFileSelected($event)" /> <br>
-	<button class="btn-xs btn-primary btn-lg btn_personal mb-3 mt-3 rounded-pill" (click)="onSubmit()">Subir</button>
+<div class="container-fluid d-flex justify-content-center align-items-center" style="padding-top: 100px; padding-bottom: 10px;">
+  <div class="row w-100">
+    <div class="col-md-5 d-flex flex-column justify-content-center align-items-center">
+      <p class="mt-3">Sube tu imagen de {{ tipo }}</p>
+      <div class="file-upload-container">
+        <input class="custom-file-upload" type="file" accept=".jpg" (change)="onFileSelected($event)" />
+        <br />
+        <div *ngIf="selectedFile">
+          <p style="padding-top: 2rem;">Nombre del archivo: {{ selectedFile.name }}</p>
+          <button class="btn-xs btn-primary btn-lg btn_personal rounded-pill mt-3" (click)="onSubmit()">Subir</button>
+        </div>
+        <div *ngIf="!selectedFile">
+          <button class="btn-xs btn-primary btn-lg btn_personal rounded-pill mt-3" (click)="onSubmit()">Subir</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5 d-flex justify-content-center align-items-center">
+      <div *ngIf="selectedFile">
+        <img [src]="getImageUrl(selectedFile)" alt="Imagen seleccionada" class="img-thumbnail img-fluid" style="max-width: 600px; max-height: 600px;">
+      </div>
+    </div>
+  </div>
 </div>

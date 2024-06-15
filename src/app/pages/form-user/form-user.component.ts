@@ -13,12 +13,13 @@ import Swal from 'sweetalert2';
 import { UsersService } from '../../services/users.service';
 import { IUser } from '../../interfaces/iuser.interface';
 import { UploadButtonComponent } from '../../components/upload-button/upload-button.component';
+import { NgIf } from '@angular/common';
 
 
 @Component({
 	selector: 'app-newuser',
 	standalone: true,
-	imports: [ReactiveFormsModule, RouterLink, NavbarComponent, UploadButtonComponent],
+	imports: [ReactiveFormsModule, RouterLink, NavbarComponent, UploadButtonComponent, NgIf],
 	templateUrl: './form-user.component.html',
 	styleUrls: ['./form-user.component.css'],
 })
@@ -183,11 +184,11 @@ export class FormUserComponent {
 						if (result.isConfirmed) {
 						  try {
 							console.log(this.modelForm.value.idUsuario);
-							this.router.navigate([`/updateuser/upload/${this.modelForm.value.idUsuario}`]); 
+							this.router.navigate([`/updateuser/upload/${this.modelForm.value.idUsuario}`]);
 						  } catch(error) {
 							alert('Se ha producido un error al cerrar el grupo. Por favor, inténtelo de nuevo más tarde.')
 						  }
-						
+
 						//this.router.navigate(['/home']);
 						} else {
 							Swal.fire({
@@ -198,7 +199,7 @@ export class FormUserComponent {
 						}
 					})
 				}
-			
+
 
 		} else {
 
@@ -233,11 +234,11 @@ export class FormUserComponent {
 								console.log(this.user.email)
 								const response = await this.userService.getUserByEmail(this.user.email);
 								console.log(response);
-								this.router.navigate([`/newuser/upload/${response.idUsuario}`]); 
+								this.router.navigate([`/newuser/upload/${response.idUsuario}`]);
 							  } catch(error) {
 								alert('Se ha producido un error al cerrar el grupo. Por favor, inténtelo de nuevo más tarde.')
 							  }
-							
+
 							//this.router.navigate(['/home']);
 							} else {
 								Swal.fire({
@@ -259,5 +260,5 @@ export class FormUserComponent {
 			}
 		}
 	}
-	
+
 }
