@@ -1,7 +1,7 @@
 .tarjeta {
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	/* justify-content: ; */
 	gap: 0px;
 
 }
@@ -17,26 +17,26 @@
 }
 
 .iconeditar-container {
-	width: 10%;
-	text-align: center;
+	width: 20%;
 }
 
 .icon-editar {
-	max-width: 60%;
+
+	max-width: 2rem;
 }
 
 .icon-carrito {
-	width: 150%;
+	width: 3rem;
+	align-self: center;
+	margin-left: 1rem;
 }
 
 .pagador {
 	display: flex;
-	justify-content: space-between;
-	padding-top: 15px;
 }
 
 .texto {
-	width: 70%;
+	width: 60%;
 }
 
 .importe {
