@@ -180,71 +180,71 @@ export class FormUserComponent {
 						cancelButtonColor: "#d33",
 						cancelButtonText: "Cancelar",
 						confirmButtonText: "Sí!"
-					  }).then(async (result) => {
+					}).then(async (result) => {
 						if (result.isConfirmed) {
-						  try {
-							console.log(this.modelForm.value.idUsuario);
-							this.router.navigate([`/updateuser/upload/${this.modelForm.value.idUsuario}`]);
-						  } catch(error) {
-							alert('Se ha producido un error al cerrar el grupo. Por favor, inténtelo de nuevo más tarde.')
-						  }
+							try {
+								console.log(this.modelForm.value.idUsuario);
+								this.router.navigate([`/updateuser/upload/${this.modelForm.value.idUsuario}`]);
+							} catch (error) {
+								alert('Se ha producido un error al cerrar el grupo. Por favor, inténtelo de nuevo más tarde.')
+							}
 
-						//this.router.navigate(['/home']);
+							//this.router.navigate(['/home']);
 						} else {
 							Swal.fire({
-							icon: 'error',
-							title: 'Error',
-							text: 'Se ha producido un error en la actualización del usuario. Por favor, inténtelo de nuevo.',
+								icon: 'error',
+								title: 'Error',
+								text: 'Se ha producido un error en la actualización del usuario. Por favor, inténtelo de nuevo.',
 							});
 						}
 					})
 				}
 
 
-		} else {
+			} else {
 
-			this.user.nombre = this.modelForm.value.nombre;
-			this.user.apellidos = this.modelForm.value.apellidos;
-			this.user.email = this.modelForm.value.email;
-			this.user.password = this.modelForm.value.password;
-			//this.user.imagen = this.modelForm.value.imagen;
+				this.user.nombre = this.modelForm.value.nombre;
+				this.user.apellidos = this.modelForm.value.apellidos;
+				this.user.email = this.modelForm.value.email;
+				this.user.password = this.modelForm.value.password;
+				//this.user.imagen = this.modelForm.value.imagen;
 
-			try {
-				console.log("estoy aquí registro", this.user);
-				const response = await this.userService.registerUser(this.user);
-				console.log( "estoy aquí registro", response);
-				if (response) {
+				try {
+					console.log("estoy aquí registro", this.user);
+					const response = await this.userService.registerUser(this.user);
+					console.log("estoy aquí registro", response);
+					if (response) {
 						/*Swal.fire({
 							icon: 'success',
 							title: 'Registro correcto',
 							text: 'Bienvenido!. Ya puedes iniciar sesión con tu usuario en DIVI',
 						});
 						this.router.navigate(['/home']);*/
-					Swal.fire({
-						title: "¿Desea subir una foto de perfil?",
-						icon: "warning",
-						showCancelButton: true,
-						confirmButtonColor: "#3085d6",
-						cancelButtonColor: "#d33",
-						cancelButtonText: "Cancelar",
-						confirmButtonText: "Sí!"
+						Swal.fire({
+							title: "¿Desea subir una foto de perfil?",
+							icon: "warning",
+							showCancelButton: true,
+							confirmButtonColor: "#3085d6",
+							cancelButtonColor: "#d33",
+							cancelButtonText: "Cancelar",
+							confirmButtonText: "Sí!"
 						}).then(async (result) => {
 							if (result.isConfirmed) {
-							  try {
-								console.log(this.user.email)
-								const response = await this.userService.getUserByEmail(this.user.email);
-								console.log(response);
-								this.router.navigate([`/newuser/upload/${response.idUsuario}`]);
-							  } catch(error) {
-								alert('Se ha producido un error al cerrar el grupo. Por favor, inténtelo de nuevo más tarde.')
-							  }
+								try {
+									console.log(this.user.email)
+									const response = await this.userService.getUserByEmail(this.user.email);
+									console.log(response);
+									this.router.navigate([`/newuser/upload/${response.idUsuario}`]);
+								} catch (error) {
+									alert('Se ha producido un error al cerrar el grupo. Por favor, inténtelo de nuevo más tarde.')
+								}
 
-							//this.router.navigate(['/home']);
+								//this.router.navigate(['/home']);
 							} else {
 								Swal.fire({
-								icon: 'error',
-								title: 'Error',
-								text: 'Se ha producido un error en la actualización del usuario. Por favor, inténtelo de nuevo.',
+									icon: 'error',
+									title: 'Error',
+									text: 'Se ha producido un error en la actualización del usuario. Por favor, inténtelo de nuevo.',
 								});
 							}
 						})
