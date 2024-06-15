@@ -35,6 +35,7 @@ export class GroupViewComponent {
   debtService = inject(DebtsService);
 
   idGroup!: number;
+  rol!: string;
 
   group: IGroup  = {
     nombre: "",
@@ -49,10 +50,25 @@ export class GroupViewComponent {
   images: string[] = [];
 
   todoLiquidado: boolean = true;
+
+
  
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(async (params:any) =>{
       this.idGroup = params._id;
+      const idUser = parseInt(localStorage.getItem('idUserLogueado') || '');
+      console.log('datos', this.idGroup, idUser);
+
+      try {
+        const [user] = await this.groupService.getUserGroup(idUser, this.idGroup);
+        console.log(`user`, user)
+        this.rol = user.rol;
+        console.log(this.rol);
+        
+      } catch(error) {
+        console.log(error);
+      }
+
       try {
         this.group = await this.groupService.getGroupById(this.idGroup);
       } catch(error) {

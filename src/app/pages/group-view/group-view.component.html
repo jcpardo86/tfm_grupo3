@@ -31,7 +31,7 @@
 								} @else {
 								@for(spent of spents; track spent.idGasto; let i = $index) {
 								<article class="mb-3">
-									<app-spent-card [mySpent]="spent" [numSpent]="i+1"></app-spent-card>
+									<app-spent-card [mySpent]="spent" [numSpent]="i+1" [rolUser]="rol"></app-spent-card>
 								</article>
 								}
 								}
@@ -42,13 +42,14 @@
 									<span class="fs-2 ps-5 total-text">Gasto Total</span>
 									<span class="fs-2 ps-4 total-importe">{{totalSpent}} €</span>
 								</div>
-								<!--@if(!existeLiquidado)-->
+								@if(rol==="admin") {
 								<div class="pe-5">
 									<span class="fs-6 pe-2 gasto">Añadir gasto</span>
 									<a [routerLink]="['/newspent', group.idGrupo]" class="rotate-on-hover">
 										<img src="assets/icons/icon_mas.png" class="icon-mas" alt="Icono añadir">
 									</a>
 								</div>
+								}
 							</div>
 						</div>
 
@@ -57,9 +58,11 @@
 							@if(deudas.length === 0) {
 							<div class="containerDeudas">
 								<span class="text-center fs-4 pb-5">Aún no hay deudas pendientes en este grupo</span>
+								@if(rol==="admin") {
 								<button type="submit" (click)="closeGroup()"
 									class="btn btn-primary btn-lg btn_personal mb-3 rounded-pill">CERRAR GRUPO
 								</button>
+								}
 							</div>
 							} @else {
 							@for(deuda of deudas; track $index) {
@@ -67,7 +70,9 @@
 							<div class="card shadow rounded-lg deudas mb-3">
 								<span class="ps-5 texto-deuda"><strong>{{deuda.nombre_usuario}}</strong> debe a <strong>{{deuda.nombre_receptor}}</strong> la cantidad
 									de {{deuda.importe}} €</span>
+								@if(rol==="admin") {
 								<app-pay-button [miDeuda]="deuda" (deudaPagada)="updateDebtList()"></app-pay-button>
+								}
 							</div>
 							}
 							}
@@ -76,9 +81,11 @@
 							<div class="containerDeudas">
 								<span class="fs-5 pb-5">No hay pagos pendientes - Todas las deudas del grupo han sido
 									liquidadas</span>
+								@if(rol==="admin") {
 								<button type="submit" (click)="closeGroup()"
 									class="btn btn-primary btn-lg btn_personal mb-3 rounded-pill">CERRAR GRUPO
 								</button>
+								}
 							</div>
 							}
 						</div>

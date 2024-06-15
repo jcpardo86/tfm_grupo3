@@ -21,25 +21,10 @@ export class GroupListComponent {
   
   arrGroups! : IGroupUser[];
   arrStatus : String[] = [];
+  arrRol : String[] = [];
 
 
   async ngOnInit(): Promise<any> {
-
-    /* this.activatedRoute.params.subscribe(async (params:any) =>{
-      console.log(params.id)
-      const id = params._id;
-      try{
-        const response = await this.groupService.getGroupsByUser(id);
-        if(response!=undefined) {
-          this.arrGroups = response;
-        } else {
-          console.log('El usuario no pertenece a ningún grupo')
-        }
-      }catch(err){
-        this.router.navigate(['/error']);
-      }
-    }) */
-
 
     //Cambio para recoger el id de usuario logado desde el localstorage
 
@@ -51,12 +36,15 @@ export class GroupListComponent {
           this.arrGroups = response;
           for(let group of this.arrGroups){
             const status = await this.groupService.getStatusGroup(group.idGrupo);
+            const [user] = await this.groupService.getUserGroup(id, group.idGrupo);
             this.arrStatus.push(status);
-          }
-          console.log(this.arrStatus)
-          } else {
+            this.arrRol.push(user.rol);
+          } 
+        } else {
           console.log('El usuario no pertenece a ningún grupo')
-        }
+          }
+
+
       }catch(err){
         this.router.navigate(['/error']);
       }
