@@ -39,6 +39,8 @@ export class FormUserComponent {
 	};
 	titleForm: string = "Registro nuevo usuario";
 	textBottom: string = "Guardar";
+	isUpdatingUser: boolean = false;
+
 
 	activatedRoute = inject(ActivatedRoute);
 
@@ -78,6 +80,8 @@ export class FormUserComponent {
 		);
 	}
 
+
+
 	// Verificación de contraseña
 	checkpasswords(group: AbstractControl): any {
 		const password = group.get('password')?.value;
@@ -98,6 +102,7 @@ export class FormUserComponent {
 		this.activatedRoute.params.subscribe(async (params: any) => {
 
 			if (params.id_user) {
+				this.isUpdatingUser = true;
 				this.titleForm = "Actualizar usuario";
 				this.textBottom = "Actualizar";
 				const response = await this.userService.getUserById(params.id_user);
@@ -127,6 +132,8 @@ export class FormUserComponent {
 		});
 
 	}
+
+
 
 
 

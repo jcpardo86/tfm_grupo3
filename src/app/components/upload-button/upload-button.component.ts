@@ -37,9 +37,12 @@ export class UploadButtonComponent {
 				this.id = params.id_group;
 			} else if (params.id_user) {
 				this.id = params.id_user;
+
 			}
 		});
 	}
+
+
 
 	onFileSelected(event: any): void {
 		const file: File = event.target.files[0];

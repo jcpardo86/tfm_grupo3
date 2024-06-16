@@ -1,28 +1,26 @@
-<app-navbar></app-navbar>
-<div class="container-fluid d-flex justify-content-center align-items-center"
-	style="padding-top: 100px; padding-bottom: 10px;">
-	<div class="row w-100">
-		<div class="col-md-5 d-flex flex-column justify-content-center align-items-center">
-			<p class=" mt-3 mb-3 h2 text-start">Sube tu imagen de {{ tipo }}</p>
-			<div class="file-upload-container">
-				<input class="custom-file-upload" type="file" accept=".jpg" (change)="onFileSelected($event)" />
-				<br />
-				<div *ngIf="selectedFile">
-					<p style="padding-top: 2rem;">Nombre del archivo: {{ selectedFile.name }}</p>
-					<button class="btn-xs btn-primary btn-lg btn_personal rounded-pill mt-3"
-						(click)="onSubmit()">Subir</button>
-				</div>
-				<div *ngIf="!selectedFile">
-					<button class="btn-xs btn-primary btn-lg btn_personal rounded-pill mt-3"
-						(click)="onSubmit()">Subir</button>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-5 d-flex justify-content-center align-items-center">
+<div class="container " style="padding-top: 80px; padding-bottom: 10px;">
+	<div class="justify-content-center align-items-start">
+		<p class=" mt-3 mb-3 h3 text-start">Sube tu imagen de {{ tipo }}</p>
+		<div class="">
+			<input class="custom-file-upload" type="file" accept=".jpg" (change)="onFileSelected($event)" />
+			<br />
 			<div *ngIf="selectedFile">
-				<img [src]="getImageUrl(selectedFile)" alt="Imagen seleccionada" class="img-thumbnail img-fluid"
-					style="max-width: 600px; max-height: 600px;">
+				<p style="padding-top: 2rem;">Nombre del archivo: {{ selectedFile.name }}</p>
+				<button class="btn-xs btn-primary btn-lg btn_personal rounded-pill mt-3"
+					(click)="onSubmit()">Subir</button>
+			</div>
+
+			<div *ngIf="!selectedFile">
+
+				<button class="btn-xs btn-primary btn-lg btn_personal rounded-pill mt-3"
+					(click)="onSubmit()">Subir</button>
+
 			</div>
 		</div>
 	</div>
-</div>
+	<div class="mt-2  justify-content-start align-items-start">
+		<div *ngIf="selectedFile">
+			<img [src]="getImageUrl(selectedFile)" alt="Imagen seleccionada" class="img-thumbnail img-fluid"
+				style="max-width: 100px; max-height: 100px;">
+		</div>
+	</div>
