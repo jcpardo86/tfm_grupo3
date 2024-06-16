@@ -14,14 +14,6 @@ import { UploadButtonComponent } from './components/upload-button/upload-button.
 
 
 export const routes: Routes = [
-
-
-	// {
-	// 	path: "",
-	// 	loadChildren: () => import("./auth/auth.routes").then(m => m.AUTH_ROUTES)
-
-	// },
-
 	{ path: "", redirectTo: "home", pathMatch: "full" },
 	{ path: "home", component: HomeComponent },
 	{ path: "resetpassword", component: ResetComponent },
@@ -38,5 +30,6 @@ export const routes: Routes = [
 	{ path: "updategroup/upload/:id_group", component: UploadButtonComponent },
 	{ path: "newuser/upload/:id_user", component: UploadButtonComponent },
 
+	// Error 404
 	{ path: "**", component: PageNotFoundComponent }
 ];

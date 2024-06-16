@@ -24,12 +24,20 @@ import { NgIf } from '@angular/common';
 	styleUrls: ['./form-user.component.css'],
 })
 export class FormUserComponent {
-
-
+	// Formulario de registro
 	modelForm: FormGroup;
 
+	// Inyección de servicios
 	userService = inject(UsersService);
 
+	// Variables
+	titleForm: string = "Regístrate como nuevo usuario";
+	textBottom: string = "GUARDAR";
+	isUpdatingUser: boolean = false;
+	activatedRoute = inject(ActivatedRoute);
+	imageURL: string | null = null;
+
+	// Interfaz de usuario
 	user: IUser = {
 		nombre: '',
 		apellidos: '',
@@ -37,15 +45,6 @@ export class FormUserComponent {
 		password: '',
 		imagen: '',
 	};
-	titleForm: string = "Registráte como nuevo usuario";
-	textBottom: string = "GUARDAR";
-	isUpdatingUser: boolean = false;
-
-
-	activatedRoute = inject(ActivatedRoute);
-
-	imageURL: string | null = null;
-
 
 	constructor(private http: HttpClient, private router: Router) {
 		this.modelForm = new FormGroup(
@@ -133,10 +132,6 @@ export class FormUserComponent {
 
 	}
 
-
-
-
-
 	// Verificación de campos
 	checkControl(
 		formControlName: string,
@@ -165,20 +160,14 @@ export class FormUserComponent {
 
 	// Envío de datos
 	async onClickGuardarBD() {
-
 		console.log(this.modelForm.valid);
-
 		if (this.modelForm.valid) {
 			console.log(this.modelForm.value.idUsuario);
+
 			if (this.modelForm.value.idUsuario) {
 				const response = await this.userService.updateUser(this.modelForm.value)
+				
 				if (response) {
-					/*Swal.fire({
-						icon: 'success',
-						title: 'Actualización correcta',
-						text: 'El usuario ha sido actualizado correctamente',
-					});*/
-
 					Swal.fire({
 						title: "¿Desea subir una foto de perfil?",
 						icon: "warning",
@@ -207,26 +196,17 @@ export class FormUserComponent {
 					})
 				}
 
-
 			} else {
-
 				this.user.nombre = this.modelForm.value.nombre;
 				this.user.apellidos = this.modelForm.value.apellidos;
 				this.user.email = this.modelForm.value.email;
 				this.user.password = this.modelForm.value.password;
-				//this.user.imagen = this.modelForm.value.imagen;
-
+				
 				try {
 					console.log("estoy aquí registro", this.user);
 					const response = await this.userService.registerUser(this.user);
 					console.log("estoy aquí registro", response);
 					if (response) {
-						/*Swal.fire({
-							icon: 'success',
-							title: 'Registro correcto',
-							text: 'Bienvenido!. Ya puedes iniciar sesión con tu usuario en DIVI',
-						});
-						this.router.navigate(['/home']);*/
 						Swal.fire({
 							title: "¿Desea subir una foto de perfil?",
 							icon: "warning",
@@ -246,7 +226,6 @@ export class FormUserComponent {
 									alert('Se ha producido un error al cerrar el grupo. Por favor, inténtelo de nuevo más tarde.')
 								}
 
-								//this.router.navigate(['/home']);
 							} else {
 								Swal.fire({
 									icon: 'error',
