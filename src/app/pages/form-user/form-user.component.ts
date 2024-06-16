@@ -32,7 +32,7 @@ export class FormUserComponent {
 
 	// Variables
 	titleForm: string = "Regístrate como nuevo usuario";
-	textBottom: string = "GUARDAR";
+	textBottom: string = "Guardar";
 	isUpdatingUser: boolean = false;
 	activatedRoute = inject(ActivatedRoute);
 	imageURL: string | null = null;
@@ -103,7 +103,7 @@ export class FormUserComponent {
 			if (params.id_user) {
 				this.isUpdatingUser = true;
 				this.titleForm = "Actualiza tus datos de usuario";
-				this.textBottom = "ACTUALIZAR";
+				this.textBottom = "Actualizar";
 				const response = await this.userService.getUserById(params.id_user);
 				if (response) {
 					this.modelForm = new FormGroup(
@@ -166,7 +166,7 @@ export class FormUserComponent {
 
 			if (this.modelForm.value.idUsuario) {
 				const response = await this.userService.updateUser(this.modelForm.value)
-				
+
 				if (response) {
 					Swal.fire({
 						title: "¿Desea subir una foto de perfil?",
