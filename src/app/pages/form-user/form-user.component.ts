@@ -37,8 +37,8 @@ export class FormUserComponent {
 		password: '',
 		imagen: '',
 	};
-	titleForm: string = "Registro nuevo usuario";
-	textBottom: string = "Guardar";
+	titleForm: string = "Registráte como nuevo usuario";
+	textBottom: string = "GUARDAR";
 	isUpdatingUser: boolean = false;
 
 
@@ -103,8 +103,8 @@ export class FormUserComponent {
 
 			if (params.id_user) {
 				this.isUpdatingUser = true;
-				this.titleForm = "Actualizar usuario";
-				this.textBottom = "Actualizar";
+				this.titleForm = "Actualiza tus datos de usuario";
+				this.textBottom = "ACTUALIZAR";
 				const response = await this.userService.getUserById(params.id_user);
 				if (response) {
 					this.modelForm = new FormGroup(
