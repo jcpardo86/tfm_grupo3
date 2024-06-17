@@ -105,7 +105,7 @@ export class FormGroupComponent {
 				this.idGrupoUpdate = params.id;
 				this.isActualizar = true;
 				this.tipo = 'ACTUALIZAR';
-	
+
 				try {
 					//Solicitamos los datos del grupo para mostrar en formulario de actualización (nombre y descripción)
 					const responseGroup = await this.groupService.getGroupById(params.id);
@@ -133,11 +133,11 @@ export class FormGroupComponent {
 				}
 			}
 		});
-	
+
 		//Llamáda a método para obtener la imagen del grupo
 		this.loadGroupImage();
 	}
-	
+
 	//Método para obtener imagen de grupo
 	async loadGroupImage() {
 		try {
@@ -147,18 +147,18 @@ export class FormGroupComponent {
 					this.image = `http://localhost:3000/groupimage/${response[0].imagen}`;
 					this.imageString = `${response[0].imagen}`;
 				} else {
-					this.image = 'assets/images/grupo.png'; /**Cambiar esto*/
+					this.image = 'assets/images/header_grupos.jpg'; /**Cambiar esto*/
 				}
 			} else {
-				this.image = 'assets/images/grupo.png'; /**Cambiar esto*/
+				this.image = 'assets/images/header_grupos.jpg'; /**Cambiar esto*/
 			}
-			
+
 		} catch (error) {
 			console.error('Error fetching group image:', error);
 		}
 	}
 
-	
+
 	async aniadirUsuario() {
 		if (this.aniadirUsuarioForm.value.porcentaje == null || this.aniadirUsuarioForm.value.porcentaje.length == 0){
 			this.porcentajeAniadirUsuarioIncompletos = true
@@ -173,7 +173,7 @@ export class FormGroupComponent {
 		if ((this.aniadirUsuarioForm.value.porcentaje != null && this.aniadirUsuarioForm.value.porcentaje.length > 0)&& (this.aniadirUsuarioForm.value.email != null && this.aniadirUsuarioForm.value.email.length > 0)) {
 			const email = this.aniadirUsuarioForm.value.email;
 			try {
-				
+
 				const response = await this.userService.getUserByEmail(email);
 				if (response !== null) {
 					this.newUser = response;
@@ -291,25 +291,25 @@ export class FormGroupComponent {
 			[])
 	}
 
-	uploadFoto(idGrupoUpdate: number | undefined){		
+	uploadFoto(idGrupoUpdate: number | undefined){
 		Swal.fire({
 			title: "¿Desea subir una foto de grupo?",
 			icon: "warning",
 			showCancelButton: true,
-			confirmButtonColor: "#3085d6",
-			cancelButtonColor: "#d33",
+			confirmButtonColor: "#FE5F42",
+			cancelButtonColor: "#716add",
 			cancelButtonText: "Cancelar",
 			confirmButtonText: "Sí!"
 		  }).then(async (result) => {
 			if (result.isConfirmed) {
 			  try {
-				this.router.navigate([`/updategroup/upload/${idGrupoUpdate}`]); 
+				this.router.navigate([`/updategroup/upload/${idGrupoUpdate}`]);
 			  } catch(error) {
 				alert('Se ha producido un error al subir la imagen del grupo. Por favor, inténtelo de nuevo más tarde.')
 			  }
-			
+
 			} else {
-				Swal.fire(`La operación se ha realizado correctamente`);
+				Swal.fire(`El grupo ha sido creado correctamente`);
 				this.router.navigate([`/group/${idGrupoUpdate}`]);
 			}
 		})

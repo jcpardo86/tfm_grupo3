@@ -172,8 +172,8 @@ export class FormUserComponent {
 						title: "¿Desea subir una foto de perfil?",
 						icon: "warning",
 						showCancelButton: true,
-						confirmButtonColor: "#3085d6",
-						cancelButtonColor: "#d33",
+						confirmButtonColor: "#FE5F42",
+						cancelButtonColor: "#716add",
 						cancelButtonText: "Cancelar",
 						confirmButtonText: "Sí!"
 					}).then(async (result) => {
@@ -209,8 +209,8 @@ export class FormUserComponent {
 							title: "¿Desea subir una foto de perfil?",
 							icon: "warning",
 							showCancelButton: true,
-							confirmButtonColor: "#3085d6",
-							cancelButtonColor: "#d33",
+							confirmButtonColor: "#FE5F42",
+							cancelButtonColor: "#716add",
 							cancelButtonText: "Cancelar",
 							confirmButtonText: "Sí!"
 						}).then(async (result) => {
