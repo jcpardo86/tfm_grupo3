@@ -9,7 +9,7 @@
 			<div class="d-flex flex-column justify-content-center align-items-center h-100">
 				<h3 class="h3 mt-3 text-orange">{{titleForm}}</h3>
 				<form [formGroup]="modelForm" class="card p-3 border-0 w-100" (ngSubmit)="onClickGuardarBD()">
-					
+
 					<div class="my-2">
 						<label for="nombre" class="form-label">Nombre: </label>
 						<input type="text" class="form-control" placeholder="Introduce tu nombre" id="nombre"
@@ -76,8 +76,8 @@
 
 					<div class="my-2">
 						<label for="repitepass" class="form-label">Repita su contraseña:</label>
-						<input type="password" class="form-control" placeholder="Repite tu contraseña"
-							id="repitepass" formControlName="repitepass">
+						<input type="password" class="form-control" placeholder="Repite tu contraseña" id="repitepass"
+							formControlName="repitepass">
 						@if(checkControl('repitepass', 'required')){
 						<p class="error">Este campo es obligatorio</p>
 						}
@@ -95,14 +95,15 @@
 			</div>
 		</div>
 
-		<div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-xs-12 d-flex flex-column align-items-center justify-content-start mt-5 mt-md-0">
-			
+		<div
+			class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-xs-12 d-flex flex-column align-items-center justify-content-start mt-5 mt-md-0">
+
 			<!-- Mostrar imagen predeterminada si no se ha subido ninguna imagen -->
 			<img [src]="imageURL || 'assets/images/default_user_image.avif'" alt="User Image"
 				class=" img-fluid rounded rounded-circle image-responsive">
-			
-				<!-- Botón para cambiar la imagen -->
-			<app-upload-button *ngIf="isUpdatingUser"></app-upload-button>
+
+			<!-- Botón para cambiar la imagen -->
+			<!-- <app-upload-button *ngIf="isUpdatingUser"></app-upload-button> -->
 
 			<!--
           <button *ngIf="imageURL" class="btn btn-link mt-3"(click)="onChangeImage()">Cambiar Imagen</button>-->

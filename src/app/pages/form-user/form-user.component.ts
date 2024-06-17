@@ -33,7 +33,7 @@ export class FormUserComponent {
 	// Variables
 	titleForm: string = "Regístrate como nuevo usuario";
 	textBottom: string = "Guardar";
-	isUpdatingUser: boolean = false;
+	//  isUpdatingUser: boolean = false;
 	activatedRoute = inject(ActivatedRoute);
 	imageURL: string | null = null;
 
@@ -101,7 +101,7 @@ export class FormUserComponent {
 		this.activatedRoute.params.subscribe(async (params: any) => {
 
 			if (params.id_user) {
-				this.isUpdatingUser = true;
+				// this.isUpdatingUser = true;
 				this.titleForm = "Actualiza tus datos de usuario";
 				this.textBottom = "Actualizar";
 				const response = await this.userService.getUserById(params.id_user);
@@ -201,7 +201,7 @@ export class FormUserComponent {
 				this.user.apellidos = this.modelForm.value.apellidos;
 				this.user.email = this.modelForm.value.email;
 				this.user.password = this.modelForm.value.password;
-				
+
 				try {
 					console.log("estoy aquí registro", this.user);
 					const response = await this.userService.registerUser(this.user);
