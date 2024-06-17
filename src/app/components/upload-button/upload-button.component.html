@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container" style="margin-top: 100px; margin-bottom: 100px;">
   <div class="row">
       <div class="col-md-6">
-        <p class=" mt-3 mb-3 h3 text-start">Sube tu imagen de {{ tipo }}</p>
+        <p class=" mt-2 mb-3 h4 text-start">Sube tu imagen de {{ tipo }}</p>
           <!-- Botones aquí -->
           <input class="custom-file-upload" type="file" accept=".jpg" (change)="onFileSelected($event)" />
           <br />
@@ -19,9 +19,9 @@
       <div class="col-md-6">
           <!-- Imagen aquí -->
           <div *ngIf="selectedFile">
-              <img [src]="getImageUrl(selectedFile)" alt="Imagen seleccionada" class="img-thumbnail img-fluid"
-                  style="max-width: 100%; max-height: 100px;">
-          </div>
+            <img [src]="getImageUrl(selectedFile)" alt="Imagen seleccionada" class="img-thumbnail img-fluid"
+                style="max-width: 100%; max-height: 500px;"> <!-- Ajusta la altura aquí -->
+        </div>
       </div>
   </div>
 </div>
