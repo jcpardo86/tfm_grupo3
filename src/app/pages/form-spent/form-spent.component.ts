@@ -35,6 +35,8 @@ export class FormSpentComponent {
   users: IUser[] = [];
  
   id_group!: number;
+
+  image: String = "";
   
   constructor(){
     
@@ -131,7 +133,7 @@ export class FormSpentComponent {
   }
 
 
-  ngOnInit() {
+  async ngOnInit() {
 
     this.activatedRouter.params.subscribe(async (params:any) => {
       
@@ -177,6 +179,16 @@ export class FormSpentComponent {
            
       }
     })
+
+    try {
+      const response = await this.groupService.getImageGroup(this.id_group);
+
+      if(response[0]!==undefined) {
+        this.image = (`http://localhost:3000/groupimage/${response[0].imagen}`)
+      }
+  } catch(error) {
+    console.log(error);
+  }
   }
 
   async datosSelect(idGrupo: number | undefined) {
