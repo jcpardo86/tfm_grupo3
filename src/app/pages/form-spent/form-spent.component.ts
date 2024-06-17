@@ -54,7 +54,7 @@ export class FormSpentComponent {
       ]),
       importe: new FormControl('',[
         Validators.required,
-        Validators.pattern(/^[0-9]+([.][0-9]+)?$/)
+       Validators.pattern(/^([0-9]+(\.?[0-9]{0,2}))$/)
       ]),
       fecha: new FormControl('',[
         Validators.required
@@ -194,6 +194,7 @@ export class FormSpentComponent {
       this.modelForm.get(formControlName)?.touched
     );
   }
+
 
 }
 
