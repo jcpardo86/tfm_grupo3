@@ -1,5 +1,5 @@
 .card {
-  border-radius: 30px; /* Aumenta el valor para bordes más redondeados */
+  border-radius: 30px; 
 }
 
 .text-orange {
@@ -41,7 +41,7 @@
 }
 
 .rounded-lg {
-  border-radius: 30px; /* Más redondeado */
+  border-radius: 30px;
 }
 
 .rounded-top-lg {

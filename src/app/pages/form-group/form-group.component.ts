@@ -1,15 +1,17 @@
 import { Component, inject } from '@angular/core';
-import { FooterComponent } from '../../components/footer/footer.component';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IUser } from '../../interfaces/iuser.interface';
-import { UsersService } from '../../services/users.service';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { IGroup } from '../../interfaces/igroup.interface';
-import { GroupsService } from '../../services/groups.service';
-import { IGroupUser } from '../../interfaces/igroup-user.interface';
-import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import Swal from 'sweetalert2';
+
+import { FooterComponent } from '../../components/footer/footer.component';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { UploadButtonComponent } from '../../components/upload-button/upload-button.component';
+import { IUser } from '../../interfaces/iuser.interface';
+import { IGroup } from '../../interfaces/igroup.interface';
+import { IGroupUser } from '../../interfaces/igroup-user.interface';
+import { UsersService } from '../../services/users.service';
+import { GroupsService } from '../../services/groups.service';
 
 @Component({
 	selector: 'app-form-group',
@@ -20,9 +22,15 @@ import { UploadButtonComponent } from '../../components/upload-button/upload-but
 })
 
 export class FormGroupComponent {
+
+	//Inyección de servicios UsersServie y GroupsService para gestión de usuarios y grupos
 	userService = inject(UsersService);
 	groupService = inject(GroupsService);
+
+	//Inyección de Router para redirección
 	router = inject(Router);
+
+	//Inyección de ActivatedRoute para obtener params de ruta
 	activedRoute = inject(ActivatedRoute)
 
 	tipo: string = 'AÑADIR'
@@ -32,13 +40,13 @@ export class FormGroupComponent {
 	existeUsuario: boolean = true;
 	buttonPulsed: boolean = false;
 	isActualizar: boolean = false;
-	arrUsuarios: IUser[];
+	arrUsuarios: IUser[] = [];
 	correctEmails: boolean = true;
 	existsImage: boolean = false;
 	emailAniadirUsuarioIncompletos: boolean = false;
 	porcentajeAniadirUsuarioIncompletos: boolean = false;
 
-	newUser: IUser = {
+	newUser: IUser = {  //Objeto para almacenar datos del usuario que se añade al grupo
 		idUsuario: 0,
 		nombre: "",
 		apellidos: "",
@@ -56,12 +64,14 @@ export class FormGroupComponent {
 		imagen: ""
 	};
 
-	idGrupoUpdate: number = 0;
+	idGrupoUpdate: number = 0; //Propiedad para almacenar el id del grupo
 
 	image: string = "";
 	imageString: string = "";
 
 	constructor() {
+
+		//Formulario para datos del grupo (nombre y descripción)
 		this.modelForm = new FormGroup({
 			nombreGrupo: new FormControl('', [
 				Validators.required,
@@ -75,8 +85,7 @@ export class FormGroupComponent {
 		},
 			[])
 
-		this.arrUsuarios = [];
-
+		//Formulario para datos de usuario/miembro (email y porcentaje de gasto)
 		this.aniadirUsuarioForm = new FormGroup({
 			email: new FormControl('', [
 				Validators.required,
@@ -98,6 +107,7 @@ export class FormGroupComponent {
 				this.tipo = 'ACTUALIZAR';
 	
 				try {
+					//Solicitamos los datos del grupo para mostrar en formulario de actualización (nombre y descripción)
 					const responseGroup = await this.groupService.getGroupById(params.id);
 					this.modelForm = new FormGroup({
 						nombreGrupo: new FormControl(responseGroup.nombre, [
@@ -109,7 +119,7 @@ export class FormGroupComponent {
 							Validators.minLength(3),
 						])
 					});
-	
+					//Solicitamos los datos de todos los usuario del grupo para informarlos (estos valores no se podrán actualizar)
 					const response = await this.groupService.getUsersByGroup(responseGroup.idGrupo);
 					for (const user of response) {
 						const userGrupo = await this.groupService.getUserGroup(user.idUsuario, responseGroup.idGrupo);
@@ -124,9 +134,11 @@ export class FormGroupComponent {
 			}
 		});
 	
+		//Llamáda a método para obtener la imagen del grupo
 		this.loadGroupImage();
 	}
 	
+	//Método para obtener imagen de grupo
 	async loadGroupImage() {
 		try {
 			const response = await this.groupService.getImageGroup(this.idGrupoUpdate);
@@ -134,11 +146,11 @@ export class FormGroupComponent {
 				if (response[0].imagen !== undefined && response[0].imagen != null && response[0].imagen.length > 0) {
 					this.image = `http://localhost:3000/groupimage/${response[0].imagen}`;
 					this.imageString = `${response[0].imagen}`;
-				}else{
-					this.image = 'assets/images/grupo.png';
+				} else {
+					this.image = 'assets/images/grupo.png'; /**Cambiar esto*/
 				}
-			}else {
-				this.image = 'assets/images/grupo.png';
+			} else {
+				this.image = 'assets/images/grupo.png'; /**Cambiar esto*/
 			}
 			
 		} catch (error) {
@@ -146,20 +158,22 @@ export class FormGroupComponent {
 		}
 	}
 
+	
 	async aniadirUsuario() {
-		if(this.aniadirUsuarioForm.value.porcentaje == null || this.aniadirUsuarioForm.value.porcentaje.length == 0){
+		if (this.aniadirUsuarioForm.value.porcentaje == null || this.aniadirUsuarioForm.value.porcentaje.length == 0){
 			this.porcentajeAniadirUsuarioIncompletos = true
-		}else{
+		} else {
 			this.porcentajeAniadirUsuarioIncompletos = false;
 		}
-		if(this.aniadirUsuarioForm.value.email == null || this.aniadirUsuarioForm.value.email.length == 0){
+		if (this.aniadirUsuarioForm.value.email == null || this.aniadirUsuarioForm.value.email.length == 0){
 			this.emailAniadirUsuarioIncompletos = true
-		}else{
+		} else {
 			this.emailAniadirUsuarioIncompletos = false;
 		}
 		if ((this.aniadirUsuarioForm.value.porcentaje != null && this.aniadirUsuarioForm.value.porcentaje.length > 0)&& (this.aniadirUsuarioForm.value.email != null && this.aniadirUsuarioForm.value.email.length > 0)) {
 			const email = this.aniadirUsuarioForm.value.email;
 			try {
+				
 				const response = await this.userService.getUserByEmail(email);
 				if (response !== null) {
 					this.newUser = response;

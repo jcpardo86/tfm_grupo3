@@ -11,14 +11,7 @@
 	top: 0;
 	width: 100%;
 	z-index: 1000;
-	/* Asegúrate de que el navbar esté sobre otros elementos */
 }
-
-/* Espaciado superior para el contenido de la página */
-/* body {
-	padding-top: 70px; */
-/* Ajusta este valor según la altura de tu navbar */
-/* } */
 
 /* Otros estilos existentes */
 li:hover {

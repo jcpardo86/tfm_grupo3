@@ -14,26 +14,31 @@ import { GroupCardComponent } from '../../components/group-card/group-card.compo
 })
 export class GroupListComponent {
 
+  //Inyección de ActivatedRoute para obtener params de ruta
   activatedRoute = inject(ActivatedRoute);
+  //Inyección de Router para redirecciones
   router = inject(Router);
 
+  //Inyección de servicio GroupsService para gestiones con tabla grupo-usuario de BBDDs
   groupService = inject(GroupsService);
   
-  arrGroups! : IGroupUser[];
-  arrStatus : String[] = [];
-  arrRol : String[] = [];
+  arrGroups! : IGroupUser[]; //array para almacenar todos los grupos del usuario
+  arrStatus : String[] = []; //propiedad para almacenar el estado del grupo
+  arrRol : String[] = []; //propiedad para almacenar el rol del usuario
 
 
   async ngOnInit(): Promise<any> {
 
-    //Cambio para recoger el id de usuario logado desde el localstorage
-
+    //Obtenemos id de usuario logado del localstorage
     const id = parseInt(localStorage.getItem('idUserLogueado') || '');
+
     if (id) {
+      //Solicitamos todos los grupos del usuario y lo almacenamos en array arrGroups
       try {
         const response = await this.groupService.getGroupsByUser(id);
         if(response!=undefined) {
           this.arrGroups = response;
+          //Para cada objeto de arrGroups, solicitamos estado del grupo y rol de usuario y los almacenamos en los arrays arrStatus y arrRol
           for(let group of this.arrGroups){
             const status = await this.groupService.getStatusGroup(group.idGrupo);
             const [user] = await this.groupService.getUserGroup(id, group.idGrupo);
@@ -42,14 +47,11 @@ export class GroupListComponent {
           } 
         } else {
           console.log('El usuario no pertenece a ningún grupo')
-          }
-
-
+        }
       }catch(err){
         this.router.navigate(['/error']);
       }
     }
   }
-
 }
 

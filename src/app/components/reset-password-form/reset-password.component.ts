@@ -1,8 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { ResetService } from '../../services/reset.service';
+
 import Swal from 'sweetalert2';
+
+import { ResetService } from '../../services/reset.service';
+
 
 @Component({
 	selector: 'app-reset-password',
@@ -12,6 +15,7 @@ import Swal from 'sweetalert2';
 	styleUrl: './reset-password.component.css'
 })
 export class ResetPasswordComponent {
+
 	resetForm: FormGroup;
 
 	// Inyecta el servicio FormBuilder para crear y gestionar formularios reactivos.
@@ -33,12 +37,8 @@ export class ResetPasswordComponent {
 		})
 
 	}
-
 	async onSubmit() {
 		try {
-			console.log(this.resetForm.value)
-			console.log (await this.resetService.postMail(this.resetForm.value));
-			console.log(this.resetForm.value);
 			if (this.resetForm.value.email) {
 				Swal.fire({
 					icon: 'success',

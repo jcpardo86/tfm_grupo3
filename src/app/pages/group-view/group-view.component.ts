@@ -1,20 +1,21 @@
 import { Component, inject } from '@angular/core';
-import { GroupsService } from '../../services/groups.service';
-import { IGroup } from '../../interfaces/igroup.interface';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+
+import Swal from 'sweetalert2';
+
+import { GroupsService } from '../../services/groups.service';
 import { UsersService } from '../../services/users.service';
-import { IUser } from '../../interfaces/iuser.interface';
 import { SpentsService } from '../../services/spents.service';
+import { DebtsService } from '../../services/debts.service';
+import { IGroup } from '../../interfaces/igroup.interface';
+import { IUser } from '../../interfaces/iuser.interface';
 import { ISpent } from '../../interfaces/ispent.interface';
+import { IDebt } from '../../interfaces/idebt.interface';
 import { SpentCardComponent } from '../../components/spent-card/spent-card.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { ChatComponent } from '../../components/chat/chat.component';
-import Swal from 'sweetalert2';
 import { PayButtonComponent } from '../../components/pay-button/pay-button.component';
-import { IDebt } from '../../interfaces/idebt.interface';
-import { DebtsService } from '../../services/debts.service';
-import { UploadsService } from '../../services/uploads.service';
 
 @Component({
   selector: 'app-group-view',
@@ -28,28 +29,28 @@ export class GroupViewComponent {
   activatedRoute = inject(ActivatedRoute);
   router = inject(Router);
 
-
+  //Inyectamos servicios GroupsService, UsersService, SpentsService y DebtsService, para gestión de grupos, usuarios, gastos y deudas
   groupService = inject(GroupsService);
   userService = inject(UsersService);
   spentService = inject(SpentsService);
   debtService = inject(DebtsService);
 
-  idGroup!: number;
-  rol!: string;
+  idGroup!: number; //Propiedad para almacenar el id del grupo
+  rol!: string; //Propiedad para almacenar el rol de usuario
 
-  group: IGroup  = {
+  group: IGroup  = { //Objeto para almacenar los datos del grupo
     nombre: "",
     descripcion: "",
     imagen: ""
   };
 
-  users: IUser[] = [];
-  spents: ISpent[] = [];
-  totalSpent!: number;
-  deudas: IDebt[] = [];
-  images: string[] = [];
+  users: IUser[] = [];  //Array para almacenar el listado de usuarios(miembros) del grupo
+  spents: ISpent[] = []; //Array para almacenar el listado de gastos del grupo
+  totalSpent!: number; //Propiedad para almacenar el gasto total del grupo
+  deudas: IDebt[] = [];  //Array para almacenar el listado de deudas del grupo
+  images: string[] = []; //Array para almacenar las imagenes de usuarios del grupo
 
-  todoLiquidado: boolean = true;
+  todoLiquidado: boolean = true; 
 
 
  
@@ -57,24 +58,21 @@ export class GroupViewComponent {
     this.activatedRoute.params.subscribe(async (params:any) =>{
       this.idGroup = params._id;
       const idUser = parseInt(localStorage.getItem('idUserLogueado') || '');
-      console.log('datos', this.idGroup, idUser);
 
+      //Solicitamos el rol de usuario logado y lo almacenamos en propiedad rol
       try {
         const [user] = await this.groupService.getUserGroup(idUser, this.idGroup);
-        console.log(`user`, user)
         this.rol = user.rol;
-        console.log(this.rol);
-        
       } catch(error) {
         console.log(error);
       }
-
+      //Solicitamos los datos del grupo y lo almacenamos en objeto group
       try {
         this.group = await this.groupService.getGroupById(this.idGroup);
       } catch(error) {
         console.log(error);
       }
-
+      //Solicitamos el listamos de usuarios del grupo y, por cada usuario su imagen y lo almacenamos en array users
       try {
         this.users = await this.groupService.getUsersByGroup(this.idGroup);
         for(let i in this.users) {
@@ -85,6 +83,7 @@ export class GroupViewComponent {
         console.log(error);
       }
 
+      //Solicitamos el listado de gastos del grupo y los ordenamos por id de gasto
       try {
         this.spents = await this.spentService.getSpentsByGroup(this.idGroup);
         this.spents.sort((a: any, b: any) => {
@@ -94,6 +93,7 @@ export class GroupViewComponent {
         console.log(error);
       }
 
+      // Solicitamos el total de gasto del grupo
       try {
         this.totalSpent = await this.spentService.getTotalSpentByGroup(this.idGroup);
         if (this.totalSpent == null) {
@@ -104,6 +104,7 @@ export class GroupViewComponent {
         console.log(error);
       }
 
+      //Solicitamos el listado de deudas del grupo y si todas están pagadas, fijamos la propiedad todoLiquidado a true
       try {
         this.deudas = await this.debtService.getDebtsByGroup(this.idGroup);
         for(let deuda of this.deudas) {
@@ -118,53 +119,7 @@ export class GroupViewComponent {
     });
   }
 
-  onClickLiquidar(): void {
-
-    Swal.fire({
-      title: `¿ Está seguro de que desea liquidar los gastos del grupo "${this.group.nombre}" ?`,
-      text: "Una vez liquidados los gastos el grupo será eliminado",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Aceptar",
-      cancelButtonText: "Cancelar"
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try{
-          let response = await this.groupService.deleteGroup(this.group.idGrupo);
-          console.log('Punto control', response);
-          if (response.affectedRows === 1){
-            this.successMessage();
-            this.router.navigate(['/user']);
-          }else{
-            this.errorMessage();
-          }
-        }catch(err){
-          this.errorMessage();
-        }
-      }
-    })
-
-  }
-
-  errorMessage(): void {
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Lo sentimos, se ha producido un error. Por favor, vuelva a intentarlo.",
-    });
-  }
-
-  successMessage(): void {
-    Swal.fire({
-      title: "¡Cuentas saldadas!",
-      text: `Todos los gastos están liquidados y el grupo "${this.group.nombre}" ha sido eliminado.`,
-      icon: "success"
-    });
-  };
-
-
+ // Método para actualizar las deudas del grupo
   async updateDebtList() {
     try {
       this.deudas = await this.debtService.getDebtsByGroup(this.idGroup);
@@ -175,7 +130,6 @@ export class GroupViewComponent {
       for(let deuda of this.deudas) {
         console.log(deuda);
         if(deuda.is_pagada !== 1){
-          console.log(deuda.is_pagada);
           this.todoLiquidado = false;
           break;
         }
@@ -185,6 +139,7 @@ export class GroupViewComponent {
     }
   };
 
+  //Método para cerrar grupo
   closeGroup() {
     Swal.fire({
       title: "¿Está seguro de que desea cerrar el grupo?",
