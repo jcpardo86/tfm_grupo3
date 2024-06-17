@@ -1,16 +1,19 @@
 <!-- group-view.component.html -->
 <header>
-	<app-navbar></app-navbar>
+  <app-navbar></app-navbar>
 </header>
 <main>
   <div style="margin-top: 70px;"></div>
-	<section class="container container-ppal">
-		<div class="image">
-			<img src="assets/images/header_grupos_copia2.jpg" class="rounded group-image"
-				alt="Dos amigos comiendo un bocata en la cocina">
-		</div>
-
-		<div class=" pt-4">
+  <section class="container container-ppal">
+    <div class="row">
+      <div class="col-12">
+        <div class="image text-center">
+          <img src="assets/images/header_grupos_copia2.jpg" class="rounded group-image img-fluid"
+            alt="Dos amigos comiendo un bocata en la cocina">
+        </div>
+      </div>
+    </div>
+    <div class=" pt-4">
 			<h2 class="font">Usuarios</h2>
 			<div class="pt-2">
 				@for(user of users; track user.idUsuario){
@@ -20,92 +23,78 @@
 				}
 			</div>
 		</div>
-
-		<div class="container mt-5">
-			<div class="row">
-				<div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
-					<div class=" ">
-						<div class="container-spents_and_total rounded-4">
-							<h2 class="font ps-4 pt-4 pb-3">Gastos</h2>
-							<div class="container-spents ps-4 pe-4 pb-1">
-								@if(this.spents.length === 0) {
-								<div class="text-center fs-4 pb-5">Aún no has añadido ningún gasto al grupo</div>
-								} @else {
-									@for(spent of spents; track spent.idGasto; let i = $index) {
-										<article class="mb-3">
-											<app-spent-card [mySpent]="spent" [numSpent]="i+1" [rolUser]="rol"></app-spent-card>
-										</article>
-									}
-								}
-							</div>
-
-							<div class="container-total pb-5 pt-3">
-								<div class="total ps-4">
-									<span class="fs-2 ps-5 total-text">Gasto Total</span>
-									<span class="fs-2 ps-4 total-importe">{{totalSpent}} €</span>
-								</div>
-								<!--Sólo se meustra el botón para añadir gasto si el usuario tiene rol admin-->
-								@if(rol==="admin") {
-								<div class="pe-5">
-									<span class="fs-6 pe-2 gasto">Añadir gasto</span>
-									<a [routerLink]="['/newspent', group.idGrupo]" class="rotate-on-hover">
-										<img src="assets/icons/icon_mas.png" class="icon-mas" alt="Icono añadir">
-									</a>
-								</div>
-								}
-							</div>
-						</div>
-
-						<div class="container-reparto rounded-4 mt-3 pb-5 pt-3 ps-4 pe-4">
-							<h2 class="font pb-4">Deudas Pendientes</h2>
-							@if(deudas.length === 0) {
-							<div class="containerDeudas">
-								<span class="text-center fs-4 pb-5">Aún no hay deudas pendientes en este grupo</span>
-								<!--Sólo se muestra el botón para cerrar grupo si el usuario tiene rol admin-->
-								@if(rol==="admin") {
-									<button type="submit" (click)="closeGroup()"
-										class="btn btn-primary btn-lg btn_personal mb-3 rounded-pill">CERRAR GRUPO
-									</button>
-								}
-							</div>
-							} @else {
-								@for(deuda of deudas; track $index) {
-									<!--Sólo se muestra la deuda en listado de deudas si no está pagada-->
-									@if(deuda.is_pagada !== 1) {
-										<div class="card shadow rounded-lg deudas mb-3">
-											<span class="ps-5 texto-deuda"><strong>{{deuda.nombre_usuario}}</strong> debe a <strong>{{deuda.nombre_receptor}}</strong> la cantidad de {{deuda.importe}} €</span>
-											<!--Sólo se muestra el botón para pagar deuda si el usuario tiene rol admin-->
-											@if(rol==="admin") {
-												<app-pay-button [miDeuda]="deuda" (deudaPagada)="updateDebtList()"></app-pay-button>
-											}
-										</div>
-									}
-								}
-							}
-							@if (todoLiquidado === true && deudas.length !==0 ) {
-							<div class="containerDeudas">
-								<span class="fs-5 pb-5">No hay pagos pendientes - Todas las deudas del grupo han sido
-									liquidadas</span>
-								<!--Sólo se muestra el botón para cerrar grupo si el usuario tiene rol admin-->
-								@if(rol==="admin") {
-								<button type="submit" (click)="closeGroup()"
-									class="btn btn-primary btn-lg btn_personal mb-3 rounded-pill">CERRAR GRUPO
-								</button>
-								}
-							</div>
-							}
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mt-3 mt-xl-0 mt-lg-0 mt-md-0">
-					<div class=" ">
-						<div class="rounded-4 chat pb-1">
-							<app-chat [id_group]="idGroup"></app-chat>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	</section>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
+          <div class="container-spents_and_total rounded-4">
+            <h2 class="font ps-4 pt-4 pb-3">Gastos</h2>
+            <div class="container-spents ps-4 pe-4 pb-1">
+              @if(this.spents.length === 0) {
+              <div class="text-center fs-4 pb-5">Aún no has añadido ningún gasto al grupo</div>
+              } @else {
+              @for(spent of spents; track spent.idGasto; let i = $index) {
+              <article class="mb-3">
+                <app-spent-card [mySpent]="spent" [numSpent]="i+1" [rolUser]="rol"></app-spent-card>
+              </article>
+              }
+              }
+            </div>
+            <div class="container-total pb-5 pt-3">
+              <div class="total ps-4 d-flex justify-content-between align-items-center">
+                <span class="fs-2 total-text">Gasto Total</span>
+                <span class="fs-2 total-importe ms-3">{{totalSpent}} €</span> <!-- Agregado ms-3 aquí -->
+            </div>
+              @if(rol==="admin") {
+              <div class="text-end pe-5 mt-3">
+                <span class="fs-6 pe-2 gasto">Añadir gasto</span>
+                <a [routerLink]="['/newspent', group.idGrupo]" class="rotate-on-hover">
+                  <img src="assets/icons/icon_mas.png" class="icon-mas" alt="Icono añadir">
+                </a>
+              </div>
+              }
+            </div>
+          </div>
+          <div class="container-reparto rounded-4 mt-3 pb-5 pt-3 ps-4 pe-4">
+            <h2 class="font pb-4">Deudas Pendientes</h2>
+            @if(deudas.length === 0) {
+            <div class="containerDeudas text-center">
+              <span class="fs-4 pb-5 d-block">Aún no hay deudas pendientes en este grupo</span>
+              @if(rol==="admin") {
+              <button type="submit" (click)="closeGroup()"
+                class="btn btn-primary btn-lg btn_personal mb-3 rounded-pill">CERRAR GRUPO</button>
+              }
+            </div>
+            } @else {
+            @for(deuda of deudas; track $index) {
+            @if(deuda.is_pagada !== 1) {
+            <div class="card shadow rounded-lg deudas mb-3">
+              <span class="ps-5 texto-deuda"><strong>{{deuda.nombre_usuario}}</strong> debe a
+                <strong>{{deuda.nombre_receptor}}</strong> la cantidad de {{deuda.importe}} €</span>
+              @if(rol==="admin") {
+              <app-pay-button [miDeuda]="deuda" (deudaPagada)="updateDebtList()"></app-pay-button>
+              }
+            </div>
+            }
+            }
+            }
+            @if (todoLiquidado === true && deudas.length !== 0) {
+            <div class="containerDeudas text-center">
+              <span class="fs-5 pb-5 d-block">No hay pagos pendientes - Todas las deudas del grupo han sido
+                liquidadas</span>
+              @if(rol==="admin") {
+              <button type="submit" (click)="closeGroup()"
+                class="btn btn-primary btn-lg btn_personal mb-3 rounded-pill">CERRAR GRUPO</button>
+              }
+            </div>
+            }
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mt-3 mt-xl-0 mt-lg-0 mt-md-0">
+          <div class="rounded-4 chat pb-1">
+            <app-chat [id_group]="idGroup"></app-chat>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
