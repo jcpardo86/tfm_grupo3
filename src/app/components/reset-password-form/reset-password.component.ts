@@ -39,6 +39,7 @@ export class ResetPasswordComponent {
 	}
 	async onSubmit() {
 		try {
+			await this.resetService.postMail(this.resetForm.value);
 			if (this.resetForm.value.email) {
 				Swal.fire({
 					icon: 'success',
@@ -63,8 +64,6 @@ export class ResetPasswordComponent {
 		}
 
 	}
-
-
 
 	// Método para verificar si un control específico tiene un error de validación.
 	checkControl(formControlName: string, validator: string): boolean | undefined {
