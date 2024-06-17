@@ -194,7 +194,16 @@ export class FormSpentComponent {
       this.modelForm.get(formControlName)?.touched
     );
   }
-
+  validate(event: any){
+    console.log(event.target.value)
+      var t = event.target.value;
+      event.target.value = 
+                t.indexOf('.') >= 0
+                ? t.substr(0, t.indexOf('.')) + t.substr(t.indexOf('.'),2)
+                : t;
+    
+  }
+ 
 
 }
 
