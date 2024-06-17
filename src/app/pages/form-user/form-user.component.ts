@@ -184,8 +184,6 @@ export class FormUserComponent {
 							} catch (error) {
 								alert('Se ha producido un error al cerrar el grupo. Por favor, inténtelo de nuevo más tarde.')
 							}
-
-							//this.router.navigate(['/home']);
 						} else {
 							Swal.fire({
 								icon: 'error',

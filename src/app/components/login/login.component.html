@@ -3,16 +3,13 @@
 		<label for="email" class="form-label">Email de usuario</label>
 		<input type="text" class="form-control" placeholder="Introduce tu email" id="email" formControlName="email">
 		@if(checkControl('email', 'required')){
-		<p class="error text-danger">Campo requerido</p>
+			<p class="error text-danger">Campo requerido</p>
 		}
 
 		@if(checkControl('email', 'pattern')){
-		<p class="error text-danger">Campo no es de tipo email</p>
+			<p class="error text-danger">Campo no es de tipo email</p>
 		}
-
 	</div>
-
-
 	<div class="mb-3">
 		<label for="password" class="form-label">Contraseña</label>
 		<input type="password" class="form-control" placeholder="Introduce tu contraseña" id="password"
@@ -22,8 +19,12 @@
 
 	</div>
 
+	<!--Link a página para reset de password-->
 	<p class=" mb-3"><a [routerLink]="['/resetpassword']" role="button">¿Olvidaste la contraseña?</a></p>
+
 	<button type="submit" class="btn btn-primary btn-lg btn_personal mb-3 rounded-pill">INICIAR SESION</button>
+
+	<!--Link al formulario de registro de usuario-->
 	<p class=" "><a [routerLink]="['/newuser']" role="button">Si no tienes todavía, crea tu cuenta</a></p>
 
 </form>

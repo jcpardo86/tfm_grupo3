@@ -12,10 +12,6 @@
 			<div class="col-lg-6 col-md-12 col-sm-12">
         <h3 class="title mt-3 mb-4">{{tipo}} GASTO</h3>
         <form [formGroup]="modelForm" (ngSubmit)="getDataForm()">
-                    <!-- <div class="mb-3">
-						<label class="form-label">TÍTULO</label>
-						<input type="text" class="form-control" id="descripcionGrupo" formControlName="descripcionGrupo">
-					</div> -->
             <div class="mb-3">
 						  <label class="form-label">DESCRIPCIÓN</label>
               <input type="text" class="form-control" id="descripcion"  formControlName="descripcion">
@@ -51,20 +47,15 @@
                 </div>
               </div>
             </div>
-
             <div class="mb-3">
 						  <label class="form-label">FECHA</label>
 						  <input type="date" class="form-control" id="fecha"  formControlName="fecha">
 					  </div>
-
             <div class="row row-gap-3 justify-content-center mt-4">
               <input type="submit"  [disabled]="!modelForm.valid" value="{{boton}}" class="btn btn-primary btn-lg btn_personal mb-3 rounded-pill">
             </div>
-
-
 				</form>
 			</div>
 		</div>
-
 	</section>
 </main>

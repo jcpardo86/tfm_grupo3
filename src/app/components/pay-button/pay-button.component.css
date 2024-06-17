@@ -19,7 +19,7 @@
 
 .rotate-on-hover:hover input {
     transition: transform 0.3s ease;
-    transform: rotate(45deg); /* Ajusta el ángulo de rotación según tu preferencia */
+    transform: rotate(45deg);
   }
 
 .swal2-title {

@@ -1,9 +1,7 @@
 .tarjeta {
 	display: flex;
 	align-items: center;
-	/* justify-content: ; */
 	gap: 0px;
-
 }
 
 .iconcompra-container {
@@ -21,7 +19,6 @@
 }
 
 .icon-editar {
-
 	max-width: 2rem;
 }
 

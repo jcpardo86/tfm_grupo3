@@ -11,16 +11,15 @@
 			<div class="pagador">
 				<p class="card-text texto">Paga: {{myUser.nombre}} {{myUser.apellidos}} </p>
 				<p class="card-text importe"> <strong>-{{mySpent.importe}} €</strong></p>
+				<!--Sólo mostramos el link para editar gasto si el usuario tiene rol admin-->
 				@if(rolUser==="admin"){
-				<a [routerLink]="['/updatespent', mySpent.idGasto]" class="iconeditar-container">
-					<img src="assets/icons/icon_editar.png" class="icon-editar" alt="Icono editar">
-				</a>
+					<a [routerLink]="['/updatespent', mySpent.idGasto]" class="iconeditar-container">
+						<img src="assets/icons/icon_editar.png" class="icon-editar" alt="Icono editar">
+					</a>
 				}
-
 			</div>
 			<p class="card-text d-block">{{mySpent.fecha}}</p>
-
-
 		</div>
+		
 	</div>
 </div>

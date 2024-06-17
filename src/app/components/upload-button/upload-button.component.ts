@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
-//import { firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
-import { UploadsService } from '../../services/uploads.service';
 import { NgIf } from '@angular/common';
+
+import Swal from 'sweetalert2';
+
+import { UploadsService } from '../../services/uploads.service';
 import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
@@ -17,9 +18,9 @@ import { NavbarComponent } from '../navbar/navbar.component';
 })
 export class UploadButtonComponent {
 
-	selectedFile: File | null = null;
-	id: string = '';
-	tipo: string = 'usuario';
+	selectedFile: File | null = null; //Propiedad para almacenar el fichero seleccionado
+	id: string = ''; 
+	tipo: string = 'usuario'; // 2 opciones para tipo; 'usuario' (subida de foto de usuario) o 'grupo' (subida de foto de grupo)
 	isImagenGrupo: boolean = false;
 
 	constructor(
@@ -30,6 +31,7 @@ export class UploadButtonComponent {
 	) { }
 
 	ngOnInit(): void {
+		//Determinamos si se trata de la subida de una foto de usuario o una foto de grupo
 		this.activatedRoute.params.subscribe((params: any) => {
 			if (params.id_group) {
 				this.isImagenGrupo = true;
@@ -37,13 +39,11 @@ export class UploadButtonComponent {
 				this.id = params.id_group;
 			} else if (params.id_user) {
 				this.id = params.id_user;
-
 			}
 		});
 	}
 
-
-
+	//Método para validar y almacenar en propiedad selectedFile la imagen introducida por el usuario
 	onFileSelected(event: any): void {
 		const file: File = event.target.files[0];
 		if (file && file.type === 'image/jpeg') {
@@ -51,7 +51,7 @@ export class UploadButtonComponent {
 		} else {
 			Swal.fire({
 				icon: 'error',
-				title: 'Por favor selecciona una imagen .jpg',
+				title: 'Por favor, selecciona una imagen .jpg',
 				confirmButtonColor: '#FE5F42',
 			});
 		}
@@ -61,15 +61,16 @@ export class UploadButtonComponent {
 		if (!this.selectedFile) {
 			Swal.fire({
 				icon: 'error',
-				title: 'Por favor selecciona una imagen válida',
+				title: 'Por favor, selecciona una imagen válida',
 				confirmButtonColor: '#FE5F42',
 			});
 			return;
 		}
-
+		// Si el usuario ha seleccionado una imagen válida, se crea FormData y se añade la imagen
 		const formData = new FormData();
 		formData.append('imagen', this.selectedFile);
 
+		// Actualización y subida de imagen (grupo o usuario)
 		if (this.isImagenGrupo) {
 			formData.append('idGrupo', this.id);
 			try {
@@ -115,6 +116,7 @@ export class UploadButtonComponent {
 		}
 	}
 
+	//Método para vista previa de imagen
 	getImageUrl(file: File): string {
 		return URL.createObjectURL(file);
 	}
