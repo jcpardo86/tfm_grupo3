@@ -113,8 +113,8 @@ export class FormUserComponent {
 							apellidos: new FormControl(response.apellidos, [Validators.required, Validators.minLength(3)]),
 							email: new FormControl(response.email, [Validators.required, Validators.pattern(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)]),
 							repiteemail: new FormControl(response.email, [Validators.required, Validators.pattern(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)]),
-							password: new FormControl(response.password, [Validators.required, Validators.minLength(6)]),
-							repitepass: new FormControl(response.password, [Validators.required, Validators.minLength(6)]),
+							password: new FormControl("", [Validators.required, Validators.minLength(6)]),
+							repitepass: new FormControl("", [Validators.required, Validators.minLength(6)]),
 							//imagen: new FormControl(response.imagen, [Validators.required]),
 						},
 						[this.checkpasswords, this.checkemails]
