@@ -42,7 +42,7 @@
             <div class="container-total pb-5 pt-3">
               <div class="total ps-4 d-flex justify-content-between align-items-center">
                 <span class="fs-2 total-text">Gasto Total</span>
-                <span class="fs-2 total-importe ms-3">{{totalSpent}} €</span> <!-- Agregado ms-3 aquí -->
+                <span class="fs-2 total-importe ms-3">{{totalSpent.toFixed(2)}} €</span> <!-- Agregado ms-3 aquí -->
             </div>
               @if(rol==="admin") {
               <div class="text-end pe-5 mt-3">
@@ -69,7 +69,7 @@
             @if(deuda.is_pagada !== 1) {
             <div class="card shadow rounded-lg deudas mb-3">
               <span class="ps-5 texto-deuda"><strong>{{deuda.nombre_usuario}}</strong> debe a
-                <strong>{{deuda.nombre_receptor}}</strong> la cantidad de {{deuda.importe}} €</span>
+                <strong>{{deuda.nombre_receptor}}</strong> la cantidad de {{deuda.importe.toFixed(2)}} €</span>
               @if(rol==="admin") {
               <app-pay-button [miDeuda]="deuda" (deudaPagada)="updateDebtList()"></app-pay-button>
               }

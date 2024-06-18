@@ -10,7 +10,7 @@
 			<h5 class="card-title fs-5">Gasto {{numSpent}} - {{mySpent.descripcion}}</h5>
 			<div class="pagador">
 				<p class="card-text texto">Paga: {{myUser.nombre}} {{myUser.apellidos}} </p>
-				<p class="card-text importe"> <strong>-{{mySpent.importe}} €</strong></p>
+				<p class="card-text importe"> <strong>-{{mySpent.importe.toFixed(2)}} €</strong></p>
 				<!--Sólo mostramos el link para editar gasto si el usuario tiene rol admin-->
 				@if(rolUser==="admin"){
 					<a [routerLink]="['/updatespent', mySpent.idGasto]" class="iconeditar-container">

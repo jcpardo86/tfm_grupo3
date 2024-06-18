@@ -46,7 +46,7 @@ export class GroupViewComponent {
 
   users: IUser[] = [];  //Array para almacenar el listado de usuarios(miembros) del grupo
   spents: ISpent[] = []; //Array para almacenar el listado de gastos del grupo
-  totalSpent!: number; //Propiedad para almacenar el gasto total del grupo
+  totalSpent: number = 0; //Propiedad para almacenar el gasto total del grupo
   deudas: IDebt[] = [];  //Array para almacenar el listado de deudas del grupo
   images: string[] = []; //Array para almacenar las imagenes de usuarios del grupo
 
@@ -99,7 +99,6 @@ export class GroupViewComponent {
         if (this.totalSpent == null) {
           this.totalSpent = 0;
         }
-        console.log(this.totalSpent)
       } catch(error) {
         console.log(error);
       }
@@ -168,6 +167,5 @@ export class GroupViewComponent {
       }
     });
   }
-
 }
 
