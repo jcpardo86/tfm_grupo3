@@ -125,7 +125,7 @@ export class FormSpentComponent {
         this.tipo = 'ACTUALIZAR'
         this.boton = 'Actualizar'
         try {
-          const response = await this.spentService.spentById(params.id_spent)
+          const response = await this.spentService.getspentById(params.id_spent)
           this.id_group = response.idGrupo;
           const date = dayjs(response.fecha).format("YYYY-MM-DD");
 		      response.fecha = date;
@@ -203,7 +203,5 @@ export class FormSpentComponent {
                 : t;
     
   }
- 
-
 }
 
