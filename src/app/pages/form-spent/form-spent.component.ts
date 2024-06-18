@@ -38,30 +38,7 @@ export class FormSpentComponent {
 
 	users: IUser[] = []; //Objeto para almacenar el listado de usuarios del grupo
 
-<<<<<<< Updated upstream
-  image: String = "";  //Propiedad para almacenar la imagen del grupo
-  
-  constructor() {
-    this.modelForm = new FormGroup({
-      idGasto: new FormControl('',[]),
-      idGrupo: new FormControl('',[]),
-      idUsuario: new FormControl('',[
-        Validators.required,
-      ]),
-      descripcion: new FormControl('',[
-        Validators.required
-      ]),
-      importe: new FormControl('',[
-        Validators.required,
-       Validators.pattern(/^([0-9]+(\.?[0-9]{0,2}))$/)
-      ]),
-      fecha: new FormControl('',[
-        Validators.required
-      ]), 
-    }, [])
-=======
 	id_group!: number;  //Propiedad para almacenar el id del grupo
->>>>>>> Stashed changes
 
 	image: String = "";  //Propiedad para almacenar la imagen del grupo
 
@@ -77,7 +54,7 @@ export class FormSpentComponent {
 			]),
 			importe: new FormControl('', [
 				Validators.required,
-				Validators.pattern(/^[0-9]+([.][0-9]+)?$/)
+				Validators.pattern(/^([0-9]+(\.?[0-9]{0,2}))$/)
 			]),
 			fecha: new FormControl('', [
 				Validators.required
@@ -117,8 +94,6 @@ export class FormSpentComponent {
 			try {
 				// Solicitamos inserción de nuevo gasto en BBDD
 				const response_1 = await this.spentService.insertSpent(this.modelForm.value);
-				console.log("valor del gasto", this.modelForm.value);
-
 				//Solicitamos actualización del saldo de todos los usuarios del grupo en BBDD
 				for (let user of this.users) {
 					const response_2 = await this.spentService.updateSaldo({ idGrupo: parseInt(this.modelForm.value.idGrupo), idUsuario: user.idUsuario });
@@ -143,28 +118,14 @@ export class FormSpentComponent {
 
 	async ngOnInit() {
 
-<<<<<<< Updated upstream
-    this.activatedRouter.params.subscribe(async (params:any) => {
-      
-      if (params.id_spent) { 
-        //Formulario actualizar: cumplimentamos los datos del gasto en el formulario 
-        this.tipo = 'ACTUALIZAR'
-        this.boton = 'Actualizar'
-        try {
-          const response = await this.spentService.getspentById(params.id_spent)
-          this.id_group = response.idGrupo;
-          const date = dayjs(response.fecha).format("YYYY-MM-DD");
-		      response.fecha = date;
-=======
 		this.activatedRouter.params.subscribe(async (params: any) => {
->>>>>>> Stashed changes
 
 			if (params.id_spent) {
 				//Formulario actualizar: cumplimentamos los datos del gasto en el formulario
 				this.tipo = 'ACTUALIZAR'
 				this.boton = 'Actualizar'
 				try {
-					const response = await this.spentService.spentById(params.id_spent)
+					const response = await this.spentService.getspentById(params.id_spent)
 					this.id_group = response.idGrupo;
 					const date = dayjs(response.fecha).format("YYYY-MM-DD");
 					response.fecha = date;
@@ -196,27 +157,6 @@ export class FormSpentComponent {
 					console.log(error);
 				}
 
-<<<<<<< Updated upstream
-  // Verificación de campos
-  checkControl(
-    formControlName: string,
-    validador: string
-  ): boolean | undefined {
-    return (
-      this.modelForm.get(formControlName)?.hasError(validador) &&
-      this.modelForm.get(formControlName)?.touched
-    );
-  }
-  validate(event: any){
-    console.log(event.target.value)
-      var t = event.target.value;
-      event.target.value = 
-                t.indexOf('.') >= 0
-                ? t.substr(0, t.indexOf('.')) + t.substr(t.indexOf('.'),2)
-                : t;
-    
-  }
-=======
 			} else {
 				//Formulario nuevo registro de gasto
 				this.id_group = params.id_group;
@@ -254,7 +194,16 @@ export class FormSpentComponent {
 			this.modelForm.get(formControlName)?.touched
 		);
 	}
+	validate(event: any) {
+		console.log(event.target.value)
+		var t = event.target.value;
+		event.target.value =
+			t.indexOf('.') >= 0
+				? t.substr(0, t.indexOf('.')) + t.substr(t.indexOf('.'), 2)
+				: t;
 
->>>>>>> Stashed changes
+	}
+
+
 }
 
