@@ -73,9 +73,12 @@ strong {
 	padding-top: 0% !important;
 }
 
+
+
 .image-responsive {
 	width: 70%;
 	height: auto;
+	aspect-ratio: 1/1;
 }
 
 /*-----------------------media queries tablet ---------------------------*/
