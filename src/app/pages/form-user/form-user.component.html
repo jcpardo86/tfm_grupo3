@@ -8,7 +8,7 @@
 		<div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-xs-12 mb-3">
 			<div class="d-flex flex-column justify-content-center align-items-center h-100">
 				<h3 class="h3 mt-3 text-orange">{{titleForm}}</h3>
-				<form [formGroup]="modelForm" class="card p-3 border-0 w-100" (ngSubmit)="onClickGuardarBD()" >
+				<form [formGroup]="modelForm" class="card p-3 border-0 w-100" (ngSubmit)="onClickGuardarBD()">
 
 					<div class="my-2">
 						<label for="nombre" class="form-label">Nombre: </label>
@@ -96,11 +96,11 @@
 		</div>
 
 		<div
-			class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-xs-12 d-flex flex-column align-items-center justify-content-start mt-5 mt-md-0">
+			class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-xs-12 d-flex flex-column align-items-center justify-content-start mt-5 mt-md-0 ">
 
 			<!-- Mostrar imagen predeterminada si no se ha subido ninguna imagen -->
 			<img [src]="imageURL || 'assets/images/default_user_image.avif'" alt="User Image"
-				class=" img-fluid rounded rounded-circle image-responsive">
+				class="  img-fluid rounded rounded-circle image-responsive ">
 
 			<!-- Botón para cambiar la imagen -->
 			<app-upload-button (file)="funcion($event)"></app-upload-button>
