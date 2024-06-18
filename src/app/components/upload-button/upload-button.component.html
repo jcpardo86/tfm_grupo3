@@ -7,22 +7,23 @@
           <br />
           <div *ngIf="selectedFile">
               <p style="padding-top: 2rem;">Nombre del archivo: {{ selectedFile.name }}</p>
+             <!-- @if(!update){
               <button class="btn-xs btn-primary btn-lg btn_personal rounded-pill mt-3"
                   (click)="onSubmit()">Subir</button>
+                }-->
           </div>
 
-          <div *ngIf="!selectedFile">
+          <!--<div *ngIf="!selectedFile && !update">
               <button class="btn-xs btn-primary btn-lg btn_personal rounded-pill mt-3"
                   (click)="onSubmit()">Subir</button>
-          </div>
+          </div>-->
       </div>
-      <div class="col-md-6">
-          <!-- Imagen aquí -->
+      <!--<div class="col-md-6">
           <div *ngIf="selectedFile">
             <img [src]="getImageUrl(selectedFile)" alt="Imagen seleccionada" class="img-thumbnail img-fluid"
-                style="max-width: 100%; max-height: 500px;"> <!-- Ajusta la altura aquí -->
+                style="max-width: 100%; max-height: 500px;"> 
         </div>
-      </div>
+      </div>-->
   </div>
 </div>
 
