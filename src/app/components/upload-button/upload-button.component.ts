@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
@@ -22,6 +22,9 @@ export class UploadButtonComponent {
 	id: string = ''; 
 	tipo: string = 'usuario'; // 2 opciones para tipo; 'usuario' (subida de foto de usuario) o 'grupo' (subida de foto de grupo)
 	isImagenGrupo: boolean = false;
+
+	//***********LARA */
+	@Output() file: EventEmitter<File> = new EventEmitter();
 
 	constructor(
 		private http: HttpClient,
@@ -48,6 +51,8 @@ export class UploadButtonComponent {
 		const file: File = event.target.files[0];
 		if (file && file.type === 'image/jpeg') {
 			this.selectedFile = file;
+			//*******************LARA */
+			this.file.emit(this.selectedFile);
 		} else {
 			Swal.fire({
 				icon: 'error',
@@ -57,7 +62,7 @@ export class UploadButtonComponent {
 		}
 	}
 
-	async onSubmit(): Promise<void> {
+	/*async onSubmit(): Promise<void> {
 		if (!this.selectedFile) {
 			Swal.fire({
 				icon: 'error',
@@ -114,7 +119,7 @@ export class UploadButtonComponent {
 				});
 			}
 		}
-	}
+	}*/
 
 	//Método para vista previa de imagen
 	getImageUrl(file: File): string {

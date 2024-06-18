@@ -14,6 +14,7 @@ import { UsersService } from '../../services/users.service';
 import { IUser } from '../../interfaces/iuser.interface';
 import { UploadButtonComponent } from '../../components/upload-button/upload-button.component';
 import { NgIf } from '@angular/common';
+import { UploadsService } from '../../services/uploads.service';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class FormUserComponent {
 
 	// Inyección de servicios
 	userService = inject(UsersService);
+	uploadService = inject(UploadsService);
 
 	// Variables
 	titleForm: string = "Regístrate como nuevo usuario";
@@ -36,6 +38,9 @@ export class FormUserComponent {
 	isUpdatingUser: boolean = false;
 	activatedRoute = inject(ActivatedRoute);
 	imageURL: string | null = null;
+
+	file!: File;
+	id_user!: number;
 
 	// Interfaz de usuario
 	user: IUser = {
@@ -122,7 +127,6 @@ export class FormUserComponent {
 					);
 
 				}
-				console.log(response.imagen);
 				const rutaimagen = response.imagen ? `http://localhost:3000/userimage/${response.imagen}` : null;
 				this.imageURL = rutaimagen; // Asigna la URL de la imagen a la propiedad imageURL
 
@@ -160,38 +164,27 @@ export class FormUserComponent {
 
 	// Envío de datos
 	async onClickGuardarBD() {
-		console.log(this.modelForm.valid);
+	
 		if (this.modelForm.valid) {
-			console.log(this.modelForm.value.idUsuario);
 
 			if (this.modelForm.value.idUsuario) {
-				const response = await this.userService.updateUser(this.modelForm.value)
-
-				if (response) {
+			
+				try {
+					const response_1 = await this.userService.updateUser(this.modelForm.value);
+					if(this.file) {
+						this.uploadImage(this.modelForm.value.idUsuario);
+					}
 					Swal.fire({
-						title: "¿Desea subir una foto de perfil?",
-						icon: "warning",
-						showCancelButton: true,
-						confirmButtonColor: "#FE5F42",
-						cancelButtonColor: "#716add",
-						cancelButtonText: "Cancelar",
-						confirmButtonText: "Sí!"
-					}).then(async (result) => {
-						if (result.isConfirmed) {
-							try {
-								console.log(this.modelForm.value.idUsuario);
-								this.router.navigate([`/updateuser/upload/${this.modelForm.value.idUsuario}`]);
-							} catch (error) {
-								alert('Se ha producido un error al cerrar el grupo. Por favor, inténtelo de nuevo más tarde.')
-							}
-						} else {
-							Swal.fire({
-								icon: 'error',
-								title: 'Error',
-								text: 'Se ha producido un error en la actualización del usuario. Por favor, inténtelo de nuevo.',
-							});
-						}
-					})
+						icon: 'success',
+						text: 'El registro de usuario se ha realizado correctamente',
+					});
+					this.router.navigate([`/home`]);
+				} catch(error) {
+					Swal.fire({
+						icon: 'error',
+						title: 'Error',
+						text: 'Se ha producido un error en la actualización. Por favor, inténtelo de nuevo más tarde.',
+					});
 				}
 
 			} else {
@@ -201,48 +194,37 @@ export class FormUserComponent {
 				this.user.password = this.modelForm.value.password;
 
 				try {
-					console.log("estoy aquí registro", this.user);
-					const response = await this.userService.registerUser(this.user);
-					console.log("estoy aquí registro", response);
-					if (response) {
-						Swal.fire({
-							title: "¿Desea subir una foto de perfil?",
-							icon: "warning",
-							showCancelButton: true,
-							confirmButtonColor: "#FE5F42",
-							cancelButtonColor: "#716add",
-							cancelButtonText: "Cancelar",
-							confirmButtonText: "Sí!"
-						}).then(async (result) => {
-							if (result.isConfirmed) {
-								try {
-									console.log(this.user.email)
-									const response = await this.userService.getUserByEmail(this.user.email);
-									console.log(response);
-									this.router.navigate([`/newuser/upload/${response.idUsuario}`]);
-								} catch (error) {
-									alert('Se ha producido un error al cerrar el grupo. Por favor, inténtelo de nuevo más tarde.')
-								}
-
-							} else {
-								Swal.fire({
-									icon: 'error',
-									title: 'Error',
-									text: 'Se ha producido un error en la actualización del usuario. Por favor, inténtelo de nuevo.',
-								});
-							}
-						})
+					const response_1 = await this.userService.registerUser(this.user);
+					const response_2 = await this.userService.getUserByEmail(this.modelForm.value.email);
+					if(this.file && response_2.idUsuario) {
+						this.uploadImage(response_2.idUsuario);
 					}
+					Swal.fire({
+						icon: 'success',
+						text: 'Su información de usuario ha sido actualizada correctamente',
+					});
+					this.router.navigate([`/home`]);
 				} catch (error) {
-					console.log(error)
 					Swal.fire({
 						icon: 'error',
 						title: 'Error',
-						text: 'Se ha producido un error en el registro. Por favor, inténtelo de nuevo.',
+						text: 'Se ha producido un error en el registro. Por favor, inténtelo de nuevo más tarde.',
 					});
 				}
 			}
 		}
 	}
 
+	funcion($event: any) {
+		this.file = $event;
+		console.log('estoy en funcion', $event);
+	};
+
+	async uploadImage (idUsuario: number) {
+		const formData = new FormData();
+		formData.append('imagen', this.file);
+		formData.append('idUsuario', String(idUsuario));
+		const response_2 = await this.uploadService.updateImageUser(formData);
+	};
 }
+
