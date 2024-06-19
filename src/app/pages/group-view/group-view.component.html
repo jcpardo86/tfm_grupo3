@@ -14,15 +14,15 @@
       </div>
     </div>
     <div class=" pt-4">
-			<h2 class="font">Usuarios</h2>
-			<div class="pt-2">
-				@for(user of users; track user.idUsuario){
-				<img class="user-image border rounded-circle border-dark me-2" [src]=[user.imagen] alt="" />
-				<span class="fs-5 me-4 ">{{user.nombre}}
-					{{user.apellidos}}</span>
-				}
-			</div>
-		</div>
+      <h2 class="font">Usuarios</h2>
+      <div class="pt-2">
+        @for(user of users; track user.idUsuario){
+        <img class="user-image border rounded-circle border-dark me-2" [src]=[user.imagen] alt="" />
+        <span class="fs-5 me-4 ">{{user.nombre}}
+          {{user.apellidos}}</span>
+        }
+      </div>
+    </div>
     <div class="container mt-5">
       <div class="row">
         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
@@ -40,10 +40,10 @@
               }
             </div>
             <div class="container-total pb-5 pt-3">
-              <div class="total ps-4 d-flex justify-content-between align-items-center">
-                <span class="fs-2 total-text">Gasto Total</span>
-                <span class="fs-2 total-importe ms-3">{{totalSpent.toFixed(2)}} €</span> <!-- Agregado ms-3 aquí -->
-            </div>
+              <div class="total ps-4 d-flex justify-content-start align-items-center">
+                <span class="fs-2 total-text ms-2">Gasto Total</span>
+                <span class="fs-2 total-importe">{{totalSpent.toFixed(2)}} €</span>
+              </div>
               @if(rol==="admin") {
               <div class="text-end pe-5 mt-3">
                 <span class="fs-6 pe-2 gasto">Añadir gasto</span>
@@ -68,7 +68,7 @@
             @for(deuda of deudas; track $index) {
             @if(deuda.is_pagada !== 1) {
             <div class="card shadow rounded-lg deudas mb-3">
-              <span class="ps-5 texto-deuda"><strong>{{deuda.nombre_usuario}}</strong> debe a
+              <span class="ps-4 texto-deuda"><strong>{{deuda.nombre_usuario}}</strong> debe a
                 <strong>{{deuda.nombre_receptor}}</strong> la cantidad de {{deuda.importe.toFixed(2)}} €</span>
               @if(rol==="admin") {
               <app-pay-button [miDeuda]="deuda" (deudaPagada)="updateDebtList()"></app-pay-button>
@@ -96,5 +96,3 @@
         </div>
       </div>
     </div>
-  </section>
-</main>
