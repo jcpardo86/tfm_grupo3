@@ -14,7 +14,7 @@ import { UsersService } from '../../services/users.service';
 	styleUrl: './login.component.css'
 })
 export class LoginComponent {
-	
+
 	loginForm: FormGroup;
 
 	// Inyecta el servicio FormBuilder para crear y gestionar formularios reactivos.
@@ -32,7 +32,10 @@ export class LoginComponent {
 				Validators.required,
 				Validators.pattern(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)
 			]),
-			password: new FormControl(null, Validators.required)
+			password: new FormControl(null, [
+				Validators.required,
+				Validators.minLength(6)
+			])
 		})
 	}
 
