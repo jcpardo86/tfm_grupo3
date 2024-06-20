@@ -38,7 +38,6 @@ export class NavbarComponent {
     try {
         this.id_user = parseInt(localStorage.getItem('idUserLogueado') || '');
         const response = await this.userService.getImageUser(this.id_user);
-
         if(response[0]!==undefined) {
           this.image = (`http://localhost:3000/userimage/${response[0].imagen}`)
         }

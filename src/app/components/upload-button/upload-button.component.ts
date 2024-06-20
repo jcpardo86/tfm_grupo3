@@ -25,7 +25,7 @@ export class UploadButtonComponent {
 
 	//***********LARA */
 	@Output() file: EventEmitter<File> = new EventEmitter();
-
+	
 	constructor(
 		private http: HttpClient,
 		private router: Router,

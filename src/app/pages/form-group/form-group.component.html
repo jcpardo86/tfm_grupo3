@@ -3,113 +3,114 @@
 </header>
 
 <main >
-  <div style="margin-top: 150px;"></div>
-	<section class="container mt-5">
-		<div class="row row-gap-3">
-			<div class="col-lg-6 col-sm-12 d-flex justify-content-center">
-        <div>
-            <img class="full-screen-width rounded" [src]=[image] alt="">
-        </div>
-    </div>
-			<div class="col-lg-6 col-md-12 col-sm-12">
-				<form [formGroup]="modelForm">
-                    <h3 class="mb-3">{{tipo}} GRUPO</h3>
-					<div class="mb-3">
-						<label class="form-label">NOMBRE DEL GRUPO</label>
-						<input type="text" class="form-control" id="nombreGrupo" formControlName="nombreGrupo">
-                        @if(checkControlGrupo('nombreGrupo', 'required')){
-                            <p class="error">Campo requerido</p>
-                        }@else if(checkControlGrupo('nombreGrupo', 'minlength')){
-                            <p class="error">La longitud del campo ha de ser mayor</p>
-                        }
-					</div>
-					<div class="mb-3">
-						<label class="form-label">DESCRIPCIÓN BREVE</label>
-						<input type="text" class="form-control" id="descripcionGrupo" formControlName="descripcionGrupo">
-                        @if(checkControlGrupo('descripcionGrupo', 'required')){
-                            <p class="error">Campo requerido</p>
-                        }@else if(checkControlGrupo('descripcionGrupo', 'minlength')){
-                            <p class="error">La longitud del campo ha de ser mayor</p>
-                        }
-					</div>
-                    <form [formGroup]="aniadirUsuarioForm">
-                        <div class="mb-3 row">
-                         @if(!checkActualizar()){
-                                <div class="col-lg-9">
-                                    <label class="form-label">EMAIL USUARIO</label>
-                                    <input type="text" class="form-control" id="usuarioAñadir" formControlName="email">
-                                    @if(checkControlAniadir('email', 'required') || emailAniadirUsuarioIncompletos){
-                                        <p class="error">Campo requerido</p>
-                                    }@else if(checkControlAniadir('email', 'email')){
-                                        <p class="error">Introduzca un email</p>
-                                    }@else if(!existeUsuario){
-                                        <p class="error">No existe el email indicado</p>
-                                    }
-                                </div>
-                                <div class="col-lg-3">
-                                    <label class="form-label">% del gasto</label>
-                                    <input type="text" class="form-control" id="gastoUsuario" formControlName="porcentaje">
-                                    @if(checkControlAniadir('porcentaje', 'required') || porcentajeAniadirUsuarioIncompletos){
-                                        <p class="error">Campo requerido</p>
-                                    }@else if(checkControlAniadir('porcentaje', 'pattern')){
-                                        <p class="error">Introduzca un porcentaje válido (1-99)</p>
-                                    }
-                                </div>
-                            }
-                        </div>
-                    </form>
 
-                    <div class="row">
-                        @if(arrUsuarios.length > 0){
-                            <label class="form-label"><strong>MIEMBROS</strong></label>
+	
+
+<form class="col-12" [formGroup]="groupForm" (ngSubmit)="saveGroup()">
+
+    <section class="container d-flex flex-row justify-content-around gap-5 mt-5">
+        
+		<div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 col-xs-12 d-flex flex-column align-items-start justify-content-center mt-5 pt-5 ms-5 ps-5">
+			<img [src]="imageURL || 'assets/images/default_group_image.jpg'" alt="Group Image" class="img-fluid rounded-3 image-responsive">
+            <!--Botón para cambiar la imagen-->
+            <app-upload-button (file)="getFile($event)"></app-upload-button>
+        </div>
+        
+		
+		<div class="col-xl-6 col-lg-5 col-md-6 d-flex flex-column align-items-start">
+					<div class="mt-5 col-10">
+                        <h3 class="mt-5">{{tipo}} GRUPO</h3>
+						<label for="nombre" class="form-label mt-3">NOMBRE DEL GRUPO</label>
+						<input type="text" class="form-control" id="nombre" formControlName="nombre">
+                        @if(checkControlGroup('nombre', 'required')){
+                            <p class="error">Campo requerido</p>
                         }
-                        @for(usuario of arrUsuarios; track usuario.idUsuario){
-                            <div class="col-12">
-                                <p>{{usuario.nombre}} {{usuario.apellidos}} - {{usuario.porcentaje}}%</p>
-                            </div>
+                        @if(checkControlGroup('nombre', 'minlength')){
+                            <p class="error">La longitud del campo ha de ser mayor</p>
                         }
-                        @if(!checkActualizar()){
-                            <div class="col-4">
-                                <button type="button" class="btn btn-primary btn-sm btn_personal rounded-5" (click)="limpiar()" [hidden]="arrUsuarios.length === 0">Reiniciar miembros</button>
-                            </div>
+					</div>
+					<div class="mb-3 col-10">
+						<label for="descripcion" class="form-label mt-4">DESCRIPCIÓN BREVE</label>
+						<input type="text" class="form-control" id="descripcion" formControlName="descripcion">
+                        @if(checkControlGroup('descripcion', 'required')){
+                            <p class="error">Campo requerido</p>
                         }
-                        @if(!correctPorcentajes() && buttonPulsed){
-                            <p class="error">Los porcentajes asignados no son válidos, han de sumar 100</p>
+                        @if(checkControlGroup('descripcion', 'minlength')){
+                            <p class="error">La longitud del campo ha de ser mayor</p>
                         }
-                        @if(!correctEmails && buttonPulsed){
-                            <p class="error">Tiene que introducirse como un miembro del grupo</p>
+					</div>
+                
+                @if(tipo === "ACTUALIZAR") {
+                    <div class="mt-3">
+                        <h6 class="mb-3">MIEMBROS </h6>
+                        @for(user of arrUsers; track user.idUsuario) {
+                            <p class="ms-4">{{user.nombre}} {{user.apellidos}} - {{arrPorcents[$index]}} %</p>
                         }
                     </div>
-                    @if(!checkActualizar()){
-                        <div class="mb-3 row align-items-center">
-                            <div class="col-lg-7">
-                                <hr class="custom-hr">
-                            </div>
-                            <div class="col-lg-3">
-                                <p><strong>AÑADE USUARIO</strong></p>
-                            </div>
-                            <div class="col-lg-2">
-                                <a (click)="aniadirUsuario()">
-                                    <img src="assets\icons\añadir_usuario.png" alt="Añadir usuario">
-                                </a>
+                }
+
+                @if(tipo ==="AÑADIR") {
+                    <form [formGroup]="userForm" (ngSubmit)="addUser()">
+                        <div class="mb-3 row">
+                                <h6 class="mt-3 mb-3">MIEMBRO ADMINISTRADOR </h6> 
+                                @if(adminPorcent) {
+                                    <p class="ms-3">{{adminUser.nombre}} {{adminUser.apellidos}} - {{adminPorcent}} %</p>
+                                }
+                                <h6 class="mb-3 mt-3">MIEMBROS INVITADOS </h6> 
+                                    @for(user of arrUsers; track user.idUsuario) {
+                                        <p class="ms-3">{{user.nombre}} {{user.apellidos}} - {{arrPorcents[$index]}} %</p>
+                                    }
+                            <div class="add_user">
+                                <div class="email">
+                                    <label for="email" class="form-label">Email:</label>
+                                    <input type="text" class="form-control" id="email" formControlName="email">
+                                    @if (checkControlUser('email', 'required')) {
+                                        <p class="error">Campo requerido</p>
+                                    } @else if(checkControlUser('email', 'email')) {
+                                        <p class="error">Introduzca un email</p>
+                                    }
+                                </div>
+                                <div class="gasto">
+                                    <label for="porcentaje" class="form-label">% gasto</label>
+                                    <input type="text" class="form-control" id="porcentaje" formControlName="porcentaje">
+                                    @if(checkControlUser('porcentaje', 'required')) {
+                                        <p class="error">Campo requerido</p>
+                                    }
+                                    @if(checkControlUser('porcentaje', 'pattern')){
+                                        <p class="error"> Introduzca un porcentaje válido (ejemplo: 25.50 %)</p>
+                                    }
+                                </div>
+                                <div class="d-flex flex-row -items-end mt-2">
+                                    <input type="submit" value="AÑADIR MIEMBRO" class="btn btn-primary btn-lg btn_personal_adduser rounded-5" [disabled]="!userForm.valid"> 
+                                </div>
                             </div>
                         </div>
-                    }
-                    @if(checkActualizar()){
-                        <div class="row">
-                            <div class="col-lg-12 d-flex justify-content-end">
-                                <button type="button" class="btn btn-primary btn-lg btn_personal rounded-5" (click)="(buttonPulsed = true) && crearGrupo()" [disabled]="!modelForm.valid">GUARDAR CAMBIOS</button>
-                            </div>
-                        </div>
-                    }@else {
-                        <div class="row">
-                            <div class="col-lg-12 d-flex justify-content-end">
-                                <button type="button" class="btn btn-primary btn-lg btn_personal rounded-5" (click)="(buttonPulsed = true) && crearGrupo()" [disabled]="!modelForm.valid || arrUsuarios.length === 0">CREAR GRUPO</button>
-                            </div>
-                        </div>
-                    }
-				</form>
-			</div>
-		</div>
-	</section>
+                    </form>
+                }
+                @if(emailRegistered ===false){
+                    <p class="error">ERROR - El email que ha indicado no está registrado en DIVI. Por favor, indique otro email.</p>
+                }@else if(emailDuplicated ===true) {
+                    <p class="error">ERROR - El email que ha indicado ya fue añadido como miembro del grupo. Por favor, indique otro email.</p>
+                }@else if (porcentExceeded) {
+                    <p class="error">ERROR - La suma de porcentajes de los miembros no puede ser superior a 100.00 %</p>
+                }
+        </div>
+    </section>
+            <div>
+                @if(tipo=="AÑADIR") {
+                    <div class="d-flex flex-column align-items-center mt-3">  
+                        <input type="submit" value="CREAR GRUPO" class="btn btn-primary btn-lg btn_personal rounded-5" [disabled]="!groupForm.valid || !porcentCompleted">  
+                    </div>
+                }
+
+                @if(tipo=="ACTUALIZAR") {
+                    <div class="d-flex flex-column align-items-center mt-3">  
+                        <input type="submit" value="ACTUALIZAR GRUPO" class="btn btn-primary btn-lg btn_personal rounded-5" [disabled]="!groupForm.valid">  
+                    </div>
+                }
+            </div>
+            
+        </form>
 </main>
+
+

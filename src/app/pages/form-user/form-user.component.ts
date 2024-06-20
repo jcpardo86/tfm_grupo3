@@ -176,7 +176,7 @@ export class FormUserComponent {
 					}
 					Swal.fire({
 						icon: 'success',
-						text: 'El registro de usuario se ha realizado correctamente',
+						text: 'Su información de usuario se ha actualizado correctamente',
 					});
 					this.router.navigate([`/home`]);
 				} catch(error) {
@@ -201,7 +201,7 @@ export class FormUserComponent {
 					}
 					Swal.fire({
 						icon: 'success',
-						text: 'Su información de usuario ha sido actualizada correctamente',
+						text: 'El registro de usuario se ha realizado correctamente',
 					});
 					this.router.navigate([`/home`]);
 				} catch (error) {
@@ -215,7 +215,7 @@ export class FormUserComponent {
 		}
 	}
 
-	funcion($event: any) {
+	getFile($event: any) {
 		this.file = $event;
 		console.log('estoy en funcion', $event);
 	};

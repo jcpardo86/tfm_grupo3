@@ -19,7 +19,7 @@ export class GroupListComponent {
   //Inyección de Router para redirecciones
   router = inject(Router);
 
-  //Inyección de servicio GroupsService para gestiones con tabla grupo-usuario de BBDDs
+  //Inyección de servicios GroupsService y UsersService para gestiones de grupos y usuarios
   groupService = inject(GroupsService);
   
   arrGroups! : IGroupUser[]; //array para almacenar todos los grupos del usuario
@@ -54,4 +54,3 @@ export class GroupListComponent {
     }
   }
 }
-

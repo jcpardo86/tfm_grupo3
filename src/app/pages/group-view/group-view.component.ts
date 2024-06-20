@@ -75,6 +75,7 @@ export class GroupViewComponent {
       //Solicitamos el listamos de usuarios del grupo y, por cada usuario su imagen y lo almacenamos en array users
       try {
         this.users = await this.groupService.getUsersByGroup(this.idGroup);
+        console.log("estoy aquí")
         for(let i in this.users) {
           const response = await this.userService.getImageUser(this.users[i].idUsuario);
           this.users[i].imagen = (`http://localhost:3000/userimage/${this.users[i].imagen}`)

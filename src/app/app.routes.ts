@@ -29,7 +29,7 @@ export const routes: Routes = [
 
 	// Rutas para formularios de creación y edición de grupo
 	{ path: "newgroup", component: FormGroupComponent, canActivate: [authGuard] },
-	{ path: "updategroup/:id", component: FormGroupComponent, canActivate: [authGuard] },
+	{ path: "updategroup/:id_group", component: FormGroupComponent, canActivate: [authGuard] },
 	{ path: "updategroup/upload/:id_group", component: UploadButtonComponent, canActivate: [authGuard] },
 	
 	// Rutas para formularios de creación y edición de usuarios

@@ -24,11 +24,25 @@ input {
 }
 
 .btn_personal {
-	padding: 0.7rem 2rem;
+	padding: 0.7rem 10rem;
 	background-color: var(--orange);
 	color: white;
 	border: none;
 	font-weight: bold;
+}
+
+.btn_personal_adduser {
+	font-size: 0.7rem;
+	background-color: var(--orange);
+	color: white;
+	font-weight: bold;
+}
+
+.guardar{
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-top: 30px;
 }
 
 .btn_borrar {
@@ -39,7 +53,7 @@ input {
 	font-weight: bold;
 }
 
-h3{
+h3 {
 	color: var(--orange);
 }
 
@@ -56,6 +70,17 @@ h3{
   width: 100%;
   max-height: 70%;
   height: 400px;
+}
+
+.add_user{
+	display:flex;
+	justify-content: space-between;
+	align-items: start;
+	gap: 20px;
+}
+
+.email{
+	width: 85%;
 }
 
 /*-----------------------media queries tablet ---------------------------*/
