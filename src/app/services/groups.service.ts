@@ -50,24 +50,14 @@ export class GroupsService {
   };
 
   // Servicio para insertar un grupo
-  insertGroup(group: IGroup): Promise<IGroup> {
-    return new Promise((resolve, reject) => {
-        this.httpClient.post<IGroup>(this.baseUrl, group).subscribe({
-            next: (response: any) => {
-                const insertId = response.insertId;
-                const newGroupWithId: IGroup = { ...group, idGrupo: insertId };
-                resolve(newGroupWithId);
-            },
-            error: (error: any) => {
-                reject(error);
-            }
-        });
-    });
-  }
+  insertGroup(group: IGroup): Promise<any> {
+    return lastValueFrom(this.httpClient.post<any>(`${this.baseUrl}`, group));
+  };
+
 
   // Servicio para actualizar los datos de un grupo (nombre y descripción)
   updateGroup(group: IGroup): Promise<IGroup> {
-    return lastValueFrom(this.httpClient.put<IGroup>(`${this.baseUrl}/update`, group));
+    return lastValueFrom(this.httpClient.put<IGroup>(`${this.baseUrl}/update/${group.idGrupo}`, group));
   };
 
   // Servicio para insertar un usuario en un grupo
