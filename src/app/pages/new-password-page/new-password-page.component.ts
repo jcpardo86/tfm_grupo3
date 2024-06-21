@@ -26,8 +26,12 @@ export class NewPasswordPageComponent {
 
 	constructor(private router: Router) {
 		this.newPassForm = new FormGroup({
-			password: new FormControl(null, [Validators.required]),
-			confirmPassword: new FormControl(null, [Validators.required])
+			password: new FormControl(null, [
+				Validators.required,
+				Validators.minLength(6)
+			]),
+			confirmPassword: new FormControl(null, [
+				Validators.required])
 		}, [this.checkpassword]);
 	}
 
@@ -45,7 +49,7 @@ export class NewPasswordPageComponent {
 
 				const response = await this.resetService.patchPassword(passwordData, token);
 
-				if (response && response.success) { 
+				if (response && response.success) {
 					Swal.fire({
 						icon: 'success',
 						title: 'Contraseña cambiada',
@@ -77,6 +81,12 @@ export class NewPasswordPageComponent {
 			return null;
 		}
 	}
+
+	checkControl(formControlName: string, validator: string): boolean | undefined {
+		return this.newPassForm.get(formControlName)?.hasError(validator) && this.newPassForm.get(formControlName)?.touched
+	}
+
+
 
 	getDataForm(): void {
 		this.newPassForm.reset();
