@@ -3,21 +3,21 @@
 		<label for="email" class="form-label">Email de usuario</label>
 		<input type="text" class="form-control" placeholder="Introduce tu email" id="email" formControlName="email">
 		@if(checkControl('email', 'required')){
-		<p class="error text-danger">Campo requerido</p>
+			<p class="error text-danger">Campo requerido</p>
 		}
 
-		@if(checkControl('email', 'pattern')){
-		<p class="error text-danger">Campo no es de tipo email</p>
+		@if(checkControl('email', 'pattern')) {
+			<p class="error text-danger">Campo no es de tipo email</p>
 		}
 	</div>
 	<div class="mb-3">
 		<label for="password" class="form-label">Contraseña</label>
 		<input type="password" class="form-control" placeholder="Introduce tu contraseña" id="password"
 			formControlName="password">
-		@if(checkControl('password', 'required')){
-		<p class="error text-danger">Campo requerido</p>}
-		@if(checkControl('password', 'minlength')){
-		<p class="error text-danger">Mínimo 6 caracteres</p>}
+		@if(checkControl('password', 'required')) {
+			<p class="error text-danger">Campo requerido</p>}
+		@if(checkControl('password', 'minlength')) {
+			<p class="error text-danger">Mínimo 6 caracteres</p>}
 
 
 	</div>

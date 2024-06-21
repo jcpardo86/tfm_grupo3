@@ -23,7 +23,7 @@ export class UploadButtonComponent {
 	tipo: string = 'usuario'; // 2 opciones para tipo; 'usuario' (subida de foto de usuario) o 'grupo' (subida de foto de grupo)
 	isImagenGrupo: boolean = false;
 
-	//***********LARA */
+	//Output para enviar a componente formUser y groupUser el fichero de imagen
 	@Output() file: EventEmitter<File> = new EventEmitter();
 	
 	constructor(
@@ -51,7 +51,6 @@ export class UploadButtonComponent {
 		const file: File = event.target.files[0];
 		if (file && file.type === 'image/jpeg') {
 			this.selectedFile = file;
-			//*******************LARA */
 			this.file.emit(this.selectedFile);
 		} else {
 			Swal.fire({
@@ -61,65 +60,6 @@ export class UploadButtonComponent {
 			});
 		}
 	}
-
-	/*async onSubmit(): Promise<void> {
-		if (!this.selectedFile) {
-			Swal.fire({
-				icon: 'error',
-				title: 'Por favor, selecciona una imagen válida',
-				confirmButtonColor: '#FE5F42',
-			});
-			return;
-		}
-		// Si el usuario ha seleccionado una imagen válida, se crea FormData y se añade la imagen
-		const formData = new FormData();
-		formData.append('imagen', this.selectedFile);
-
-		// Actualización y subida de imagen (grupo o usuario)
-		if (this.isImagenGrupo) {
-			formData.append('idGrupo', this.id);
-			try {
-				const response = await this.uploadService.updateImageGroup(formData);
-				console.log('File successfully uploaded!', response);
-				Swal.fire({
-					icon: 'success',
-					title: 'Imagen de grupo actualizada',
-					confirmButtonColor: '#FE5F42',
-				}).then(() => {
-					this.router.navigate([`/group/${this.id}`]);
-				});
-			} catch (error) {
-				console.error('Error uploading file!', error);
-				Swal.fire({
-					icon: 'error',
-					title: 'Error',
-					text: 'Algo salió mal, la imagen de grupo no se actualizó',
-					confirmButtonColor: '#FE5F42',
-				});
-			}
-		} else {
-			formData.append('idUsuario', this.id);
-			try {
-				const response = await this.uploadService.updateImageUser(formData);
-				console.log('File successfully uploaded!', response);
-				Swal.fire({
-					icon: 'success',
-					title: 'Imagen de usuario actualizada',
-					confirmButtonColor: '#FE5F42',
-				}).then(() => {
-					this.router.navigate(['/home']);
-				});
-			} catch (error) {
-				console.error('Error uploading file!', error);
-				Swal.fire({
-					icon: 'error',
-					title: 'Error',
-					text: 'Algo salió mal, la imagen de usuario no se actualizó',
-					confirmButtonColor: '#FE5F42',
-				});
-			}
-		}
-	}*/
 
 	//Método para vista previa de imagen
 	getImageUrl(file: File): string {

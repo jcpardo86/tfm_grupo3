@@ -63,49 +63,31 @@ export class GroupViewComponent {
       try {
         const [user] = await this.groupService.getUserGroup(idUser, this.idGroup);
         this.rol = user.rol;
-      } catch(error) {
-        console.log(error);
-      }
+     
       //Solicitamos los datos del grupo y lo almacenamos en objeto group
-      try {
         this.group = await this.groupService.getGroupById(this.idGroup);
-      } catch(error) {
-        console.log(error);
-      }
+     
       //Solicitamos el listamos de usuarios del grupo y, por cada usuario su imagen y lo almacenamos en array users
-      try {
         this.users = await this.groupService.getUsersByGroup(this.idGroup);
-        console.log("estoy aquí")
+        
         for(let i in this.users) {
           const response = await this.userService.getImageUser(this.users[i].idUsuario);
           this.users[i].imagen = (`http://localhost:3000/userimage/${this.users[i].imagen}`)
         }
-      } catch(error) {
-        console.log(error);
-      }
 
       //Solicitamos el listado de gastos del grupo y los ordenamos por id de gasto
-      try {
         this.spents = await this.spentService.getSpentsByGroup(this.idGroup);
         this.spents.sort((a: any, b: any) => {
           return a.idGasto - b.idGasto;
         }); 
-      } catch(error) {
-        console.log(error);
-      }
 
       // Solicitamos el total de gasto del grupo
-      try {
         this.totalSpent = await this.spentService.getTotalSpentByGroup(this.idGroup);
         if (this.totalSpent == null) {
           this.totalSpent = 0;
         }
-      } catch(error) {
-        console.log(error);
-      }
 
       //Solicitamos el listado de deudas del grupo y si todas están pagadas, fijamos la propiedad todoLiquidado a true
-      try {
         this.deudas = await this.debtService.getDebtsByGroup(this.idGroup);
         for(let deuda of this.deudas) {
           if(deuda.is_pagada !== 1){
@@ -114,7 +96,13 @@ export class GroupViewComponent {
           }
         }
       } catch(error) {
-        console.log(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Lo sentimos. Se ha producido error en el sistema. Por favor, intente acceder más tarde.',
+          confirmButtonColor: '#FE5F42',
+        });
+        this.router.navigate(['/home']);
       }
     });
   }
@@ -128,14 +116,19 @@ export class GroupViewComponent {
       }); 
       this.todoLiquidado = true;
       for(let deuda of this.deudas) {
-        console.log(deuda);
         if(deuda.is_pagada !== 1){
           this.todoLiquidado = false;
           break;
         }
       }
     } catch(error) {
-      console.log(error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Lo sentimos. Se ha producido error en el sistema. Por favor, intente acceder más tarde.',
+        confirmButtonColor: '#FE5F42',
+      });
+      this.router.navigate(['/home']);
     }
   };
 
@@ -163,7 +156,12 @@ export class GroupViewComponent {
           });
           this.router.navigate(['/groups']); 
         } catch(error) {
-          alert('Se ha producido un error al cerrar el grupo. Por favor, inténtelo de nuevo más tarde.')
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Lo sentimos. Se ha producido un error al cerrar el grupo. Por favor, inténtelo de nuevo más tarde.',
+            confirmButtonColor: '#FE5F42',
+          });
         }
       }
     });

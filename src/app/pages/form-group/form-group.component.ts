@@ -35,7 +35,7 @@ export class FormGroupComponent {
 	//Inyección de ActivatedRoute para obtener params de ruta
 	activedRoute = inject(ActivatedRoute);
 
-	tipo: string = 'AÑADIR'
+	tipo: string = 'AÑADIR' //Variable para distinguir entre formulario de registro o actualización
 
 	adminUser: IUser = {
 		nombre : "",
@@ -96,15 +96,13 @@ export class FormGroupComponent {
 		this.userForm = new FormGroup({
 			email: new FormControl('', [
 				Validators.required,
-				Validators.email,
-				//this.emailDuplicated
+				Validators.pattern(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/),
 			]),
 			porcentaje: new FormControl('', [
 				Validators.required,
 				Validators.pattern(/^(?!0\.00$)(?!0*$)(?!100$)(?!100\.00$)(?!100\.0$)(?![1-9][0-9]{2,}\.?[0-9]*$)([1-9]?[0-9]?(?:\.[0-9]{1,2})?)$/),
-				//this.totalPorcent
 			]),
-		},  [/*this.emailregistered*/])
+		},  [])
 	}
 
 	async ngOnInit() {
@@ -115,6 +113,7 @@ export class FormGroupComponent {
 				this.tipo = "ACTUALIZAR";
 				this.id_group = params.id_group;
 				try {
+					// Solicitamos datos del grupo para mostrar en formulario
 					const group = await this.groupService.getGroupById(this.id_group);
 					if(group) {
 						this.groupForm = new FormGroup({
@@ -122,6 +121,7 @@ export class FormGroupComponent {
 							descripcion: new FormControl(group.descripcion, [Validators.required, Validators.minLength(5)]),
 							},[]);
 						}
+					// Solicitamos los datos de usuarios del grupo para mostrar en formulario
 					const users = await this.groupService.getUsersByGroup(this.id_group);
 					for(let user of users) {
 						const response = await this.groupService.getUserGroup(user.idUsuario, this.id_group);
@@ -129,16 +129,22 @@ export class FormGroupComponent {
 						this.arrPorcents.push(response[0].porcentaje);
 					}
 
+					//Mostramos imagen de usuario si existe, en su ausencia mostrmos la imagen por defecto
 					const rutaimagen = group.imagen ? `http://localhost:3000/groupimage/${group.imagen}` : null;
 					this.imageURL = rutaimagen; // Asigna la URL de la imagen a la propiedad imageURL
 				
 				} catch(error) {
-					console.log(error);
-
+					Swal.fire({
+						icon: 'error',
+						title: 'Error',
+						text: 'Se ha producido un error en la actualización. Por favor, inténtelo de nuevo más tarde.',
+					});
+					this.router.navigate(['/group']);
 				}
 
 			} else {
 				try {
+					//Solicitamos datos de usuario admin y generamos una alerta personalizada para que el usuario introduzca su porcentaje de gasto en el nuevo grupo
 					const id_admin = Number(localStorage.getItem('idUserLogueado'));
 					this.adminUser = await this.userService.getUserById(id_admin);
 					Swal.fire({
@@ -158,6 +164,7 @@ export class FormGroupComponent {
 						preConfirm: (login) => {
 							const porcentPattern = /^(?!0\.00$)(?!0*$)(?!100$)(?!100\.00$)(?!100\.0$)(?![1-9][0-9]{2,}\.?[0-9]*$)([1-9]?[0-9]?(?:\.[0-9]{1,2})?)$/;
 
+							//Almacenamos el %gasto introducido por el usuario en propiedad adminPorcent
 							if (porcentPattern.test(login)) {
 								this.adminPorcent = Number(login);
 							} else {
@@ -175,12 +182,17 @@ export class FormGroupComponent {
 							});
 						}
 						else {
-							this.router.navigate(['/home']);
+							this.router.navigate(['/group']);
 						}
 			  		});
 					  
-				} catch (error) {
-					console.log(error);
+				} catch(error) {
+					Swal.fire({
+						icon: 'error',
+						title: 'Error',
+						text: 'Se ha producido un error en la actualización. Por favor, inténtelo de nuevo más tarde.',
+					});
+					this.router.navigate(['/group']);
 				}
 			}
 		});
@@ -198,6 +210,7 @@ export class FormGroupComponent {
 		return ( (contador > 100) ? true : false );
 	};
 
+	// Método para comprobar si ya se ha alcanzado el porcentaje del 100% con los miembros añadidos
 	porcentcompleted() {
 		return ((this.sumPorcent === 100) ? true : false);
 	};
@@ -210,18 +223,22 @@ export class FormGroupComponent {
 		return this.groupForm.get(formControlName)?.hasError(validador) && this.groupForm.get(formControlName)?.touched
 	};
 
+	// Método para insertar usuario en grupo si se cumplen todas las validaciones/comprobaciones previas
 	async addUser() {
 
 		this.emailDuplicated = false;
 		this.emailRegistered = true;
 
 		try {
+
+			// Solicitamos usuario a partir de su email para comprobar si está registrado
 			const user = await this.userService.getUserByEmail(this.userForm.value.email);
 			
 			if(user) {
 				this.emailDuplicated = this.emailduplicated();
 				this.porcentExceeded = this.porcentexceeded();
 
+				// Si el usuario no ha sido ya añadido al grupo y el porcentaje indicado no excede el 100% del grupo, se añade al array arrUsers
 				if(!(this.emailDuplicated || this.porcentExceeded)) {
 					this.arrUsers.push(user);
 					this.arrPorcents.push(this.userForm.value.porcentaje);
@@ -233,6 +250,7 @@ export class FormGroupComponent {
 				this.emailRegistered = false;
 			}
 
+			// Si el usuario ha sido añadido previamente o con su porcentaje excede el 100% del grupo o si el mail no está registrado en DIVI, no validamos y reseteamos formulario de usuario
 			if((!this.emailDuplicated || !this.porcentExceeded || this.emailRegistered)) {
 				setTimeout(() => {
 					this.emailDuplicated = false;
@@ -243,14 +261,20 @@ export class FormGroupComponent {
 			}
 
 		} catch(error) {
-			console.log(error);
+			Swal.fire({
+				icon: 'error',
+				title: 'Error',
+				text: 'Se ha producido un error en el registro. Por favor, inténtelo de nuevo más tarde.',
+			});
+			this.router.navigate(['/group']);
 		}
 	}
 
 	async saveGroup() {
 
 		if (this.id_group) {
-			
+
+			// Solicitamos actualización de datos del grupo
 			try {
 				this.newGroup.idGrupo = this.id_group;
 				this.newGroup.nombre = this.groupForm.value.nombre;
@@ -265,7 +289,7 @@ export class FormGroupComponent {
 					text: 'Su información de grupo se ha actualizado correctamente',
 					confirmButtonColor: "#FE5F42"
 				});
-				this.router.navigate([`/groups`]);
+				this.router.navigate(['/groups']);
 			} catch(error) {
 				Swal.fire({
 					icon: 'error',
@@ -275,6 +299,8 @@ export class FormGroupComponent {
 			}
 
 		} else {
+
+			// Solicitamos registro de datos de nuevo grupo
 			this.newGroup.nombre = this.groupForm.value.nombre;
 			this.newGroup.descripcion = this.groupForm.value.descripcion;
 
@@ -284,6 +310,7 @@ export class FormGroupComponent {
 
 				this.arrUsers.push(this.adminUser);
 
+				//Solicitamos registro de usuarios en el nuevo grupo
 				for(let i in this.arrUsers) {
 					this.newGroupUser.idUsuario = Number(this.arrUsers[i].idUsuario);
 					this.newGroupUser.idGrupo = id_group;
@@ -305,21 +332,23 @@ export class FormGroupComponent {
 					confirmButtonColor: "#FE5F42"
 				});
 				this.router.navigate([`/group`, id_group]);
+				
 			} catch (error) {
 				Swal.fire({
 					icon: 'error',
 					title: 'Error',
 					text: 'Se ha producido un error la creación del grupo. Por favor, inténtelo de nuevo más tarde.',
 				});
+				this.router.navigate(['/group']);
 			}
 		}
 	}
 
 	getFile($event: any) {
 		this.file = $event;
-		console.log('estoy en funcion', $event);
 	};
 
+	// Método para subir imagen de grupo
 	async uploadImage (idGrupo: number) {
 		const formData = new FormData();
 		formData.append('imagen', this.file);
