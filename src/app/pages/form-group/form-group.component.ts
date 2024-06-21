@@ -263,6 +263,7 @@ export class FormGroupComponent {
 				Swal.fire({
 					icon: 'success',
 					text: 'Su información de grupo se ha actualizado correctamente',
+					confirmButtonColor: "#FE5F42"
 				});
 				this.router.navigate([`/groups`]);
 			} catch(error) {
@@ -301,6 +302,7 @@ export class FormGroupComponent {
 				Swal.fire({
 					icon: 'success',
 					text: 'El grupo ha sido creado correctamente',
+					confirmButtonColor: "#FE5F42"
 				});
 				this.router.navigate([`/group`, id_group]);
 			} catch (error) {

@@ -120,7 +120,6 @@ export class FormUserComponent {
 							repiteemail: new FormControl(response.email, [Validators.required, Validators.pattern(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)]),
 							password: new FormControl("", [Validators.required, Validators.minLength(6)]),
 							repitepass: new FormControl("", [Validators.required, Validators.minLength(6)]),
-							//imagen: new FormControl(response.imagen, [Validators.required]),
 						},
 						[this.checkpasswords, this.checkemails]
 
@@ -177,6 +176,7 @@ export class FormUserComponent {
 					Swal.fire({
 						icon: 'success',
 						text: 'Su información de usuario se ha actualizado correctamente',
+						confirmButtonColor: "#FE5F42"
 					});
 					this.router.navigate([`/home`]);
 				} catch(error) {
@@ -202,6 +202,7 @@ export class FormUserComponent {
 					Swal.fire({
 						icon: 'success',
 						text: 'El registro de usuario se ha realizado correctamente',
+						confirmButtonColor: "#FE5F42"
 					});
 					this.router.navigate([`/home`]);
 				} catch (error) {
