@@ -1,9 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, AbstractControl, FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { NavbarComponent } from '../../components/navbar/navbar.component';
-import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+
+import Swal from 'sweetalert2';
+
+import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { ResetService } from '../../services/reset.service';
 
 
@@ -35,8 +37,6 @@ export class NewPasswordPageComponent {
 			try {
 				const currentUrl = this.router.url;
 				const token = currentUrl.split('/')[2]; // saca el token de la URL
-				console.log(`Current URL: ${currentUrl}`); // Debug URL
-				console.log(`Token: ${token}`); // Debug token
 
 				const passwordData = {
 					password: this.newPassForm.value.password,
@@ -45,8 +45,7 @@ export class NewPasswordPageComponent {
 
 				const response = await this.resetService.patchPassword(passwordData, token);
 
-				console.log(this.newPassForm.value);
-				if (response && response.success) { // Asegúrate de que 'response.success' sea el indicador de éxito de tu API
+				if (response && response.success) { 
 					Swal.fire({
 						icon: 'success',
 						title: 'Contraseña cambiada',
@@ -80,7 +79,6 @@ export class NewPasswordPageComponent {
 	}
 
 	getDataForm(): void {
-		console.log(this.newPassForm.value);
 		this.newPassForm.reset();
 	}
 

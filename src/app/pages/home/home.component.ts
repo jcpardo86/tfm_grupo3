@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
 import { FooterComponent } from '../../components/footer/footer.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { LoginComponent } from '../../components/login/login.component';
-import { RouterLink } from '@angular/router';
 import { ResetPasswordComponent } from '../../components/reset-password-form/reset-password.component';
 import { UploadButtonComponent } from '../../components/upload-button/upload-button.component';
 

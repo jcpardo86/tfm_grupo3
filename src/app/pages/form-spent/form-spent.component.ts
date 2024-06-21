@@ -66,11 +66,13 @@ export class FormSpentComponent {
 	async getDataForm(): Promise<any> {
 
 		if (this.modelForm.value.idGasto) {
-			// Formulario de actualización:
+			// Proceso de actualización:
 			try {
 				//Solicitamos actualización del gasto en BBDD
 				const response_1 = await this.spentService.updateSpent(this.modelForm.value);
+
 				//Solicitamos actualización del saldo de todos los usuarios del grupo en BBDD
+				
 				for (let user of this.users) {
 					const response_2 = await this.spentService.updateSaldo({ idGrupo: parseInt(this.modelForm.value.idGrupo), idUsuario: user.idUsuario });
 				}
@@ -85,9 +87,15 @@ export class FormSpentComponent {
 				});
 				this.router.navigate([`/group/${response_1.idGrupo}`])
 
-			} catch (error) {
-				console.log(error);
-			}
+			} catch(error) {
+				Swal.fire({
+				  icon: 'error',
+				  title: 'Error',
+				  text: 'Lo sentimos. Se ha producido error en el sistema. Por favor, inténtelo de nuevo más tarde.',
+				  confirmButtonColor: '#FE5F42',
+				});
+				this.router.navigate([`/group/${this.modelForm.value.idGrupo}`]);
+			  }
 		} else {
 			//Formulario de registro:
 			this.modelForm.value.idGrupo = this.id_group;
@@ -109,8 +117,14 @@ export class FormSpentComponent {
 				});
 				this.router.navigate([`/group/${this.id_group}`]);
 
-			} catch (error) {
-				console.log(error);
+			} catch(error) {
+				Swal.fire({
+				  icon: 'error',
+				  title: 'Error',
+				  text: 'Lo sentimos. Se ha producido error en el sistema. Por favor, inténtelo de nuevo más tarde.',
+				  confirmButtonColor: '#FE5F42',
+				});
+				this.router.navigate([`/group/${this.modelForm.value.idGrupo}`]);
 			}
 		}
 	}
@@ -144,16 +158,23 @@ export class FormSpentComponent {
 							Validators.required
 						])
 					}, []);
-				} catch (error) {
-					console.log(error);
-				}
 
+					this.datosSelect(this.id_group);	
+				} catch(error) {
+					Swal.fire({
+					  icon: 'error',
+					  title: 'Error',
+					  text: 'Lo sentimos. Se ha producido error en el sistema. Por favor, inténtelo de nuevo más tarde.',
+					  confirmButtonColor: '#FE5F42',
+					});
+					this.router.navigate([`/group/${this.id_group}`]);
+				  }
 				try {
-					const response = await this.groupService.getImageGroup(this.id_group);
-					if (response[0] !== undefined) {
-						this.image = (`http://localhost:3000/groupimage/${response[0].imagen}`)
+					const img = await this.groupService.getImageGroup(this.id_group);
+					if (img[0] !== undefined) {
+						this.image = (`http://localhost:3000/groupimage/${img[0].imagen}`)
 					}
-				} catch (error) {
+				} catch(error) {
 					console.log(error);
 				}
 
@@ -179,8 +200,14 @@ export class FormSpentComponent {
 		try {
 			const response = await this.groupService.getUsersByGroup(idGrupo);
 			this.users = response;
-		} catch (error) {
-			console.log(error);
+		} catch(error) {
+			Swal.fire({
+			  icon: 'error',
+			  title: 'Error',
+			  text: 'Lo sentimos. Se ha producido error en el sistema. Por favor, inténtelo de nuevo más tarde.',
+			  confirmButtonColor: '#FE5F42',
+			});
+			this.router.navigate([`/group/${idGrupo}`]);
 		}
 	}
 
@@ -203,7 +230,5 @@ export class FormSpentComponent {
 				: t;
 
 	}
-
-
 }
 

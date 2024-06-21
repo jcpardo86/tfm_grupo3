@@ -6,11 +6,9 @@ a:hover {
 	color: var(--orange);
 }
 
-
 strong {
 	color: var(--orange);
 }
-
 
 .bg-orange {
 	background-color: var(--orange);
@@ -45,7 +43,6 @@ strong {
 	background-position: center;
 	height: 500px;
 	overflow: visible;
-
 }
 
 .home_card {
@@ -56,7 +53,6 @@ strong {
 	padding-top: 2rem;
 	align-self: center;
 	width: 20%;
-
 }
 
 .logo {
@@ -66,14 +62,11 @@ strong {
 .error {
 	color: red;
 	font-size: small;
-
 }
 
 .upload_container {
 	padding-top: 0% !important;
 }
-
-
 
 .image-responsive {
 	width: 70%;

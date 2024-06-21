@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+
 import { ResetPasswordComponent } from '../../components/reset-password-form/reset-password.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 

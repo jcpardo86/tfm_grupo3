@@ -15,10 +15,10 @@
 						<input type="text" class="form-control" placeholder="Introduce tu nombre" id="nombre"
 							formControlName="nombre">
 						@if(checkControl('nombre', 'required')){
-						<p class="error">Campo requerido</p>
+							<p class="error">Campo requerido</p>
 						}
 						@if(checkControl('nombre', 'minlength')){
-						<p class="error">El campo tiene que tener mínimo 3 caracteres</p>
+							<p class="error">El campo tiene que tener mínimo 3 caracteres</p>
 						}
 					</div>
 
@@ -27,10 +27,10 @@
 						<input type="text" class="form-control" placeholder="Introduce tus apellidos" id="apellidos"
 							formControlName="apellidos">
 						@if(checkControl('apellidos', 'required')){
-						<p class="error">Campo requerido</p>
+							<p class="error">Campo requerido</p>
 						}
 						@if(checkControl('apellidos', 'minlength')){
-						<p class="error">El campo tiene que tener mínimo 3 caracteres</p>
+							<p class="error">El campo tiene que tener mínimo 3 caracteres</p>
 						}
 					</div>
 
@@ -39,10 +39,10 @@
 						<input type="text" class="form-control" placeholder="Introduce un email" id="email"
 							formControlName="email">
 						@if(checkControl('email', 'required')){
-						<p class="error">Este campo es obligatorio</p>
+							<p class="error">Este campo es obligatorio</p>
 						}
 						@if(checkControl('email', 'pattern')){
-						<p class="error">El texto introducido no es un email</p>
+							<p class="error">El texto introducido no es un email</p>
 						}
 					</div>
 
@@ -51,13 +51,13 @@
 						<input type="text" class="form-control" placeholder="Repite tu email" id="repiteemail"
 							formControlName="repiteemail">
 						@if(checkControl('repiteemail', 'required')){
-						<p class="error">Este campo es obligatorio</p>
+							<p class="error">Este campo es obligatorio</p>
 						}
 						@if(checkControl('repiteemail', 'pattern')){
 						<p class="error">El texto introducido no es un email</p>
 						}
 						@if(modelForm.hasError('checkemails')){
-						<p class="error">Los emails no coinciden</p>
+							<p class="error">Los emails no coinciden</p>
 						}
 					</div>
 
@@ -67,10 +67,10 @@
 							formControlName="password">
 
 						@if(checkControl('password', 'required')){
-						<p class="error">Este campo es obligatorio</p>
+							<p class="error">Este campo es obligatorio</p>
 						}
 						@if(checkControl('password', 'minlength')){
-						<p class="error">La contraseña tiene que tener mínimo 6 caracteres</p>
+							<p class="error">La contraseña tiene que tener mínimo 6 caracteres</p>
 						}
 					</div>
 
@@ -79,10 +79,10 @@
 						<input type="password" class="form-control" placeholder="Repite tu contraseña" id="repitepass"
 							formControlName="repitepass">
 						@if(checkControl('repitepass', 'required')){
-						<p class="error">Este campo es obligatorio</p>
+							<p class="error">Este campo es obligatorio</p>
 						}
 						@if(checkControl('repitepass', 'minlength')){
-						<p class="error">La contraseña tiene que tener mínimo 6 caracteres</p>
+							<p class="error">La contraseña tiene que tener mínimo 6 caracteres</p>
 						}
 					</div>
 

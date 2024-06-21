@@ -1,19 +1,16 @@
 import { Component, inject } from '@angular/core';
-import {
-	AbstractControl,
-	FormControl,
-	FormGroup,
-	ReactiveFormsModule,
-	Validators,
-} from '@angular/forms';
+import { AbstractControl,FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { NgIf } from '@angular/common';
+
 import Swal from 'sweetalert2';
+
+import { NavbarComponent } from '../../components/navbar/navbar.component';
+
 import { UsersService } from '../../services/users.service';
 import { IUser } from '../../interfaces/iuser.interface';
 import { UploadButtonComponent } from '../../components/upload-button/upload-button.component';
-import { NgIf } from '@angular/common';
 import { UploadsService } from '../../services/uploads.service';
 
 
@@ -85,7 +82,6 @@ export class FormUserComponent {
 	}
 
 
-
 	// Verificación de contraseña
 	checkpasswords(group: AbstractControl): any {
 		const password = group.get('password')?.value;
@@ -105,6 +101,7 @@ export class FormUserComponent {
 		// lo pido a BBDD
 		this.activatedRoute.params.subscribe(async (params: any) => {
 
+			// En caso de que se trate de actualización, solicitamos los datos del usuario y los cargamos en formulario
 			if (params.id_user) {
 				this.isUpdatingUser = true;
 				this.titleForm = "Actualiza tus datos de usuario";
@@ -124,13 +121,12 @@ export class FormUserComponent {
 						[this.checkpasswords, this.checkemails]
 
 					);
-
 				}
+
+				//Para mostrar imagen del usuario o, en su ausencia, imagen por defecto
 				const rutaimagen = response.imagen ? `http://localhost:3000/userimage/${response.imagen}` : null;
 				this.imageURL = rutaimagen; // Asigna la URL de la imagen a la propiedad imageURL
-
 			}
-
 		});
 
 	}
@@ -154,6 +150,7 @@ export class FormUserComponent {
 		);
 	}
 
+	// Verificación de coincidencia de email
 	checkControlEmail(): boolean | undefined {
 		return (
 			this.modelForm.hasError('checkemails') &&
@@ -185,6 +182,7 @@ export class FormUserComponent {
 						title: 'Error',
 						text: 'Se ha producido un error en la actualización. Por favor, inténtelo de nuevo más tarde.',
 					});
+					this.router.navigate([`/home`]);
 				}
 
 			} else {
@@ -211,6 +209,7 @@ export class FormUserComponent {
 						title: 'Error',
 						text: 'Se ha producido un error en el registro. Por favor, inténtelo de nuevo más tarde.',
 					});
+					this.router.navigate([`/home`]);
 				}
 			}
 		}
@@ -218,9 +217,9 @@ export class FormUserComponent {
 
 	getFile($event: any) {
 		this.file = $event;
-		console.log('estoy en funcion', $event);
 	};
 
+	//Método para subir imagen de usuario
 	async uploadImage (idUsuario: number) {
 		const formData = new FormData();
 		formData.append('imagen', this.file);

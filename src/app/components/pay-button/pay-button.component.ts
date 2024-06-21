@@ -47,8 +47,13 @@ export class PayButtonComponent {
         this.deudaPagada.emit();
         }
       }); 
-    } catch (error) {
-      console.log(error);
+    } catch(error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Lo sentimos. Se ha producido al realizar el pago. Por favor, inténtelo de nuevo más tarde.',
+        confirmButtonColor: '#FE5F42',
+      });
     }
   }
 }

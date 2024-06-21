@@ -5,6 +5,5 @@ export interface IGroupUser {
     rol: string,
     saldo?: number,
     importe_liquidado?: number,
-    /*nombre?: string*/
 }
 
