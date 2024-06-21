@@ -25,6 +25,9 @@ input {
 
 .error {
   color: tomato;
+  position: absolute;
+  bottom: 0;
+  margin-left: 1rem;
 }
 
 .btn_personal,
@@ -85,6 +88,8 @@ h3 {
   gap: 20px;
   width: 100%;
   align-items: flex-end;
+  position: relative;
+  margin-bottom: 20px;
 }
 
 .email,
@@ -168,5 +173,16 @@ h3 {
   .form-control {
     padding: 0.7rem;
     margin-bottom: 10px;
+  }
+
+  .btn_personal,
+  .btn_personal_adduser {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .btn_personal_adduser {
+    width: 100%;
   }
 }

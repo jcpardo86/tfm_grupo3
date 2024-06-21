@@ -1,41 +1,89 @@
 .tarjeta {
-	display: flex;
-	align-items: center;
-	gap: 0px;
+  display: flex;
+  gap: 0px;
 }
 
 .iconcompra-container {
-	width: 10%;
-	padding-right: 10px;
-	padding-left: 30px;
+  width: 10%;
+  padding-right: 10px;
+  padding-left: 30px;
 }
 
 .text-container {
-	width: 80%;
+  width: 80%;
 }
 
 .iconeditar-container {
-	width: 20%;
+  width: 20%;
 }
 
 .icon-editar {
-	max-width: 2rem;
+  max-width: 2rem;
 }
 
 .icon-carrito {
-	width: 3rem;
-	align-self: center;
-	margin-left: 1rem;
+  width: 3rem;
+  align-self: center;
+  margin-left: 1rem;
 }
 
 .pagador {
-	display: flex;
+  display: flex;
 }
 
 .texto {
-	width: 60%;
+  width: 60%;
 }
 
 .importe {
-	width: 30%;
+  width: 30%;
+}
+@media (max-width: 768px) {
+  .card-body {
+    padding-left: 2rem;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 550px) {
+  .tarjeta {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+  }
+
+  .iconcompra-container,
+  .text-container {
+    width: 100%;
+    padding-left: 2rem;
+  }
+
+  .icon-carrito {
+    margin-bottom: 10px;
+  }
+
+  .card-body {
+    padding-left: 2rem;
+    padding-right: 0;
+  }
+
+  .pagador {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .texto,
+  .importe,
+  .iconeditar-container {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .iconeditar-container {
+    width: auto;
+  }
+
+  .card-text.d-block {
+    width: 100%;
+  }
 }
