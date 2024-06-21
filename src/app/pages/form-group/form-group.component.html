@@ -9,7 +9,7 @@
       <div class="col-lg-5 col-md-6 col-sm-12 d-flex flex-column align-items-center justify-content-center mt-5 image-container ">
         <img [src]="imageURL || 'assets/images/default_group_image.jpg'" alt="Group Image" class="img-fluid rounded-3 image-responsive">
         <!-- Botón para cambiar la imagen -->
-        <app-upload-button (file)="getFile($event)"></app-upload-button>
+        <app-upload-button (file)="getFile($event)" [tipo]="'grupo'"></app-upload-button>
       </div>
 
       <!-- Columna para el formulario -->

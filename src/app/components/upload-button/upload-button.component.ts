@@ -20,11 +20,14 @@ export class UploadButtonComponent {
 
 	selectedFile: File | null = null; //Propiedad para almacenar el fichero seleccionado
 	id: string = ''; 
-	tipo: string = 'usuario'; // 2 opciones para tipo; 'usuario' (subida de foto de usuario) o 'grupo' (subida de foto de grupo)
+	//tipo: string = 'usuario'; // 2 opciones para tipo; 'usuario' (subida de foto de usuario) o 'grupo' (subida de foto de grupo)
 	isImagenGrupo: boolean = false;
 
 	//Output para enviar a componente formUser y groupUser el fichero de imagen
 	@Output() file: EventEmitter<File> = new EventEmitter();
+
+	// Input para obtener el tipo de subida (usuario o grupo) de los componentes formUser / formGroup
+	@Input() tipo!: string;
 	
 	constructor(
 		private http: HttpClient,
@@ -34,11 +37,11 @@ export class UploadButtonComponent {
 	) { }
 
 	ngOnInit(): void {
-		//Determinamos si se trata de la subida de una foto de usuario o una foto de grupo
+		//Determinamos si se trata de la actualizacion de una foto de usuario o una foto de grupo
 		this.activatedRoute.params.subscribe((params: any) => {
 			if (params.id_group) {
 				this.isImagenGrupo = true;
-				this.tipo = 'grupo';
+				//this.tipo = 'grupo';
 				this.id = params.id_group;
 			} else if (params.id_user) {
 				this.id = params.id_user;
