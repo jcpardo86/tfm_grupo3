@@ -28,10 +28,7 @@
   width: 20%;
 }
 
-.rotate-on-hover:hover {
-  transition: transform 0.3s ease;
-  transform: rotate(45deg);
-}
+
 
 .swal2-title {
   font-family: Arial, Helvetica, sans-serif;
