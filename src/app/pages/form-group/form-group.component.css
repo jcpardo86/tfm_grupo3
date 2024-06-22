@@ -98,6 +98,17 @@ h3 {
   position: relative;
 }
 
+.error {
+  color: tomato;
+  position: absolute;
+  bottom: 0;
+  margin-left: 1rem;
+}
+
+.error-container {
+  position: relative;
+}
+
 .btn_personal_adduser {
   font-size: 0.9rem;
   padding: 0.5rem 1rem;
