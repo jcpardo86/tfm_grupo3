@@ -1,67 +1,99 @@
 <header>
-    <app-navbar></app-navbar>
+  <app-navbar></app-navbar>
 </header>
 <main>
-  <div style="margin-top: 70px;"></div>
-    <section class="container">
-        <div class="">
-            <img src="assets/images/header_home.jpg" class="group-image rounded" alt="Amigos comiendo pizza">
+  <div style="margin-top: 80px;"></div>
+  <section class="container container-ppal">
+    <div class="row">
+      <div class="col-12">
+        <div class="image text-center">
+          <img src="assets/images/header_grupos_copia2.jpg" class="rounded group-image img-fluid"
+            alt="Dos amigos comiendo un bocata en la cocina">
         </div>
-        <div class="row">
-            <div class="col-12 col-md-6 pe-5 pt-5 pb-5 d-flex flex-column gap-4 texto">
-                <h2 class="font">{{group.nombre}}</h2>
-                <p class="fs-5">{{group.descripcion}}</p>
-            </div>
-        </div>
-
-        <div class="">
-            <h3 class="font">Usuarios</h3>
-            <div class="mt-3">
-                @for(user of users; track user.idUsuario){
-                    <span class="fs-5">{{user.nombre}} {{user.apellidos}} ; </span>
+      </div>
+    </div>
+    <div class="pt-4">
+      <h2 class="font">Usuarios</h2>
+      <div class="pt-2">
+        @for(user of users; track user.idUsuario) {
+          <div>
+            <img class="user-image border rounded-circle border-dark" [src]=[user.imagen] alt="" />
+            <span class="fs-5 ps-2">{{user.nombre}} {{user.apellidos}}</span>
+          </div>
+        }
+      </div>
+    </div>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
+          <div class="container-spents_and_total rounded-4">
+            <h2 class="font ps-4 pt-4 pb-3">Gastos</h2>
+            <div class="container-spents ps-4 pe-4 pb-1">
+              @if(this.spents.length === 0) {
+                <div class="text-center fs-4 pb-5">Aún no has añadido ningún gasto al grupo</div>
+              } @else {
+                @for(spent of spents; track spent.idGasto; let i = $index) {
+                  <article class="mb-3">
+                    <app-spent-card [mySpent]="spent" [numSpent]="i+1" [rolUser]="rol"></app-spent-card>
+                  </article>
                 }
+              }
             </div>
+            <div class="container-total pb-5 pt-3">
+              <div class="total ps-4 d-flex justify-content-start align-items-center">
+                <span class="fs-2 total-text ms-2">Gasto Total</span>
+                <span class="fs-2 total-importe">{{totalSpent.toFixed(2)}} €</span>
+              </div>
+              @if(rol==="admin") {
+                <div class="text-end pe-5 mt-3">
+                  <span class="fs-6 pe-2 gasto">Añadir gasto</span>
+                  <a [routerLink]="['/newspent', group.idGrupo]" class="rotate-on-hover">
+                    <img src="assets/icons/icon_mas.png" class="icon-mas" alt="Icono añadir">
+                  </a>
+                </div>
+              }
+            </div>
+          </div>
+          <div class="container-reparto rounded-4 mt-3 pb-5 pt-3 ps-4 pe-4">
+            <h2 class="font pb-4">Deudas Pendientes</h2>
+            @if(deudas.length === 0) {
+              <div class="containerDeudas text-center">
+                <span class="fs-4 pb-5 d-block">Aún no hay deudas pendientes en este grupo</span>
+                @if(rol==="admin") {
+                  <button type="submit" (click)="closeGroup()"
+                class="btn btn-primary btn-lg btn_personal mb-3 rounded-pill">CERRAR GRUPO</button>
+                }
+              </div>
+            } @else {
+              @for(deuda of deudas; track $index) {
+                @if(deuda.is_pagada !== 1) {
+                <div class="card shadow rounded-lg deudas mb-3">
+                  <span class="ps-4 texto-deuda"><strong>{{deuda.nombre_usuario}}</strong> debe a
+                  <strong>{{deuda.nombre_receptor}}</strong> la cantidad de {{deuda.importe.toFixed(2)}} €</span>
+                  @if(rol==="admin") {
+                    <app-pay-button [miDeuda]="deuda" (deudaPagada)="updateDebtList()"></app-pay-button>
+                  }
+                </div>
+                }
+              }
+            }
+            @if (todoLiquidado === true && deudas.length !== 0) {
+              <div class="containerDeudas text-center">
+                <span class="fs-5 pb-5 d-block">No hay pagos pendientes - Todas las deudas del grupo han sido
+                liquidadas</span>
+                @if(rol==="admin") {
+                  <button type="submit" (click)="closeGroup()" class="btn btn-primary btn-lg btn_personal mb-3 rounded-pill">CERRAR GRUPO</button>
+                }
+              </div>
+            }
+          </div>
         </div>
-
-        <section class="mt-5 section">
-
-            <div>
-                <div class="bg-secondary-subtle rounded-start-4 ps-4 pe-4 pt-5">
-                    <div>
-                        @for(spent of spents; track spent.idGasto; let i = $index) {
-                            <article class="mb-3">
-                                <app-spent-card [mySpent]="spent" [numSpent]="i+1"></app-spent-card>
-                            </article>
-                        }
-                    </div>
-
-                    <div class="container-total mt-4 pb-5">
-                        <span class="fs-2 ps-4 totaltext">Total</span>
-                        <span class="fs-2 importe">{{totalSpent}} €</span>
-                        <span class="fs-6 gasto">AÑADIR GASTO</span>
-                        <div class="iconmas-container">
-                            <a [routerLink]="['/newspent', group.idGrupo]">
-                                <img src="assets/icons/icon_mas.png" class="icon-mas" alt="Icono añadir">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class ="bg-secondary-subtle rounded-start-4 mt-3 ps-5 pt-3 pb-3 reparto">
-                    <div class="deudas">
-                        <h2 class="font">Reparto</h2>
-                        @for(deuda of deudas; track deuda.id_deuda) {
-                            <p class="pt-4">{{deuda.deuda}}</p>
-                        }
-                    </div>
-                    <button class="pt-2 pb-2 me-5 mb-3 rounded-5 btn-liquidar" (click) = "onClickLiquidar()">LIQUIDAR GASTOS</button>
-                </div>
-            </div>
-
-            <div class="rounded-end-4 ps-4 pt-5 chat">
-                <app-chat></app-chat>
-            </div>
-        </section>
-    </section>
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mt-3 mt-xl-0 mt-lg-0 mt-md-0">
+          <div class="rounded-4 chat pb-1">
+            <app-chat [id_group]="idGroup"></app-chat>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
-

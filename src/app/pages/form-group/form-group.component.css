@@ -1,89 +1,199 @@
 a {
-	color: black;
+  color: black;
 }
 
 a:hover {
-	color: var(--orange);
+  color: var(--orange);
 }
 
 input {
-	border: none;
-	background-color: var(--grey);
+  border: none;
+  background-color: var(--grey);
+  width: 100%;
+  padding: 0.7rem;
+  margin-bottom: 10px;
 }
 
+/* Estilo para el fondo naranja */
 .bg-orange {
-	background-color: var(--orange);
-	position: relative;
-	left: -75px;
-	top: 0px;
-	transform: rotate(-2.50deg);
+  background-color: var(--orange);
+  position: relative;
+  left: -75px;
+  top: 0;
+  transform: rotate(-2.50deg);
 }
 
 .error {
-	color: tomato;
+  color: tomato;
+  position: absolute;
+  bottom: 0;
+  margin-left: 1rem;
+}
+
+.btn_personal,
+.btn_personal_adduser {
+  background-color: var(--orange);
+  color: white;
+  border: none;
+  font-weight: bold;
 }
 
 .btn_personal {
-	padding: 0.7rem 2rem;
-	background-color: var(--orange);
-	color: white;
-	border: none;
-	font-weight: bold;
+  padding: 0.7rem 10rem;
+}
+
+.btn_personal_adduser {
+  font-size: 0.7rem;
+  width: 200px;
 }
 
 .btn_borrar {
-	padding: 0.7rem 2rem;
-	background-color: var(--light_orange);
-	color: white;
-	border: none;
-	font-weight: bold;
+  padding: 0.7rem 2rem;
+  background-color: var(--light_orange);
+  color: white;
+  border: none;
+  font-weight: bold;
 }
 
-h3{
-	color: var(--orange);
+.guardar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+h3 {
+  color: var(--orange);
 }
 
 .custom-hr {
-    border-top: 5px solid var(--grey); 
-    margin-top: 10px; 
-    margin-bottom: 10px; 
+  border-top: 5px solid var(--grey);
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
-.p{
-	text-align: center;
+.p {
+  text-align: center;
 }
 
-/*-----------------------media queries tablet ---------------------------*/
+.full-screen-width {
+  width: 100%;
+  max-height: 70%;
+  height: 400px;
+}
+
+.add_user {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+  align-items: flex-end;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.email,
+.gasto {
+  width: 100%;
+  position: relative;
+}
+
+.error {
+  color: tomato;
+  position: absolute;
+  bottom: 0;
+  margin-left: 1rem;
+}
+
+.error-container {
+  position: relative;
+}
+
+.btn_personal_adduser {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+}
+
+.responsive-btn {
+  width: auto;
+}
+
+.imagen {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Media queries */
+
+
+@media (max-width: 990px) {
+  .col-lg-5,
+  .col-lg-6 {
+    width: 100%;
+  }
+}
 
 @media (max-width: 768px) {
-	.bg-orange {
-		background-color: var(--orange);
-		position: relative;
-		left: -35px;
-		top: 0px;
-		transform: rotate(-2.50deg);
-	}
+  .bg-orange {
+    background-color: var(--orange);
+    position: relative;
+    left: -35px;
+    top: 0;
+    transform: rotate(-2.50deg);
+  }
 
-	.logo {
-		width: 50px;
-	}
+  .form-control {
+    padding: 0.7rem;
+    margin-bottom: 10px;
+  }
+
+  .add_user {
+    width: 100%;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .email,
+  .gasto {
+    width: 100%;
+  }
+
+  .responsive-btn {
+    width: auto;
+  }
+
+  .btn_personal_adduser {
+    width: 200px;
+  }
+
+  .user-form {
+    width: 100%;
+  }
 }
 
-/*-----------------------media queries móvil ---------------------------*/
-
 @media (max-width: 576px) {
+  .bg-orange {
+    background-color: var(--orange);
+    position: relative;
+    left: -30px;
+    top: 70px;
+    transform: rotate(-2.50deg);
+  }
 
-	.bg-orange {
-		background-color: var(--orange);
-		position: relative;
-		left: -30px;
-		top: 70px;
-		transform: rotate(-2.50deg);
-	}
+  .form-control {
+    padding: 0.7rem;
+    margin-bottom: 10px;
+  }
 
+  .btn_personal,
+  .btn_personal_adduser {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
 
-	.logo {
-		width: 40px;
-	}
-
+  .btn_personal_adduser {
+    width: 100%;
+  }
 }

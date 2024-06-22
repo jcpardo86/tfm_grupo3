@@ -1,23 +1,38 @@
-
 <div class="card shadow text-center rounded-lg">
   <div class="bg-grey card-body rounded-top-lg">
-    <!-- Truncar el título a, por ejemplo, 5 palabras -->
-    <h3 class="card-title text-orange">Grupo: {{ truncateText(myGroup.idGrupo.toString(), 5) }}</h3>
-    <!-- Truncar la descripción a, por ejemplo, 20 palabras -->
-    <p class="p-2 rounded">Descripción: {{ truncateText(group.descripcion.toString(), 3) }}</p>
+    <!-- Contenedor flexible para el título y el icono -->
+    <div class="d-flex justify-content-between align-items-center">
+      <h3 class="card-title text-orange">{{ truncateText(group.nombre, 3) }}</h3>
+      <!-- Sólo si el usuario tiene rol de admin, se muestra el botón para editar datos del grupo -->
+      @if(myRol==="admin") {
+        <a [routerLink]="['/updategroup', myGroup.idGrupo]" class="iconeditar-container">
+          <img src="assets/icons/icon_editar.png" class="icon-editar" alt="Icono editar">
+        </a>
+      }
+    </div>
+    <!-- Truncado de descripción a 5 palabras -->
+    <p class="p-2 rounded">{{ truncateText(group.descripcion.toString(), 5) }}</p>
     <h6 class="text-orange">Usuarios:</h6>
+    <!-- Listado de usuarios (miembros del grupo) -->
     <ul class="p-2 rounded list-unstyled">
       @for(user of users; track user.idUsuario){
-        <span>{{ user.nombre }}</span>
-        <span> - </span>
+        @if($index < users.length-2) {
+          <span>{{user.nombre}}, </span>
+        } @else if ($index === users.length-2) {
+          <span>{{user.nombre}} y </span>
+        } @else {
+          <span>{{user.nombre}}</span>
+        }
       }
     </ul>
   </div>
   <div class="bg-white full-width rounded-bottom-lg">
+    <!-- Gasto total del grupo -->
     <div class="p-2 mx-4 rounded d-flex justify-content-between align-items-center">
       <p class="m-0">Total:</p>
-      <h2 class="m-0 text-bold">{{ total }}€</h2>
+      <h2 class="m-0 text-bold">{{ total.toFixed(2) }} €</h2>
     </div>
+    <!-- Link que enruta a página GroupView para entrar al detalle del grupo -->
     <div class="text-center mt-3 mb-3">
       <a class="btn btn-orange text-white rounded-pill" [routerLink]="['/group', myGroup.idGrupo]">Ir al grupo</a>
     </div>

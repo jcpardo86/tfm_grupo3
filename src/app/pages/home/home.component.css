@@ -1,89 +1,122 @@
 input {
-	border: none;
-	background-color: var(--grey);
+  border: none;
+  background-color: var(--grey);
 }
 
 strong {
-	color: var(--orange);
+  color: var(--orange);
 }
 
 .bg-orange {
-	background-color: var(--orange);
-	position: relative;
-	left: -75px;
-	top: 0px;
-	transform: rotate(-2.50deg);
+  background-color: var(--orange);
+  position: relative;
+  left: -75px;
+  top: 0px;
+  transform: rotate(-2.50deg);
 }
 
 .btn_personal {
-	padding: 0.7rem 2rem;
-	background-color: var(--orange);
-	color: white;
-	border: none;
+  padding: 0.7rem 2rem;
+  background-color: var(--orange);
+  color: white;
+  border: none;
 }
 
 .btn_personal:hover {
-	background-color: var(--light_orange);
+  background-color: var(--light_orange);
+
 }
 
 .container_header {
-	background-image: url('../../../assets/images/header_home.jpg');
-	width: 100% !important;
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position: center;
-	height: 500px;
-	overflow: visible;
+  background-image: url('../../../assets/images/header_home.jpg');
+  width: 100% !important;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 500px;
+  overflow: visible;
   padding-top: 80px;
 
 }
 
 .home_card {
-	background-color: var(--grey);
+  background-color: var(--grey);
+  margin-bottom: 20px;
 }
 
 .home_card img {
-	padding-top: 2rem;
-	align-self: center;
-	width: 20%;
-
+  padding-top: 2rem;
+  align-self: center;
+  max-width: 100%;
+  height: auto;
 }
 
 .logo {
-	width: 75px;
+  width: 75px;
 }
+
+.card-img,
+.card-img-bottom,
+.card-img-top {
+  width: auto;
+}
+
 
 /*-----------------------media queries tablet ---------------------------*/
 
 @media (max-width: 768px) {
-	.bg-orange {
-		background-color: var(--orange);
-		position: relative;
-		left: -35px;
-		top: 0px;
-		transform: rotate(-2.50deg);
-	}
+  .bg-orange {
+    background-color: var(--orange);
+    position: relative;
+    left: -35px;
+    top: 0px;
+    transform: rotate(-2.50deg);
+  }
 
-	.logo {
-		width: 50px;
-	}
+  .logo {
+    width: 50px;
+  }
+
+  .row.row-gap-3 {
+    margin-left: -5px;
+    margin-right: -5px;
+  }
+
+  .card.home_card {
+    padding: 0;
+    margin: 0 5px 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .home_card img {
+    width: 20%;
+    margin-right: 20px;
+    margin-left: 1rem;
+  }
+
+  .card-body {
+    flex: 1;
+  }
 }
 
 /*-----------------------media queries móvil ---------------------------*/
 
 @media (max-width: 576px) {
 
-	.bg-orange {
-		background-color: var(--orange);
-		position: relative;
-		left: -30px;
-		top: 70px;
-		transform: rotate(-2.50deg);
-	}
+  .bg-orange {
+    background-color: var(--orange);
+    position: relative;
+    left: -30px;
+    top: 70px;
+    transform: rotate(-2.50deg);
+  }
 
 
-	.logo {
-		width: 40px;
-	}
+  .logo {
+    width: 40px;
+  }
+
 
 }

@@ -1,5 +1,5 @@
 .card {
-  border-radius: 30px; /* Aumenta el valor para bordes más redondeados */
+  border-radius: 30px;
 }
 
 .text-orange {
@@ -28,7 +28,7 @@
 }
 
 .btn-orange:hover {
-  background-color: black;
+  background-color: var(--light_orange);
 }
 
 .list-unstyled {
@@ -41,7 +41,7 @@
 }
 
 .rounded-lg {
-  border-radius: 30px; /* Más redondeado */
+  border-radius: 30px;
 }
 
 .rounded-top-lg {
@@ -58,3 +58,22 @@
   font-weight: bold;
 }
 
+.icon-editar {
+  width: 20px;
+  height: 20px;
+}
+
+.card-title {
+  display: inline-block;
+  margin: 0;
+}
+
+.iconeditar-container {
+  display: inline-block;
+  margin-left: auto; /* Empuja el icono a la derecha */
+}
+
+.icon-editar {
+  width: 24px; /* Ajusta el tamaño según tus necesidades */
+  height: 24px; /* Ajusta el tamaño según tus necesidades */
+}

@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { UsersService } from '../../services/users.service';
-import { NavbarComponent } from '../navbar/navbar.component';
+
 import Swal from 'sweetalert2';
+
+import { UsersService } from '../../services/users.service';
 
 @Component({
 	selector: 'app-login',
@@ -13,6 +14,7 @@ import Swal from 'sweetalert2';
 	styleUrl: './login.component.css'
 })
 export class LoginComponent {
+
 	loginForm: FormGroup;
 
 	// Inyecta el servicio FormBuilder para crear y gestionar formularios reactivos.
@@ -30,7 +32,10 @@ export class LoginComponent {
 				Validators.required,
 				Validators.pattern(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)
 			]),
-			password: new FormControl(null, Validators.required)
+			password: new FormControl(null, [
+				Validators.required,
+				Validators.minLength(6)
+			])
 		})
 	}
 
@@ -41,26 +46,17 @@ export class LoginComponent {
 
 			localStorage.setItem('token', response.token!);
 			localStorage.setItem('idUserLogueado', response.id_user);
-			this.router.navigate([`/user`]);
-			//LE HE QUITADO EL ID PARA QUE RECOJA EL TOKEN DEL USUARIO REGISTRADO
-			/*this.router.navigate([`/user/${response.id_user}`]);*/
+			this.router.navigate([`/groups`]);
+
 		} catch (error: any) {
 			Swal.fire({
 				icon: 'error',
 				title: 'Error',
 				text: 'Usuario o contraseña incorrectos',
+				confirmButtonColor: '#FE5F42',
 			})
-
-
-			console.log(error.error.error);
 		}
 	}
-
-	// // Método para obtener y mostrar los datos del formulario en la consola y luego reiniciar el formulario.
-	// getDataForm(): void {
-	// 	console.log(this.loginForm.value)
-	// 	this.loginForm.reset()
-	// }
 
 	// Método para verificar si un control específico tiene un error de validación.
 	checkControl(formControlName: string, validator: string): boolean | undefined {

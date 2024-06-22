@@ -1,0 +1,124 @@
+a {
+  color: black;
+}
+
+a:hover {
+  color: var(--orange);
+}
+
+input {
+  border: none;
+  background-color: var(--grey);
+}
+
+strong {
+  color: var(--orange);
+}
+
+hr {
+  border: 1px solid var(--grey);
+}
+
+.hr_container {
+  width: 100%;
+}
+
+.bg-orange {
+  background-color: var(--orange);
+  position: relative;
+  left: -75px;
+  top: 40px;
+  transform: rotate(-2.50deg);
+}
+
+.btn_personal {
+  padding: 0.7rem 2rem;
+  background-color: var(--orange);
+  color: white;
+  border: none;
+}
+
+.btn_personal:hover {
+  background-color: var(--light_orange);
+}
+
+.container_header {
+  background-image: url('../../../assets/images/header_grupos_copia1.jpg');
+  width: 100% !important;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top;
+  height: 250px !important;
+  overflow: visible;
+}
+
+.texto {
+  text-align: justify;
+}
+
+.home_card {
+  background-color: var(--grey);
+}
+
+.home_card img {
+  padding-top: 2rem;
+  align-self: center;
+  width: 20%;
+}
+
+.logo {
+  width: 75px;
+}
+
+.rotate-on-hover:hover img {
+  transition: transform 0.3s ease;
+  transform: rotate(45deg);
+}
+
+.change-color-on-hover:hover strong {
+  color: black;
+}
+
+/*-----------------------media queries tablet ---------------------------*/
+
+
+@media (max-width: 1200px) {
+  .bg-orange {
+      background-color: var(--orange);
+      position: relative;
+      left: -35px;
+      top: 40px;
+      transform: rotate(-2.50deg);
+  }
+
+  .logo {
+      width: 50px;
+  }
+
+  .container_header {
+      height: 400px;
+      /* Altura para pantallas medianas */
+  }
+}
+
+/*-----------------------media queries móvil ---------------------------*/
+@media (max-width: 576px) {
+  .bg-orange {
+      background-color: var(--orange);
+      position: relative;
+      left: -30px;
+      top: 70px;
+      transform: rotate(-2.50deg);
+  }
+
+  .logo {
+      width: 40px;
+  }
+}
+
+/*-----------------------media queries para tres cajas por fila ---------------------------*/
+@media (max-width: 1400px) and (min-width: 990px) {
+  .col-xl-3 {
+      width: 33.33333%;
+  }
+}

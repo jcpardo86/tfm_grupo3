@@ -1,122 +1,169 @@
 import { Component, inject } from '@angular/core';
-import { GroupsService } from '../../services/groups.service';
-import { IGroup } from '../../interfaces/igroup.interface';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+
+import Swal from 'sweetalert2';
+
+import { GroupsService } from '../../services/groups.service';
 import { UsersService } from '../../services/users.service';
-import { IUser } from '../../interfaces/iuser.interface';
 import { SpentsService } from '../../services/spents.service';
+import { DebtsService } from '../../services/debts.service';
+import { IGroup } from '../../interfaces/igroup.interface';
+import { IUser } from '../../interfaces/iuser.interface';
 import { ISpent } from '../../interfaces/ispent.interface';
+import { IDebt } from '../../interfaces/idebt.interface';
 import { SpentCardComponent } from '../../components/spent-card/spent-card.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { ChatComponent } from '../../components/chat/chat.component'; 
-import Swal from 'sweetalert2';
+import { ChatComponent } from '../../components/chat/chat.component';
+import { PayButtonComponent } from '../../components/pay-button/pay-button.component';
 
 @Component({
   selector: 'app-group-view',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent, SpentCardComponent, ChatComponent, RouterLink],
+  imports: [NavbarComponent, FooterComponent, SpentCardComponent, ChatComponent, RouterLink, PayButtonComponent],
   templateUrl: './group-view.component.html',
   styleUrl: './group-view.component.css'
 })
 export class GroupViewComponent {
 
   activatedRoute = inject(ActivatedRoute);
+  router = inject(Router);
 
+  //Inyectamos servicios GroupsService, UsersService, SpentsService y DebtsService, para gestión de grupos, usuarios, gastos y deudas
   groupService = inject(GroupsService);
   userService = inject(UsersService);
   spentService = inject(SpentsService);
+  debtService = inject(DebtsService);
 
+  idGroup!: number; //Propiedad para almacenar el id del grupo
+  rol!: string; //Propiedad para almacenar el rol de usuario
 
-  group: IGroup  = {
-    idGrupo: 0,
+  group: IGroup  = { //Objeto para almacenar los datos del grupo
     nombre: "",
     descripcion: "",
     imagen: ""
   };
 
-  users!: IUser[];
+  users: IUser[] = [];  //Array para almacenar el listado de usuarios(miembros) del grupo
+  spents: ISpent[] = []; //Array para almacenar el listado de gastos del grupo
+  totalSpent: number = 0; //Propiedad para almacenar el gasto total del grupo
+  deudas: IDebt[] = [];  //Array para almacenar el listado de deudas del grupo
+  images: string[] = []; //Array para almacenar las imagenes de usuarios del grupo
 
-  spents!: ISpent[];
+  todoLiquidado: boolean = true; 
 
-  totalSpent!: number;
 
-  deudas: Array<any> = [];
-
-  router = inject(Router);
-
+ 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(async (params:any) =>{
-      const id = params._id;
-      try{
-        const response_1 = await this.groupService.getGroupById(id);
-        const response_2 = await this.groupService.getUsersByGroup(id);
-        const response_3 = await this.spentService.getSpentsByGroup(id);
-        const response_4 = await this.spentService.getTotalSpentByGroup(id);
-        const response_5 = await this.spentService.getDeudas(id);
-        if(response_1!=undefined && response_2!=undefined && response_3!=undefined && response_4!=undefined && response_5!=undefined) {
-          this.group = response_1;
-          this.users = response_2;
-          this.spents = response_3.sort((a,b) => a.idGasto-b.idGasto);
-          this.totalSpent = response_4.total_importe;
-          
-          for ( let i = 0; i < response_5.length; i++ ) {
-            this.deudas.push({ id_deuda: i, deuda: response_5[i]});
-          }
-      } else {
-        console.log('No existen todos los datos del grupo')
-      }
-      }catch(err){
-        this.router.navigate(['/error']);
-      }
-    })
-  };
+      this.idGroup = params._id;
+      const idUser = parseInt(localStorage.getItem('idUserLogueado') || '');
 
-  onClickLiquidar(): void {
+      //Solicitamos el rol de usuario logado y lo almacenamos en propiedad rol
+      try {
+        const [user] = await this.groupService.getUserGroup(idUser, this.idGroup);
+        this.rol = user.rol;
+     
+      //Solicitamos los datos del grupo y lo almacenamos en objeto group
+        this.group = await this.groupService.getGroupById(this.idGroup);
+     
+      //Solicitamos el listamos de usuarios del grupo y, por cada usuario su imagen y lo almacenamos en array users
+        this.users = await this.groupService.getUsersByGroup(this.idGroup);
+        
+        for(let i in this.users) {
+          const response = await this.userService.getImageUser(this.users[i].idUsuario);
+          this.users[i].imagen = (`http://localhost:3000/userimage/${this.users[i].imagen}`)
+        }
 
-    Swal.fire({
-      title: `¿ Está seguro de que desea liquidar los gastos del grupo "${this.group.nombre}" ?`,
-      text: "Una vez liquidados los gastos el grupo será eliminado",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Aceptar",
-      cancelButtonText: "Cancelar"
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try{
-          let response = await this.groupService.deleteGroup(this.group.idGrupo);
-          console.log('Punto control', response);
-          if (response.affectedRows === 1){
-            this.successMessage();
-            this.router.navigate(['/user']);
-          }else{
-            this.errorMessage();
+      //Solicitamos el listado de gastos del grupo y los ordenamos por id de gasto
+        this.spents = await this.spentService.getSpentsByGroup(this.idGroup);
+        this.spents.sort((a: any, b: any) => {
+          return a.idGasto - b.idGasto;
+        }); 
+
+      // Solicitamos el total de gasto del grupo
+        this.totalSpent = await this.spentService.getTotalSpentByGroup(this.idGroup);
+        if (this.totalSpent == null) {
+          this.totalSpent = 0;
+        }
+
+      //Solicitamos el listado de deudas del grupo y si todas están pagadas, fijamos la propiedad todoLiquidado a true
+        this.deudas = await this.debtService.getDebtsByGroup(this.idGroup);
+        for(let deuda of this.deudas) {
+          if(deuda.is_pagada !== 1){
+            this.todoLiquidado = false;
+            break;
           }
-        }catch(err){
-          this.errorMessage();
+        }
+      } catch(error) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Lo sentimos. Se ha producido error en el sistema. Por favor, intente acceder más tarde.',
+          confirmButtonColor: '#FE5F42',
+        });
+        this.router.navigate(['/home']);
+      }
+    });
+  }
+
+ // Método para actualizar las deudas del grupo
+  async updateDebtList() {
+    try {
+      this.deudas = await this.debtService.getDebtsByGroup(this.idGroup);
+      this.deudas.sort((a: any, b: any) => {
+      return a.idDeuda - b.idDeuda;
+      }); 
+      this.todoLiquidado = true;
+      for(let deuda of this.deudas) {
+        if(deuda.is_pagada !== 1){
+          this.todoLiquidado = false;
+          break;
         }
       }
-    })
+    } catch(error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Lo sentimos. Se ha producido error en el sistema. Por favor, intente acceder más tarde.',
+        confirmButtonColor: '#FE5F42',
+      });
+      this.router.navigate(['/home']);
+    }
+  };
 
-  }
-
-  errorMessage(): void {
+  //Método para cerrar grupo
+  closeGroup() {
     Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Lo sentimos, se ha producido un error. Por favor, vuelva a intentarlo.",
+      title: "¿Está seguro de que desea cerrar el grupo?",
+      text: "Una vez cerrado, será eliminado de su listado de grupos",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#FE5F42",
+      cancelButtonColor: "#716add",
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Sí, cerrar!"
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await this.groupService.updateStatusGroup({idGrupo: this.idGroup, status: "close"}); 
+          Swal.fire({
+            title: "Grupo cerrado!",
+            text: "El grupo ha sido cerrado correctamente.",
+            icon: "success",
+            confirmButtonColor: "#FE5F42"
+          });
+          this.router.navigate(['/groups']); 
+        } catch(error) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Lo sentimos. Se ha producido un error al cerrar el grupo. Por favor, inténtelo de nuevo más tarde.',
+            confirmButtonColor: '#FE5F42',
+          });
+        }
+      }
     });
   }
-
-  successMessage(): void {
-    Swal.fire({
-      title: "¡Cuentas saldadas!",
-      text: `Todos los gastos están liquidados y el grupo "${this.group.nombre}" ha sido eliminado.`,
-      icon: "success"
-    });
-  }
-
 }
 

@@ -1,0 +1,12 @@
+<div class="container mt-2">
+  <div class="row">
+        <p class=" mt-2 mb-3 fs-5 text-start">Sube tu imagen de {{ tipo }}</p>
+          <!-- Botones aquí -->
+          <input class="custom-file-upload" type="file" accept=".jpg" (change)="onFileSelected($event)" />
+          <br />
+          <div *ngIf="selectedFile">
+              <p style="padding-top: 2rem;">Nombre del archivo: {{ selectedFile.name }}</p>
+          </div>
+  </div>
+</div>
+
