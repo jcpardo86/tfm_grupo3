@@ -67,7 +67,6 @@ export class GroupsService {
 
   // Servicio para actualizar el estado de un grupo (pasa estado a close)
   updateStatusGroup(status: updateStatusRequest): Promise<any> {
-    console.log(status);
     return lastValueFrom(this.httpClient.put<any>(`${this.baseUrl}/status/${status.idGrupo}`, status));
   };
 

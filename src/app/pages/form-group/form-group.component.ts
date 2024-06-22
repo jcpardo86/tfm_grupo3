@@ -129,7 +129,7 @@ export class FormGroupComponent {
 						this.arrPorcents.push(response[0].porcentaje);
 					}
 
-					//Mostramos imagen de usuario si existe, en su ausencia mostrmos la imagen por defecto
+					//Mostramos imagen de grupo si existe, en su ausencia mostramos la imagen por defecto
 					const rutaimagen = group.imagen ? `http://localhost:3000/groupimage/${group.imagen}` : null;
 					this.imageURL = rutaimagen; // Asigna la URL de la imagen a la propiedad imageURL
 				

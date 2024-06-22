@@ -147,7 +147,6 @@ export class GroupViewComponent {
       if (result.isConfirmed) {
         try {
           const response = await this.groupService.updateStatusGroup({idGrupo: this.idGroup, status: "close"}); 
-          console.log(response);
           Swal.fire({
             title: "Grupo cerrado!",
             text: "El grupo ha sido cerrado correctamente.",

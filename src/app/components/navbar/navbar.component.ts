@@ -39,10 +39,12 @@ export class NavbarComponent {
         this.id_user = parseInt(localStorage.getItem('idUserLogueado') || '');
         const response = await this.userService.getImageUser(this.id_user);
         if(response[0]!==undefined) {
-          this.image = (`http://localhost:3000/userimage/${response[0].imagen}`)
+          this.image = (`http://localhost:3000/userimage/${response[0].imagen}`);
+        } else {
+          this.image = "assets/images/default_user_image.avif";
         }
     } catch(error) {
-      console.log(error);
+      this.image = "assets/images/default_user_image.avif";
     }
   }
 }
