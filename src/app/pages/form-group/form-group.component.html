@@ -19,22 +19,26 @@
           <h3 class="mt-5">{{tipo}} GRUPO</h3>
           <label for="nombre" class="form-label mt-3">NOMBRE DEL GRUPO</label>
           <input type="text" class="form-control" id="nombre" formControlName="nombre">
-          @if(checkControlGroup('nombre', 'required')){
-            <p class="error">Campo requerido</p>
-          }
-          @if(checkControlGroup('nombre', 'minlength')){
-            <p class="error">La longitud del campo ha de ser mayor</p>
-          }
+          <div class="error-container">
+            @if(checkControlGroup('nombre', 'required')) {
+              <p class="error">Campo requerido</p>
+            }
+            @if(checkControlGroup('nombre', 'minlength')) {
+              <p class="error">La longitud del campo ha de ser mayor</p>
+            }
+          </div>
         </div>
         <div class="mb-3 col-12">
           <label for="descripcion" class="form-label mt-4">DESCRIPCIÓN BREVE</label>
           <input type="text" class="form-control" id="descripcion" formControlName="descripcion">
-          @if(checkControlGroup('descripcion', 'required')){
-            <p class="error">Campo requerido</p>
-          }
-          @if(checkControlGroup('descripcion', 'minlength')){
-            <p class="error">La longitud del campo ha de ser mayor</p>
-          }
+          <div class="error-container">
+            @if(checkControlGroup('descripcion', 'required')) {
+              <p class="error">Campo requerido</p>
+            }
+            @if(checkControlGroup('descripcion', 'minlength')) {
+              <p class="error">La longitud del campo ha de ser mayor</p>
+            }
+          </div>
         </div>
 
         @if(tipo === "ACTUALIZAR") {
