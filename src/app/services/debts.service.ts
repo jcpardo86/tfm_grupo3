@@ -20,7 +20,6 @@ export class DebtsService {
 
   // Servicio para actualizar el listado de deudas de un grupo cuando se añade/modifica un gasto en el grupo
   updateDebtsByGroup(spent: ISpent): Promise<any> {
-    console.log("punto control");
     return lastValueFrom(this.httpClient.put<any>(`${this.baseUrl}`, spent));
   };
 
