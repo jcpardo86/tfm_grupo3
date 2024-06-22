@@ -112,10 +112,9 @@ h3 {
 
 .add_user {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 20px;
   width: 100%;
-  position: relative;
   margin-bottom: 20px;
 }
 
@@ -125,17 +124,14 @@ h3 {
   position: relative;
 }
 
-.error-container {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
+.error {
   color: tomato;
-  font-size: 0.9rem;
+  margin-top: 0.25rem;
 }
 
-.error {
-  margin-top: 0.25rem;
+.d-flex.align-items-end.mt-2 {
+  margin-left: auto;
+  align-self: center;
 }
 
 
