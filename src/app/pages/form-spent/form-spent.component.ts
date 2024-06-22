@@ -171,8 +171,9 @@ export class FormSpentComponent {
 				  }
 				try {
 					const img = await this.groupService.getImageGroup(this.id_group);
+					console.log(img);
 					if (img[0] !== undefined) {
-						this.image = (`http://localhost:3000/groupimage/${img[0].imagen}`)
+						this.image = (`http://localhost:3000/groupimage/${img[0].imagen}`);
 					}
 				} catch(error) {
 					console.log(error);
@@ -222,7 +223,6 @@ export class FormSpentComponent {
 		);
 	}
 	validate(event: any) {
-		console.log(event.target.value)
 		var t = event.target.value;
 		event.target.value =
 			t.indexOf('.') >= 0

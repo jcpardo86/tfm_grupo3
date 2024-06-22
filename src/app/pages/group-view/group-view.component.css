@@ -1,107 +1,107 @@
-/* group-view.component.css */
 .font {
-	color: var(--orange);
-	font-weight: 600;
+  color: var(--orange);
+  font-weight: 600;
 }
 
 .group-image {
-	width: 100%;
+  width: 100%;
 }
 
 .container-ppal {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .container-second {
-	display: flex;
-	justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .container-spents_and_resume,
 .container-spents_and_total {
-	width: 100%;
+  width: 100%;
 }
 
 .container-spents_and_total {
-	background-color: #EAEAEA;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+  background-color: #EAEAEA;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .container-spents {
-	margin: 0;
-	width: 100%;
+  margin: 0;
+  width: 100%;
 }
 
 .container-total {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .total {
-	font-weight: 600;
+  font-weight: 600;
 }
 
 .gasto {
-	font-weight: 600;
-	font-size: 0.9rem;
+  font-weight: 600;
+  font-size: 0.9rem;
 }
 
 .icon-mas {
-	width: 30%;
+  width: 30%;
 }
 
 .container-reparto {
-	background-color: #EAEAEA;
-	display: flex;
-	flex-direction: column;
+  background-color: #EAEAEA;
+  display: flex;
+  flex-direction: column;
 }
 
 .deudas {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	font-size: 1rem;
-	min-height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1rem;
+  min-height: 50px;
 }
 
 .texto-deuda {
-	width: 100%;
+  width: 100%;
 }
 
 .chat {
-	background-color: rgba(128, 128, 128, 0.052);
+  background-color: rgba(128, 128, 128, 0.052);
 }
 
-.rotate-on-hover:hover img {
-	transition: transform 0.3s ease;
-	transform: rotate(45deg);
+.rotate-on-hover:hover img,
+.icon-editar:hover {
+  transition: transform 0.3s ease;
+  transform: rotate(45deg);
 }
 
 .containerDeudas {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .btn_personal {
-	padding: 0.7rem 2rem;
-	background-color: var(--orange);
-	color: white;
-	border: none;
-	width: 40%;
+  padding: 0.7rem 2rem;
+  background-color: var(--orange);
+  color: white;
+  border: none;
+  width: 40%;
 }
 
 .btn_personal:hover {
-	background-color: var(--light_orange);
+  background-color: var(--light_orange);
 }
 
 .user-image {
-	width: 3rem;
-	border: 1px solid black;
+  width: 3rem;
+  border: 1px solid black;
 }
 
 .container-total {
@@ -123,6 +123,19 @@
 .total-importe {
   margin-left: 20px;
 }
+.pt-2 {
+  display: flex;
+  flex-direction: row;
+  margin-left: 1rem;
+}
+.pt-2 div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-right: 2rem;
+}
+
+
 
 @media (max-width: 990px) {
   .total {
@@ -130,10 +143,14 @@
     align-items: flex-start;
   }
 
-  .total-text, .total-importe {
+  .total-text,
+  .total-importe {
     font-size: 1.5rem;
   }
-
+  .btn_personal {
+    width: 100%;
+      padding: 0.7rem 2rem;
+  }
 }
 
 @media (max-width: 770px) {
@@ -142,11 +159,98 @@
     align-items: flex-start;
   }
 
-  .total-text, .total-importe {
+  .total-text,
+  .total-importe {
     font-size: 1.5rem;
   }
 
   .total-importe {
     margin-top: 10px;
   }
+
+}
+
+@media (max-width: 550px) {
+  .pt-2 {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pt-2 div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-left: 0.5rem;
+  }
+
+  .pt-2 img {
+    margin-right: 10px;
+  }
+
+  .total-importe {
+    margin: 0 auto;
+    margin-left: 0;
+  }
+
+  .deudas {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .texto-deuda {
+    margin-top: 1rem;
+  }
+
+  .container-spents_and_total {
+    margin: 0;
+    padding: 0;
+  }
+
+  .container-spents {
+    margin: 0;
+    padding: 0;
+  }
+
+  .container-total {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .total {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .total-text,
+  .total-importe {
+    font-size: 1.5rem;
+  }
+
+  .text-end {
+    width: 100%;
+    margin-top: 10px;
+    text-align: left;
+    padding-right: 0;
+  }
+
+  .icon-editar {
+    transition: transform 0.3s ease;
+  }
+
+  .icon-editar:hover {
+    transform: rotate(45deg);
+  }
+  .icon-mas {
+    width: 20%;
+  }
+  .containerDeudas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
 }

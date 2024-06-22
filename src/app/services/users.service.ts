@@ -44,10 +44,6 @@ export class UsersService {
     return lastValueFrom(this.httpClient.get<IUser>(`${this.baseUrl}/email/${email}`));
   };
 
-  //getUsersByGrupo(idGroup: number): Observable<any>{
-    //return this.httpClient.get<IUser[]>(`${this.baseUrl}/groups/Allusers/${idGroup}`);
-  //};
-
   // Servicio para obtener el nombre del fichero de imagen de perfil de un usuario a partir de su id de usuario
   getImageUser(id_user: number | undefined): Promise<any> {
     return lastValueFrom(this.httpClient.get<any>(`${this.baseUrl}/userimage/${id_user}`));

@@ -5,3 +5,49 @@ a {
 a:hover {
 	color: var(--orange);
 }
+
+.btn_personal {
+  padding: 0.7rem 2rem;
+  background-color: var(--orange);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn_personal:hover {
+  background-color: var(--light_orange);
+  color: white;
+}
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.error-text {
+  margin-bottom: 20px;
+}
+
+.error-text h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.error-text p {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.error-button {
+  margin-bottom: 20px;
+}
+
+.error-image {
+  margin-top: 20px;
+}

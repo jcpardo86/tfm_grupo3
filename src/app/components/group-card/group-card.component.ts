@@ -66,7 +66,6 @@ export class GroupCardComponent {
     //Solicitamos el gasto total del grupo y lo almacenamos en oropiedad total
     try {
       const response = await this.spentService.getTotalSpentByGroup(this.myGroup.idGrupo);
-      console.log('aquí', response);
       if (response !== null) {
         this.total = response;
       } else {

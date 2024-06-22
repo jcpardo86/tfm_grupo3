@@ -45,7 +45,6 @@ export class SpentsService {
 
   // Servicio para actualizar el saldo de un usuario de un grupo
   updateSaldo(user_group: userGroup): Promise<any> {
-    console.log(user_group);
     return lastValueFrom(this.httpClient.put<userGroup>(`${this.baseUrl}/`, user_group));
   };
 

@@ -1,9 +1,8 @@
-<!-- group-view.component.html -->
 <header>
   <app-navbar></app-navbar>
 </header>
 <main>
-  <div style="margin-top: 70px;"></div>
+  <div style="margin-top: 80px;"></div>
   <section class="container container-ppal">
     <div class="row">
       <div class="col-12">
@@ -13,13 +12,14 @@
         </div>
       </div>
     </div>
-    <div class=" pt-4">
+    <div class="pt-4">
       <h2 class="font">Usuarios</h2>
       <div class="pt-2">
-        @for(user of users; track user.idUsuario){
-          <img class="user-image border rounded-circle border-dark me-2" [src]=[user.imagen] alt="" />
-          <span class="fs-5 me-4 ">{{user.nombre}}
-            {{user.apellidos}}</span>
+        @for(user of users; track user.idUsuario) {
+          <div>
+            <img class="user-image border rounded-circle border-dark" [src]=[user.imagen] alt="" />
+            <span class="fs-5 ps-2">{{user.nombre}} {{user.apellidos}}</span>
+          </div>
         }
       </div>
     </div>
@@ -82,8 +82,7 @@
                 <span class="fs-5 pb-5 d-block">No hay pagos pendientes - Todas las deudas del grupo han sido
                 liquidadas</span>
                 @if(rol==="admin") {
-                  <button type="submit" (click)="closeGroup()"
-                class="btn btn-primary btn-lg btn_personal mb-3 rounded-pill">CERRAR GRUPO</button>
+                  <button type="submit" (click)="closeGroup()" class="btn btn-primary btn-lg btn_personal mb-3 rounded-pill">CERRAR GRUPO</button>
                 }
               </div>
             }
@@ -96,3 +95,5 @@
         </div>
       </div>
     </div>
+  </section>
+</main>
