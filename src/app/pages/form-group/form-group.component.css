@@ -23,13 +23,6 @@ input {
   transform: rotate(-2.50deg);
 }
 
-.error {
-  color: tomato;
-  position: absolute;
-  bottom: 0;
-  margin-left: 1rem;
-}
-
 .btn_personal,
 .btn_personal_adduser {
   background-color: var(--orange);
@@ -87,7 +80,7 @@ h3 {
   flex-direction: row;
   gap: 20px;
   width: 100%;
-  align-items: flex-end;
+  align-items: center;
   position: relative;
   margin-bottom: 20px;
 }
@@ -100,13 +93,6 @@ h3 {
 
 .error {
   color: tomato;
-  position: absolute;
-  bottom: 0;
-  margin-left: 1rem;
-}
-
-.error-container {
-  position: relative;
 }
 
 .btn_personal_adduser {
@@ -123,6 +109,35 @@ h3 {
   max-width: 100%;
   height: auto;
 }
+
+.add_user {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.email,
+.gasto {
+  flex: 1;
+  position: relative;
+}
+
+.error-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  color: tomato;
+  font-size: 0.9rem;
+}
+
+.error {
+  margin-top: 0.25rem;
+}
+
 
 /* Media queries */
 
@@ -152,6 +167,7 @@ h3 {
     width: 100%;
     flex-direction: column;
     gap: 0;
+    align-items: flex-end;
   }
 
   .email,
