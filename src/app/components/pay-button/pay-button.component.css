@@ -3,11 +3,6 @@
     transform: rotate(45deg);
   }
 
-.swal2-title {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 40px !important;
-}
-
 .texto-deuda {
   width: 100%;
 }
@@ -29,9 +24,8 @@
 }
 
 
-
-.swal2-title {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 40px !important;
+@media (max-width: 550px) {
+	.icon-pago {
+		width: 11%;
+	}
 }
-

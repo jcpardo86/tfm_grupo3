@@ -55,6 +55,7 @@ export class GroupViewComponent {
 
  
   ngOnInit(): void {
+ 
     this.activatedRoute.params.subscribe(async (params:any) =>{
       this.idGroup = params._id;
       const idUser = parseInt(localStorage.getItem('idUserLogueado') || '');
