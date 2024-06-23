@@ -38,11 +38,16 @@
   </div>
 
   <div class="mb-3 d-flex align-items-center justify-content-end pt-5 container">
-      <div class=" hr_container ">
-          <hr>
-      </div>
-      <div class="col-auto d-flex align-items-center">
-          <a class="btn change-color-on-hover" [routerLink]="['/newgroup']"><strong>AÑADIR GRUPO</strong></a>
-      </div>
+    <div class=" hr_container ">
+        <hr>
+    </div>
+    <div class="col-auto d-flex align-items-center">
+        <a class="btn change-color-on-hover" [routerLink]="['/newgroup']"><strong>AÑADIR GRUPO</strong></a>
+    </div>
+    <div class="col-auto d-flex align-items-center">
+        <a class="btn" [routerLink]="['/newgroup']" class="rotate-on-hover">
+            <img src="assets/icons/icon_mas.png" alt="Añadir grupo">
+        </a>
+    </div>
   </div>
 </section>
