@@ -16,35 +16,35 @@
 						<label class="form-label">DESCRIPCIÓN</label>
 						<input type="text" class="form-control" id="descripcion" formControlName="descripcion">
 						@if(checkControl('descripcion', 'required')) {
-							<p class="error">Este campo es obligatorio</p>
+						<p class="error text-danger">Este campo es obligatorio</p>
 						}
 					</div>
 					<div class="mb-3">
 						<label class="form-label">IMPORTE</label>
 						<input type="text" class="form-control" id="importe" formControlName="importe" required
 							(keydown)=(validate($event))>
-						@if(checkControl('descripcion', 'required')) {
-							<p class="error">Este campo es obligatorio</p>
+						@if(checkControl('importe', 'required')) {
+						<p class="error text-danger">Este campo es obligatorio</p>
 						}
 						@if(checkControl('importe', 'pattern')) {
-							<p class="error">Debe introducir un importe positivo</p>
+						<p class="error text-danger">Debe introducir un importe positivo</p>
 						}
 					</div>
 					<div class="container">
 						<div class="row row-gap-3">
 							<div class="col-lg-8 mb-3">
 								@if(tipo==="AÑADIR") {
-									<label class="row form-label">PAGADOR</label>
-									<select class="row form-select  form-select-md mb-6" id="idUsuario"
-										formControlName="idUsuario" style="width:auto">
-										<option value="">Seleccione un usuario</option>
-										@for(user of users; track user.idUsuario) {
-											<option [value]="user.idUsuario">{{user.nombre}}</option>
-										}
-									</select>
-									@if(checkControl('idUsuario', 'required')){
-										<p class="error">Debe seleccionar un pagador</p>
+								<label class="row form-label">PAGADOR</label>
+								<select class="row form-select  form-select-md mb-6" id="idUsuario"
+									formControlName="idUsuario" style="width:auto">
+									<option value="">Seleccione un usuario</option>
+									@for(user of users; track user.idUsuario) {
+									<option [value]="user.idUsuario">{{user.nombre}}</option>
 									}
+								</select>
+								@if(checkControl('idUsuario', 'required')){
+								<p class="error text-danger">Debe seleccionar un pagador</p>
+								}
 								}
 							</div>
 						</div>
