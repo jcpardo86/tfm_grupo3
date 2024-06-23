@@ -41,13 +41,12 @@ strong {
 
 .home_card {
 	background-color: var(--grey);
-	margin-bottom: 20px;
 }
 
 .home_card img {
 	padding-top: 2rem;
 	align-self: center;
-	max-width: 100%;
+	width: 80px;
 	height: auto;
 }
 
@@ -86,12 +85,11 @@ strong {
 		padding: 0;
 		margin: 0 5px 20px;
 		display: flex;
-		flex-direction: row;
 		align-items: center;
 	}
 
 	.home_card img {
-		width: 20%;
+		width: 80px;
 		margin-right: 20px;
 		margin-left: 1rem;
 	}
