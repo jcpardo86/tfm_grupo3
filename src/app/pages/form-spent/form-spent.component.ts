@@ -171,7 +171,6 @@ export class FormSpentComponent {
 				  }
 				try {
 					const img = await this.groupService.getImageGroup(this.id_group);
-					console.log(img);
 					if (img[0] !== undefined) {
 						this.image = (`http://localhost:3000/groupimage/${img[0].imagen}`);
 					}
@@ -181,16 +180,17 @@ export class FormSpentComponent {
 
 			} else {
 				//Formulario nuevo registro de gasto
-				this.id_group = params.id_group;
-				this.datosSelect(this.id_group);
-				// Solicitamos la imagen del grupo para mostrar en el formulario
 				try {
+					const group = await this.groupService.getGroupById(params.id_group);
+					this.id_group = params.id_group;
+					this.datosSelect(this.id_group);
+					// Solicitamos la imagen del grupo para mostrar en el formulario
 					const response = await this.groupService.getImageGroup(this.id_group);
 					if (response[0] !== undefined) {
 						this.image = (`http://localhost:3000/groupimage/${response[0].imagen}`)
 					}
 				} catch (error) {
-					console.log(error);
+					this.router.navigate([`/error`]);
 				}
 			}
 		});

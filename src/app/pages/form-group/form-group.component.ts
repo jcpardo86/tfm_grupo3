@@ -182,7 +182,7 @@ export class FormGroupComponent {
 							});
 						}
 						else {
-							this.router.navigate(['/group']);
+							this.router.navigate(['/groups']);
 						}
 			  		});
 					  
