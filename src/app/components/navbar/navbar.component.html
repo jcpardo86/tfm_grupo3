@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-md navbar-fixed">
+	<div class="container">
+		<a class="navbar-brand" href="">
+			<img src="assets/images/logo_divi.png" alt="Logo Divi" width="30px">
+		</a>
+		<button class="navbar-toggler navbar-btn" type="button" data-bs-toggle="collapse" data-bs-target="#menu"
+			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<!-- elementos del menu colapse -->
+		<div class="collapse navbar-collapse" id="menu">
+			<ul class="navbar-nav ms-auto">
+				<!--Si el usuario está logado, se muestran los enlaces a GRUPOS, USUARIO y CERRAR SESIÓN-->
+				@if (isUserLoged()) {
+					<li class="nav-item">
+						<a class="nav-link active" href="/groups">GRUPOS</a>
+					</li>
+					<li class="nav-item user pe-0 ps-0">
+						<a class="nav-link active pe-1" [routerLink]="['/updateuser', id_user]">USUARIO</a>
+						<img class="user-image border rounded-circle border-dark me-0" [src]=[image] alt="" />
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" (click)="closeSession()">CERRAR SESIÓN</a>
+					</li>
+				<!--Si el usuario no está logado, sólo se muestra el enlace a login para INICIAR SESIÓN-->
+				} @else {
+					<li class="nav-item">
+						<a class="nav-link active" href="#login">INICIAR SESIÓN</a>
+					</li>
+				}
+			</ul>
+		</div>
+
+	</div>
+</nav>

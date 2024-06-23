@@ -1,0 +1,211 @@
+a {
+  color: black;
+}
+
+a:hover {
+  color: var(--orange);
+}
+
+input {
+  border: none;
+  background-color: var(--grey);
+  width: 100%;
+  padding: 0.7rem;
+  margin-bottom: 10px;
+}
+
+/* Estilo para el fondo naranja */
+.bg-orange {
+  background-color: var(--orange);
+  position: relative;
+  left: -75px;
+  top: 0;
+  transform: rotate(-2.50deg);
+}
+
+.btn_personal,
+.btn_personal_adduser {
+  background-color: var(--orange);
+  color: white;
+  border: none;
+  font-weight: bold;
+}
+
+.btn_personal {
+  padding: 0.7rem 10rem;
+}
+
+.btn_personal_adduser {
+  font-size: 0.7rem;
+  width: 200px;
+}
+
+.btn_borrar {
+  padding: 0.7rem 2rem;
+  background-color: var(--light_orange);
+  color: white;
+  border: none;
+  font-weight: bold;
+}
+
+.guardar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+h3 {
+  color: var(--orange);
+}
+
+.custom-hr {
+  border-top: 5px solid var(--grey);
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.p {
+  text-align: center;
+}
+
+.full-screen-width {
+  width: 100%;
+  max-height: 70%;
+  height: 400px;
+}
+
+.add_user {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+  align-items: center;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.email,
+.gasto {
+  width: 100%;
+  position: relative;
+}
+
+.error {
+  color: tomato;
+}
+
+.btn_personal_adduser {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+}
+
+.responsive-btn {
+  width: auto;
+}
+
+.imagen {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+.add_user {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.email,
+.gasto {
+  flex: 1;
+  position: relative;
+}
+
+.error {
+  color: tomato;
+  margin-top: 0.25rem;
+}
+
+.d-flex.align-items-end.mt-2 {
+  margin-left: auto;
+  align-self: center;
+}
+
+
+/* Media queries */
+
+
+@media (max-width: 990px) {
+  .col-lg-5,
+  .col-lg-6 {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .bg-orange {
+    background-color: var(--orange);
+    position: relative;
+    left: -35px;
+    top: 0;
+    transform: rotate(-2.50deg);
+  }
+
+  .form-control {
+    padding: 0.7rem;
+    margin-bottom: 10px;
+  }
+
+  .add_user {
+    width: 100%;
+    flex-direction: column;
+    gap: 0;
+    align-items: flex-end;
+  }
+
+  .email,
+  .gasto {
+    width: 100%;
+  }
+
+  .responsive-btn {
+    width: auto;
+  }
+
+  .btn_personal_adduser {
+    width: 200px;
+  }
+
+  .user-form {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .bg-orange {
+    background-color: var(--orange);
+    position: relative;
+    left: -30px;
+    top: 70px;
+    transform: rotate(-2.50deg);
+  }
+
+  .form-control {
+    padding: 0.7rem;
+    margin-bottom: 10px;
+  }
+
+  .btn_personal,
+  .btn_personal_adduser {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .btn_personal_adduser {
+    width: 100%;
+  }
+}

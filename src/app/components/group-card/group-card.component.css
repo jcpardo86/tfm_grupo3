@@ -1,0 +1,79 @@
+.card {
+  border-radius: 30px;
+}
+
+.text-orange {
+  color: var(--orange);
+}
+
+.bg-grey {
+  background-color: #f0f0f0;
+}
+
+.bg-white {
+  background-color: white;
+}
+
+.full-width {
+  width: 100%;
+  padding: 0;
+}
+
+.btn-orange {
+  background-color: var(--orange);
+  color: white;
+  border-radius: 15px;
+  padding: 10px 20px;
+  width: 90%;
+}
+
+.btn-orange:hover {
+  background-color: var(--light_orange);
+}
+
+.list-unstyled {
+  list-style-type: none;
+  padding: 0;
+}
+
+.rounded {
+  border-radius: 15px;
+}
+
+.rounded-lg {
+  border-radius: 30px;
+}
+
+.rounded-top-lg {
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
+
+.rounded-bottom-lg {
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.icon-editar {
+  width: 20px;
+  height: 20px;
+}
+
+.card-title {
+  display: inline-block;
+  margin: 0;
+}
+
+.iconeditar-container {
+  display: inline-block;
+  margin-left: auto; /* Empuja el icono a la derecha */
+}
+
+.icon-editar {
+  width: 24px; /* Ajusta el tamaño según tus necesidades */
+  height: 24px; /* Ajusta el tamaño según tus necesidades */
+}

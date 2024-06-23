@@ -1,0 +1,42 @@
+/* Agrega sombra al navbar */
+.navbar {
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	background-color: white;
+	/* Fondo blanco para el navbar */
+}
+
+/* Fija el navbar en la parte superior */
+.navbar-fixed {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 1000;
+}
+
+/* Otros estilos existentes */
+li:hover {
+	text-decoration: underline var(--orange) 4px;
+	text-underline-offset: 5px;
+}
+
+.navbar-btn {
+	border: none;
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+.user {
+	display: flex;
+	justify-content: left;
+}
+
+.user-image {
+	vertical-align: middle;
+	width: 40px;
+	height: 40px;
+}

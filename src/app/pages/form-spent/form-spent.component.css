@@ -1,0 +1,12 @@
+.title {
+    color: var(--orange);
+}
+
+.btn_personal {
+	padding: 0.7rem 2rem;
+	background-color: var(--orange);
+	color: white;
+	border: none;
+    width: 40%;
+}
+

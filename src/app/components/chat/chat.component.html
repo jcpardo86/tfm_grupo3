@@ -1,0 +1,32 @@
+<div>
+	<h2 class="font ps-4 pt-4">Chat</h2>
+
+	<div class="mt-4 mb-5 chat scr overflow-auto ">
+		<!--Listado de mensajes del chat-->
+		<ul id="chat-ul" class="mb-3 pe-4 chat-msg mh-50" style="max-height: 255px; overflow: auto;">
+			@for(message of arrMessages; track $index) {
+				@if(message.idUsuario === msg.idUsuario){
+					<div class="mymsg p-3 mb-3">
+						<span>{{message.texto}}</span>
+						<span class="datetime">[ {{message.fecha_hora | date: 'dd-MM-yyyy HH:mm:ss'}} ] </span>
+					</div>
+				} @else {
+				<div class="othermsg p-3 mb-3">
+					<span><strong>{{message.nombre_usuario}}</strong>: {{message.texto}}</span>
+					<span class="datetime">[ {{message.fecha_hora | date: 'dd-MM-yyyy HH:mm:ss'}} ] </span>
+				</div>
+				}
+			}
+		</ul>
+
+		<!--Formulario para registro de nuevo mensaje en chat-->
+		<form [formGroup]="formChat" (ngSubmit)="getDataForm()">
+			<div class="chat-newmsg ps-4 pe-4">
+				<input type="text" class="form-control input-mensaje me-3" placeholder="Escribe un mensaje..."
+					formControlName="message">
+				<input type="image" value="" src="../../../assets/icons/icon_enviar.png" class="input-enviar">
+			</div>
+		</form>
+	</div>
+	
+</div>

@@ -1,0 +1,20 @@
+<div class=" card shadow ms-2 me-2 tarjeta">
+  <div class="align-items-center row">
+    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 justify-content-sm-center icon-container">
+      <img src="assets/icons/carrito_compra.png" class="icon-carrito pt-lg-0 pt-md-3 pt-3" alt="Icono carrito compra">
+    </div>
+    <div class="col-12 col-xl-9 col-lg-9 col-md-9 col-sm-12 card-body text-container ps-9 me-2">
+      <h5 class="card-title fs-5">Gasto {{numSpent}} - {{mySpent.descripcion}}</h5>
+      <div class="pagador">
+        <p class="card-text texto">Paga: {{myUser.nombre}} {{myUser.apellidos}} </p>
+        <p class="card-text importe"> <strong>-{{mySpent.importe.toFixed(2)}} €</strong></p>
+        @if(rolUser==="admin"){
+        <a [routerLink]="['/updatespent', mySpent.idGasto]" class="iconeditar-container">
+          <img src="assets/icons/icon_editar.png" class="icon-editar" alt="Icono editar">
+        </a>
+        }
+      </div>
+      <p class="card-text d-block">{{mySpent.fecha}}</p>
+    </div>
+  </div>
+</div>

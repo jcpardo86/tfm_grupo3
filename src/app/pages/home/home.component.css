@@ -1,11 +1,3 @@
-a {
-	color: black;
-}
-
-a:hover {
-	color: var(--orange);
-}
-
 input {
 	border: none;
 	background-color: var(--grey);
@@ -14,7 +6,6 @@ input {
 strong {
 	color: var(--orange);
 }
-
 
 .bg-orange {
 	background-color: var(--orange);
@@ -33,6 +24,7 @@ strong {
 
 .btn_personal:hover {
 	background-color: var(--light_orange);
+
 }
 
 .container_header {
@@ -43,6 +35,7 @@ strong {
 	background-position: center;
 	height: 500px;
 	overflow: visible;
+	padding-top: 80px;
 
 }
 
@@ -53,13 +46,20 @@ strong {
 .home_card img {
 	padding-top: 2rem;
 	align-self: center;
-	width: 20%;
-
+	width: 80px;
+	height: auto;
 }
 
 .logo {
 	width: 75px;
 }
+
+.card-img,
+.card-img-bottom,
+.card-img-top {
+	width: auto;
+}
+
 
 /*-----------------------media queries tablet ---------------------------*/
 
@@ -74,6 +74,28 @@ strong {
 
 	.logo {
 		width: 50px;
+	}
+
+	.row.row-gap-3 {
+		margin-left: -5px;
+		margin-right: -5px;
+	}
+
+	.card.home_card {
+		padding: 0;
+		margin: 0 5px 20px;
+		display: flex;
+		align-items: center;
+	}
+
+	.home_card img {
+		width: 80px;
+		margin-right: 20px;
+		margin-left: 1rem;
+	}
+
+	.card-body {
+		flex: 1;
 	}
 }
 
@@ -93,5 +115,6 @@ strong {
 	.logo {
 		width: 40px;
 	}
+
 
 }
